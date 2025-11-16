@@ -209,20 +209,23 @@ export default function App() {
   return (
     <div
       style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        width: "100%",
         minHeight: "100vh",
-        margin: 0,
-        padding: "32px 16px",
-        fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif",
+        padding: 20,
         background: colors.bg,
         color: colors.text,
+        fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif",
       }}
     >
       <div
         className="print-compact"
         style={{
-          maxWidth: 1200,
-          margin: "0 auto",
-          padding: "28px 32px 36px",
+          width: "100%",
+          maxWidth: 1400,
+          padding: "32px 36px 40px",
           borderRadius: 32,
           border: `1px solid ${colors.border}`,
           background: colors.containerBg,
@@ -230,13 +233,13 @@ export default function App() {
             ? "0 40px 100px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.05), inset 0 0 200px rgba(0,0,0,0.3)"
             : "0 8px 32px rgba(0,0,0,0.08), 0 2px 8px rgba(0,0,0,0.04), inset 0 1px 0 rgba(255,255,255,1), inset 0 -1px 0 rgba(0,0,0,0.02)",
           position: "relative",
+          color: colors.text,
         }}
       >
         {/* Header with controls */}
         <header
           style={{
-            marginBottom: 20,
-            textAlign: "center",
+            marginBottom: 24,
             position: "relative",
           }}
         >
@@ -305,53 +308,62 @@ export default function App() {
               📄 Export PDF
             </button>
           </div>
-          <div 
-            style={{ 
-              marginBottom: 8, 
+          <div
+            style={{
               textAlign: "center",
-              padding: "16px 24px",
-              borderRadius: 12,
-              background: theme === "dark"
-                ? "rgba(15,23,42,0.6)"
-                : "rgba(255,255,255,0.95)",
-              backdropFilter: "blur(10px)",
-              border: theme === "dark"
-                ? "1px solid rgba(148,163,184,0.2)"
-                : "1px solid rgba(71,85,105,0.15)",
-              boxShadow: theme === "dark"
-                ? "0 4px 12px rgba(0,0,0,0.3)"
-                : "0 2px 8px rgba(0,0,0,0.06)",
-              display: "inline-block",
+              paddingRight: 0,
             }}
           >
-            <h1 
-              style={{ 
-                margin: 0, 
-                fontSize: 72, 
-                fontWeight: 900,
-                color: theme === "dark" ? "#FFFFFF" : "#000000",
-                letterSpacing: "-0.04em",
-                lineHeight: 1.1,
-                textAlign: "center",
+            <div
+              style={{
+                fontSize: 13,
+                textTransform: "uppercase",
+                letterSpacing: 6,
+                color: colors.textMuted,
+                marginBottom: 8,
+                fontWeight: 600,
               }}
             >
-              Your Lifespan
+              LifeSpan
+            </div>
+            <h1
+              style={{
+                margin: 0,
+                fontSize: 52,
+                fontWeight: 900,
+                lineHeight: 1.05,
+                letterSpacing: "-0.05em",
+                background: theme === "dark"
+                  ? "linear-gradient(120deg, #e5e7eb, #f97316, #facc15)"
+                  : "linear-gradient(120deg, #0f172a, #2563eb, #f97316)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+              }}
+            >
+              The Time You Have Left
             </h1>
+            <p
+              style={{
+                marginTop: 10,
+                fontSize: 20,
+                color: colors.textSecondary,
+                fontWeight: 500,
+                lineHeight: 1.4,
+              }}
+            >
+              You have{" "}
+              <span
+                style={{
+                  fontWeight: 800,
+                  color: colors.text,
+                }}
+              >
+                {formatYears(yearsToFreedom + yearsAfterFreedom)} ({percent(remainingPct)})
+              </span>{" "}
+              left. What will you do with it?
+            </p>
           </div>
-          <p 
-            style={{ 
-              margin: "12px auto 0", 
-              fontSize: 22, 
-              color: colors.textSecondary,
-              fontWeight: 500,
-              maxWidth: 800,
-              textAlign: "center",
-              lineHeight: 1.5,
-            }}
-          >
-            You have <strong style={{ color: colors.text, fontWeight: 800, fontSize: 26 }}>{formatYears(yearsToFreedom + yearsAfterFreedom)} ({percent(remainingPct)})</strong> left. 
-            What will you do with them?
-          </p>
         </header>
 
         {/* Goal */}
@@ -456,7 +468,7 @@ export default function App() {
                 style={{
                   display: "flex",
                   flexDirection: "column",
-                  gap: 0,
+                  gap: 16,
                 }}
               >
                 {/* The bar */}
@@ -467,7 +479,7 @@ export default function App() {
                     height: 96,
                     borderRadius: 999,
                     overflow: "hidden",
-                    background: theme === "dark" 
+                    background: theme === "dark"
                       ? "rgba(15,23,42,0.95)"
                       : "rgba(255,255,255,1)",
                     border: theme === "dark"
@@ -485,7 +497,6 @@ export default function App() {
                         0 1px 2px rgba(0,0,0,0.03),
                         inset 0 1px 0 rgba(255,255,255,0.8)
                       `,
-                    marginBottom: 40,
                   }}
                 >
                   {/* Lived - Childhood */}
@@ -554,14 +565,67 @@ export default function App() {
                   />
                 </div>
 
+                {/* Age scale tight to the bar */}
+                <div
+                  className="age-scale"
+                  style={{
+                    position: "relative",
+                    height: 40,
+                    marginTop: 0,
+                    marginBottom: 0,
+                  }}
+                >
+                  {Array.from({ length: Math.floor(life / 10) + 1 }, (_, i) => {
+                    const age = i * 10;
+                    if (age > life) return null;
+                    const positionPct = (age / totalSpan) * 100;
+                    const isMajor = age % 10 === 0;
+                    return (
+                      <div
+                        key={age}
+                        style={{
+                          position: "absolute",
+                          left: `${positionPct}%`,
+                          transform: "translateX(-50%)",
+                          textAlign: "center",
+                          width: "auto",
+                        }}
+                      >
+                        <div
+                          style={{
+                            width: 2,
+                            height: isMajor ? 14 : 10,
+                            background: theme === "dark"
+                              ? "rgba(255, 255, 255, 0.55)"
+                              : "#8A8A8A",
+                            margin: "0 auto 6px",
+                            borderRadius: 999,
+                          }}
+                        />
+                        <div
+                          style={{
+                            fontSize: 13,
+                            fontWeight: 600,
+                            color: theme === "dark" ? "#e5e7eb" : "#1A1A1A",
+                            whiteSpace: "nowrap",
+                            lineHeight: 1.2,
+                          }}
+                        >
+                          {age}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+
                 {/* Phase labels below chart */}
                 <div
                   className="phase-labels"
                   style={{
                     position: "relative",
-                    height: 70,
+                    height: 90,
                     marginTop: 0,
-                    marginBottom: 32,
+                    marginBottom: 12,
                   }}
                 >
                   {/* Childhood phase */}
@@ -570,18 +634,18 @@ export default function App() {
                     style={{
                       position: "absolute",
                       left: `${(0 / totalSpan) * 100}%`,
-                      width: `${(Math.min(20, life) / totalSpan) * 100}%`,
+                      width: `${(Math.min(19, life) / totalSpan) * 100}%`,
                       textAlign: "center",
                     }}
                   >
                     <div
                       style={{
-                        fontSize: 24,
+                        fontSize: 20,
                         fontWeight: 900,
                         color: theme === "dark" ? "#9ca3af" : "#2B2B2B",
                         textTransform: "uppercase",
-                        letterSpacing: 3,
-                        marginBottom: 10,
+                        letterSpacing: 2,
+                        marginBottom: 8,
                         lineHeight: 1.2,
                       }}
                     >
@@ -595,7 +659,7 @@ export default function App() {
                         lineHeight: 1.4,
                       }}
                     >
-                      0-19 years
+                      0-18 years
                     </div>
                   </div>
 
@@ -604,22 +668,22 @@ export default function App() {
                     className="fade-in-delay-1"
                     style={{
                       position: "absolute",
-                      left: `${(20 / totalSpan) * 100}%`,
-                      width: `${((freedom - 20) / totalSpan) * 100}%`,
+                      left: `${(19 / totalSpan) * 100}%`,
+                      width: `${((freedom - 19) / totalSpan) * 100}%`,
                       textAlign: "center",
                     }}
                   >
                     <div
                       style={{
-                        fontSize: 24,
+                        fontSize: 20,
                         fontWeight: 900,
                         background: "linear-gradient(135deg, #3818A8, #6C34F8)",
                         WebkitBackgroundClip: "text",
                         WebkitTextFillColor: "transparent",
                         backgroundClip: "text",
                         textTransform: "uppercase",
-                        letterSpacing: 3,
-                        marginBottom: 10,
+                        letterSpacing: 2,
+                        marginBottom: 8,
                         lineHeight: 1.2,
                       }}
                     >
@@ -633,7 +697,7 @@ export default function App() {
                         lineHeight: 1.4,
                       }}
                     >
-                      20-{freedom} years
+                      19-{freedom} years
                     </div>
                   </div>
 
@@ -649,15 +713,15 @@ export default function App() {
                   >
                     <div
                       style={{
-                        fontSize: 24,
+                        fontSize: 20,
                         fontWeight: 900,
                         background: "linear-gradient(135deg, #FAD961, #F76B1C)",
                         WebkitBackgroundClip: "text",
                         WebkitTextFillColor: "transparent",
                         backgroundClip: "text",
                         textTransform: "uppercase",
-                        letterSpacing: 3,
-                        marginBottom: 10,
+                        letterSpacing: 2,
+                        marginBottom: 8,
                         lineHeight: 1.2,
                       }}
                     >
@@ -676,60 +740,6 @@ export default function App() {
                   </div>
                 </div>
 
-                {/* Age scale below phase labels */}
-                <div
-                  className="age-scale"
-                  style={{
-                    position: "relative",
-                    height: 60,
-                    marginTop: 0,
-                    marginBottom: 0,
-                  }}
-                >
-                  {Array.from({ length: Math.floor(life / 10) + 1 }, (_, i) => {
-                    const age = i * 10;
-                    if (age > life) return null;
-                    const positionPct = (age / totalSpan) * 100;
-                    const isMajor = age % 20 === 0 || age === 19 || age === freedom || age === life;
-                    return (
-                      <div
-                        key={age}
-                        style={{
-                          position: "absolute",
-                          left: `${positionPct}%`,
-                          transform: "translateX(-50%)",
-                          textAlign: "center",
-                          width: "auto",
-                        }}
-                      >
-                        <div
-                          style={{
-                            width: 1,
-                            height: isMajor ? 14 : 8,
-                            background: theme === "dark" 
-                              ? "rgba(255, 255, 255, 0.35)"
-                              : "#8A8A8A",
-                            margin: "0 auto 10px",
-                            borderRadius: 999,
-                          }}
-                        />
-                        <div
-                          style={{
-                            fontSize: isMajor ? 18 : 14,
-                            fontWeight: isMajor ? 800 : 600,
-                            color: theme === "dark"
-                              ? (isMajor ? "#e5e7eb" : "rgba(229, 231, 235, 0.7)")
-                              : (isMajor ? "#1A1A1A" : "#2B2B2B"),
-                            whiteSpace: "nowrap",
-                            lineHeight: 1.2,
-                          }}
-                        >
-                          {age}
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
               </div>
 
               {/* Legend */}
@@ -738,7 +748,7 @@ export default function App() {
                   display: "flex",
                   flexWrap: "wrap",
                   gap: 12,
-                  marginTop: 16,
+                  marginTop: 4,
                   fontSize: 12,
                   color: theme === "dark" ? colors.textSecondary : "#1A1A1A",
                   justifyContent: "center",
@@ -1104,22 +1114,21 @@ function CurrentAgeMarker({ positionPct, age, theme = "dark" }) {
       <div
         style={{
           position: "absolute",
-          top: -32,
+          top: "50%",
           left: "50%",
-          transform: "translateX(-50%)",
-          background: theme === "dark" ? "rgba(15,23,42,0.95)" : "#FFFFFF",
-          border: theme === "dark" 
-            ? "2px solid rgba(96,165,250,0.6)"
-            : "2px solid rgba(108,52,248,0.6)",
-          borderRadius: 8,
-          padding: "4px 8px",
+          transform: "translate(-50%, -50%)",
+          background: theme === "dark"
+            ? "rgba(15,23,42,0.95)"
+            : "rgba(255,255,255,0.95)",
+          borderRadius: 999,
+          padding: "4px 10px",
           fontSize: 11,
           fontWeight: 700,
-          color: theme === "dark" ? "#60a5fa" : "#6C34F8",
+          color: theme === "dark" ? "#e5e7eb" : "#1f2933",
           whiteSpace: "nowrap",
           boxShadow: theme === "dark"
-            ? "0 4px 12px rgba(0,0,0,0.4), 0 0 8px rgba(96,165,250,0.3)"
-            : "0 2px 8px rgba(0,0,0,0.15), 0 0 4px rgba(108,52,248,0.2)",
+            ? "0 0 10px rgba(15,23,42,0.9)"
+            : "0 0 6px rgba(15,23,42,0.25)",
         }}
       >
         {age}
@@ -1300,7 +1309,6 @@ function SliderRow({ label, value, min, max, onChange, theme = "dark" }) {
     </div>
   );
 }
-
 /** Small info card */
 function InfoCard({ label, main, sub, theme = "dark" }) {
   // Check if this is a key metric (Years lived or Years remaining) to make it stand out
@@ -1366,3 +1374,4 @@ function InfoCard({ label, main, sub, theme = "dark" }) {
     </div>
   );
 }
+
