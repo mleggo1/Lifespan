@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 
 // Lifespan – simple life timeline & insight dashboard
 // Drop this straight into src/App.jsx in your Vite + React app.
@@ -36,6 +36,22 @@ if (!document.getElementById('lifespan-styles')) {
     }
   .glow {
     animation: glow 2s ease-in-out infinite;
+  }
+  html, body {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    background: white !important;
+  }
+  body.dark-mode, html.dark-mode {
+    background: #000000 !important;
+  }
+  #root {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    min-height: 100vh !important;
   }
   @media print {
     * {
@@ -206,9 +222,31 @@ export default function App() {
     setTheme(theme === "dark" ? "light" : "dark");
   };
 
+  // Apply dark-mode class to body/html for background
+  useEffect(() => {
+    if (theme === "dark") {
+      document.documentElement.classList.add("dark-mode");
+      document.body.classList.add("dark-mode");
+    } else {
+      document.documentElement.classList.remove("dark-mode");
+      document.body.classList.remove("dark-mode");
+    }
+  }, [theme]);
+
   return (
-    <div className="min-h-screen w-full flex justify-center items-start p-6 bg-white dark:bg-[#0d0d0d] text-black dark:text-white" style={{ fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif" }}>
-      <div className="w-full max-w-5xl">
+    <div 
+      style={{ 
+        minHeight: "100vh",
+        width: "100%",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        padding: "24px",
+        background: theme === "dark" ? "#000000" : "#FFFFFF",
+        fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif",
+      }}
+    >
+      <div style={{ width: "100%", maxWidth: "1400px" }}>
         <div
           className="print-compact"
           style={{
