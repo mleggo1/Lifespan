@@ -207,40 +207,30 @@ export default function App() {
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        width: "100%",
-        minHeight: "100vh",
-        padding: 20,
-        background: colors.bg,
-        color: colors.text,
-        fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif",
-      }}
-    >
-      <div
-        className="print-compact"
-        style={{
-          width: "100%",
-          maxWidth: 1400,
-          padding: "32px 36px 40px",
-          borderRadius: 32,
-          border: `1px solid ${colors.border}`,
-          background: colors.containerBg,
-          boxShadow: theme === "dark" 
-            ? "0 40px 100px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.05), inset 0 0 200px rgba(0,0,0,0.3)"
-            : "0 8px 32px rgba(0,0,0,0.08), 0 2px 8px rgba(0,0,0,0.04), inset 0 1px 0 rgba(255,255,255,1), inset 0 -1px 0 rgba(0,0,0,0.02)",
-          position: "relative",
-          color: colors.text,
-        }}
-      >
+    <div className="min-h-screen w-full flex justify-center items-start p-6 bg-white dark:bg-[#0d0d0d] text-black dark:text-white" style={{ fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif" }}>
+      <div className="w-full max-w-5xl">
+        <div
+          className="print-compact"
+          style={{
+            width: "100%",
+            padding: "32px 36px 40px",
+            borderRadius: 32,
+            border: `1px solid ${colors.border}`,
+            background: colors.containerBg,
+            boxShadow: theme === "dark" 
+              ? "0 40px 100px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.05), inset 0 0 200px rgba(0,0,0,0.3)"
+              : "0 8px 32px rgba(0,0,0,0.08), 0 2px 8px rgba(0,0,0,0.04), inset 0 1px 0 rgba(255,255,255,1), inset 0 -1px 0 rgba(0,0,0,0.02)",
+            position: "relative",
+            color: colors.text,
+          }}
+        >
         {/* Header with controls */}
         <header
           style={{
             marginBottom: 24,
             position: "relative",
+            background: "transparent",
+            zIndex: 1,
           }}
         >
           {/* Theme toggle and PDF export buttons */}
@@ -312,6 +302,7 @@ export default function App() {
             style={{
               textAlign: "center",
               paddingRight: 0,
+              background: "transparent",
             }}
           >
             <div
@@ -333,12 +324,12 @@ export default function App() {
                 fontWeight: 900,
                 lineHeight: 1.05,
                 letterSpacing: "-0.05em",
-                background: theme === "dark"
-                  ? "linear-gradient(120deg, #e5e7eb, #f97316, #facc15)"
-                  : "linear-gradient(120deg, #0f172a, #2563eb, #f97316)",
+                background: "linear-gradient(120deg, #e5e7eb, #f97316, #facc15)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
                 backgroundClip: "text",
+                position: "relative",
+                zIndex: 10,
               }}
             >
               The Time You Have Left
@@ -957,6 +948,7 @@ export default function App() {
             </section>
           </div>
         </div>
+      </div>
       </div>
     </div>
   );
