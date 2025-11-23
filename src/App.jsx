@@ -43,6 +43,7 @@ if (!document.getElementById('lifespan-styles')) {
     width: 100% !important;
     height: 100% !important;
     background: white !important;
+    overflow-x: hidden !important;
   }
   body.dark-mode, html.dark-mode {
     background: #000000 !important;
@@ -52,6 +53,27 @@ if (!document.getElementById('lifespan-styles')) {
     padding: 0 !important;
     width: 100% !important;
     min-height: 100vh !important;
+    overflow-y: auto !important;
+  }
+  @media (min-width: 1025px) {
+    #root {
+      max-height: 100vh !important;
+      overflow-y: hidden !important;
+    }
+  }
+  @media (max-width: 1024px) {
+    #root {
+      max-height: none !important;
+      overflow-y: auto !important;
+    }
+    .lifespan-grid {
+      grid-template-columns: 1fr !important;
+    }
+  }
+  @media (max-width: 768px) {
+    .lifespan-grid {
+      grid-template-columns: 1fr !important;
+    }
   }
   @media print {
     * {
@@ -237,22 +259,28 @@ export default function App() {
     <div 
       style={{ 
         minHeight: "100vh",
+        height: "100vh",
         width: "100%",
         display: "flex",
         justifyContent: "center",
-        alignItems: "center",
-        padding: "24px",
+        alignItems: "flex-start",
+        padding: "clamp(8px, 1vw, 16px)",
         background: theme === "dark" ? "#000000" : "#FFFFFF",
         fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif",
+        overflowY: "auto",
       }}
     >
-      <div style={{ width: "100%", maxWidth: "1400px" }}>
+      <div style={{ 
+        width: "100%", 
+        maxWidth: "1400px",
+        padding: "clamp(4px, 0.5vw, 8px) 0",
+      }}>
         <div
           className="print-compact"
           style={{
             width: "100%",
-            padding: "32px 36px 40px",
-            borderRadius: 32,
+            padding: "clamp(12px, 1.5vw, 20px) clamp(16px, 2vw, 24px)",
+            borderRadius: "clamp(16px, 2vw, 24px)",
             border: `1px solid ${colors.border}`,
             background: colors.containerBg,
             boxShadow: theme === "dark" 
@@ -265,7 +293,7 @@ export default function App() {
         {/* Header with controls */}
         <header
           style={{
-            marginBottom: 24,
+            marginBottom: "clamp(8px, 1vw, 14px)",
             position: "relative",
             background: "transparent",
             zIndex: 1,
@@ -284,17 +312,17 @@ export default function App() {
             <button
               onClick={toggleTheme}
               style={{
-                padding: "8px 12px",
-                borderRadius: 8,
+                padding: "clamp(6px, 0.8vw, 8px) clamp(10px, 1.2vw, 12px)",
+                borderRadius: "clamp(6px, 0.8vw, 8px)",
                 border: `1px solid ${colors.border}`,
                 background: colors.cardBg,
                 color: colors.text,
-                fontSize: 12,
+                fontSize: "clamp(11px, 1.3vw, 12px)",
                 fontWeight: 600,
                 cursor: "pointer",
                 display: "flex",
                 alignItems: "center",
-                gap: 6,
+                gap: "clamp(4px, 0.6vw, 6px)",
                 transition: "all 0.2s",
               }}
               onMouseEnter={(e) => {
@@ -311,17 +339,17 @@ export default function App() {
             <button
               onClick={exportToPDF}
               style={{
-                padding: "8px 12px",
-                borderRadius: 8,
+                padding: "clamp(6px, 0.8vw, 8px) clamp(10px, 1.2vw, 12px)",
+                borderRadius: "clamp(6px, 0.8vw, 8px)",
                 border: `1px solid ${colors.border}`,
                 background: colors.cardBg,
                 color: colors.text,
-                fontSize: 12,
+                fontSize: "clamp(11px, 1.3vw, 12px)",
                 fontWeight: 600,
                 cursor: "pointer",
                 display: "flex",
                 alignItems: "center",
-                gap: 6,
+                gap: "clamp(4px, 0.6vw, 6px)",
                 transition: "all 0.2s",
               }}
               onMouseEnter={(e) => {
@@ -345,11 +373,11 @@ export default function App() {
           >
             <div
               style={{
-                fontSize: 13,
+                fontSize: "clamp(11px, 1.2vw, 13px)",
                 textTransform: "uppercase",
                 letterSpacing: 6,
                 color: colors.textMuted,
-                marginBottom: 8,
+                marginBottom: "clamp(4px, 0.5vw, 8px)",
                 fontWeight: 600,
               }}
             >
@@ -358,49 +386,104 @@ export default function App() {
             <h1
               style={{
                 margin: 0,
-                fontSize: 52,
+                fontSize: "clamp(32px, 5vw, 56px)",
                 fontWeight: 900,
                 lineHeight: 1.05,
-                letterSpacing: "-0.05em",
+                letterSpacing: "-0.06em",
                 background: "linear-gradient(120deg, #e5e7eb, #f97316, #facc15)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
                 backgroundClip: "text",
                 position: "relative",
                 zIndex: 10,
+                textShadow: theme === "dark" 
+                  ? "0 0 40px rgba(249, 115, 22, 0.3)"
+                  : "0 2px 8px rgba(0,0,0,0.1)",
               }}
             >
               The Time You Have Left
             </h1>
-            <p
+            <div
               style={{
-                marginTop: 10,
-                fontSize: 20,
-                color: colors.textSecondary,
-                fontWeight: 500,
-                lineHeight: 1.4,
+                marginTop: "clamp(10px, 1.2vw, 16px)",
+                padding: "clamp(14px, 1.8vw, 20px) clamp(18px, 2.2vw, 24px)",
+                borderRadius: "clamp(14px, 1.8vw, 18px)",
+                background: theme === "dark"
+                  ? "linear-gradient(135deg, rgba(249, 115, 22, 0.15), rgba(15, 23, 42, 0.95))"
+                  : "rgba(255, 255, 255, 1)",
+                border: theme === "dark"
+                  ? "2px solid rgba(249, 115, 22, 0.4)"
+                  : "2px solid rgba(249, 115, 22, 0.5)",
+                boxShadow: theme === "dark"
+                  ? "0 0 40px rgba(249, 115, 22, 0.2), inset 0 0 20px rgba(249, 115, 22, 0.1)"
+                  : "0 4px 20px rgba(249, 115, 22, 0.25), 0 0 0 1px rgba(249, 115, 22, 0.1)",
+                textAlign: "center",
               }}
             >
-              You have{" "}
-              <span
+              <p
                 style={{
-                  fontWeight: 800,
-                  color: colors.text,
+                  margin: 0,
+                  fontSize: "clamp(20px, 2.8vw, 28px)",
+                  color: theme === "dark" ? "#f97316" : "#ea580c",
+                  fontWeight: 700,
+                  lineHeight: 1.3,
+                  marginBottom: "clamp(8px, 1vw, 12px)",
+                  letterSpacing: "-0.02em",
                 }}
               >
-                {formatYears(yearsToFreedom + yearsAfterFreedom)} ({percent(remainingPct)})
-              </span>{" "}
-              left. What will you do with it?
-            </p>
+                You have{" "}
+                <span
+                  style={{
+                    fontWeight: 900,
+                    fontSize: "clamp(28px, 4vw, 40px)",
+                    color: theme === "dark" 
+                      ? "#facc15"
+                      : "#ea580c",
+                    background: theme === "dark"
+                      ? "linear-gradient(135deg, #facc15, #f97316, #ea580c)"
+                      : "linear-gradient(135deg, #ea580c, #dc2626, #b91c1c)",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                    backgroundClip: "text",
+                    textShadow: theme === "dark"
+                      ? "0 0 30px rgba(249, 115, 22, 0.5)"
+                      : "0 2px 8px rgba(234, 88, 12, 0.5)",
+                    letterSpacing: "-0.03em",
+                    display: "inline-block",
+                  }}
+                >
+                  {formatYears(yearsToFreedom + yearsAfterFreedom)} ({percent(remainingPct)})
+                </span>{" "}
+                <span style={{ 
+                  color: theme === "dark" ? "#f97316" : "#ea580c",
+                  fontWeight: 700,
+                }}>left.</span>
+              </p>
+              <p
+                style={{
+                  margin: 0,
+                  fontSize: "clamp(22px, 3.2vw, 32px)",
+                  fontWeight: 900,
+                  color: theme === "dark" ? "#ffffff" : "#0f172a",
+                  lineHeight: 1.2,
+                  letterSpacing: "-0.03em",
+                  textShadow: theme === "dark"
+                    ? "0 0 20px rgba(255, 255, 255, 0.2)"
+                    : "0 2px 10px rgba(0, 0, 0, 0.25)",
+                }}
+              >
+                What will you do with it?
+              </p>
+            </div>
           </div>
         </header>
 
         {/* Goal */}
         <section
           style={{
-            marginBottom: 18,
-            padding: "12px 16px",
-            borderRadius: 16,
+            marginBottom: "clamp(8px, 1vw, 12px)",
+            padding: "clamp(6px, 0.8vw, 10px) clamp(10px, 1.2vw, 14px)",
+            borderRadius: "clamp(10px, 1.3vw, 14px)",
             border: `1px solid ${colors.border}`,
             background: theme === "dark" 
               ? "linear-gradient(135deg, rgba(34,197,94,0.1), rgba(15,23,42,0.95))"
@@ -410,11 +493,11 @@ export default function App() {
         >
           <div
             style={{
-              fontSize: 14,
+              fontSize: "clamp(11px, 1.3vw, 13px)",
               textTransform: "uppercase",
               letterSpacing: 1.5,
               color: colors.textMuted,
-              marginBottom: 10,
+              marginBottom: "clamp(6px, 0.8vw, 10px)",
               fontWeight: 700,
             }}
           >
@@ -428,12 +511,12 @@ export default function App() {
               width: "100%",
               maxWidth: 800,
               margin: "0 auto",
-              padding: "16px 20px",
-              borderRadius: 16,
+              padding: "clamp(10px, 1.2vw, 14px) clamp(14px, 1.8vw, 18px)",
+              borderRadius: "clamp(12px, 1.5vw, 16px)",
               border: `2px solid ${colors.border}`,
               background: colors.cardBg,
               color: colors.text,
-              fontSize: 18,
+              fontSize: "clamp(14px, 1.8vw, 16px)",
               outline: "none",
               textAlign: "center",
               fontWeight: 600,
@@ -443,19 +526,20 @@ export default function App() {
 
         {/* Layout grid */}
         <div
+          className="lifespan-grid"
           style={{
             display: "grid",
             gridTemplateColumns: "minmax(0, 1.6fr) minmax(0, 1.1fr)",
-            gap: 20,
+            gap: "clamp(10px, 1.2vw, 14px)",
           }}
         >
           {/* Left: Timeline + sliders */}
-          <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "clamp(10px, 1.2vw, 14px)" }}>
             {/* Main bar */}
             <section
               style={{
-                padding: 24,
-                borderRadius: 20,
+                padding: "clamp(10px, 1.3vw, 16px)",
+                borderRadius: "clamp(14px, 1.8vw, 18px)",
                 border: theme === "dark" 
                   ? "1px solid rgba(148,163,184,0.45)"
                   : "1px solid rgba(71,85,105,0.2)",
@@ -470,19 +554,19 @@ export default function App() {
               <div
                 style={{
                   textAlign: "center",
-                  marginBottom: 12,
+                  marginBottom: "clamp(6px, 0.8vw, 10px)",
                 }}
               >
                 <div style={{ 
-                  fontSize: 18, 
+                  fontSize: "clamp(14px, 1.8vw, 16px)", 
                   color: theme === "dark" ? colors.textMuted : "#2B2B2B", 
-                  marginBottom: 8,
+                  marginBottom: "clamp(4px, 0.6vw, 8px)",
                   fontWeight: 600,
                 }}>
                   Age {cur} of {life}
                 </div>
                 <div style={{ 
-                  fontSize: 36, 
+                  fontSize: "clamp(24px, 3vw, 32px)", 
                   fontWeight: 900, 
                   color: theme === "dark" ? colors.text : "#1A1A1A",
                   letterSpacing: "-0.02em",
@@ -497,7 +581,7 @@ export default function App() {
                 style={{
                   display: "flex",
                   flexDirection: "column",
-                  gap: 16,
+                  gap: "clamp(10px, 1.2vw, 14px)",
                 }}
               >
                 {/* The bar */}
@@ -505,26 +589,28 @@ export default function App() {
                   className="chart-container"
                   style={{
                     position: "relative",
-                    height: 96,
+                    height: "clamp(70px, 9vh, 100px)",
                     borderRadius: 999,
                     overflow: "hidden",
                     background: theme === "dark"
                       ? "rgba(15,23,42,0.95)"
                       : "rgba(255,255,255,1)",
                     border: theme === "dark"
-                      ? "2px solid rgba(148,163,184,0.5)"
-                      : "2px solid rgba(71,85,105,0.5)",
+                      ? "3px solid rgba(148,163,184,0.6)"
+                      : "3px solid rgba(71,85,105,0.6)",
                     boxShadow: theme === "dark"
                       ? `
-                        inset 0 2px 4px rgba(255,255,255,0.1),
-                        inset 0 -2px 4px rgba(0,0,0,0.8),
-                        0 8px 32px rgba(0,0,0,0.4),
-                        0 0 0 1px rgba(255,255,255,0.05)
+                        inset 0 3px 6px rgba(255,255,255,0.15),
+                        inset 0 -3px 6px rgba(0,0,0,0.9),
+                        0 12px 48px rgba(0,0,0,0.5),
+                        0 0 0 2px rgba(255,255,255,0.08),
+                        0 0 60px rgba(108, 52, 248, 0.2)
                       `
                       : `
-                        0 2px 8px rgba(0,0,0,0.06),
-                        0 1px 2px rgba(0,0,0,0.03),
-                        inset 0 1px 0 rgba(255,255,255,0.8)
+                        0 4px 16px rgba(0,0,0,0.1),
+                        0 2px 4px rgba(0,0,0,0.06),
+                        inset 0 2px 0 rgba(255,255,255,0.9),
+                        0 0 40px rgba(108, 52, 248, 0.15)
                       `,
                   }}
                 >
@@ -550,8 +636,13 @@ export default function App() {
                         top: 0,
                         bottom: 0,
                         background:
-                          "linear-gradient(90deg, #3818A8, #4B1DB0, #6C34F8)",
-                        boxShadow: "inset 0 0 25px rgba(56, 24, 168, 0.5), 0 0 20px rgba(108, 52, 248, 0.3)",
+                          "linear-gradient(90deg, #3818A8, #4B1DB0, #6C34F8, #8B5CF6)",
+                        boxShadow: `
+                          inset 0 0 40px rgba(56, 24, 168, 0.7),
+                          inset 0 2px 8px rgba(255, 255, 255, 0.2),
+                          0 0 30px rgba(108, 52, 248, 0.5),
+                          0 0 60px rgba(108, 52, 248, 0.3)
+                        `,
                       }}
                     />
                   )}
@@ -566,8 +657,13 @@ export default function App() {
                         top: 0,
                         bottom: 0,
                         background:
-                          "linear-gradient(90deg, #FAD961, #F9B84A, #F76B1C)",
-                        boxShadow: "inset 0 0 35px rgba(250, 217, 97, 0.6), 0 0 25px rgba(247, 107, 28, 0.4)",
+                          "linear-gradient(90deg, #FAD961, #F9B84A, #F76B1C, #EA580C)",
+                        boxShadow: `
+                          inset 0 0 50px rgba(250, 217, 97, 0.8),
+                          inset 0 2px 8px rgba(255, 255, 255, 0.3),
+                          0 0 35px rgba(247, 107, 28, 0.6),
+                          0 0 70px rgba(247, 107, 28, 0.4)
+                        `,
                       }}
                     />
                   )}
@@ -576,12 +672,13 @@ export default function App() {
                   {/* Current age marker */}
                   <CurrentAgeMarker positionPct={(livedPct / totalSpan) * totalSpan} age={cur} theme={theme} />
 
-                  {/* Freedom marker */}
+                  {/* Freedom marker - enhanced */}
                   <Marker
                     positionPct={((freedom / totalSpan) * 100)}
                     label={`Retirement (${freedom})`}
                     color="#6C34F8"
                     theme={theme}
+                    isHighlighted={true}
                   />
 
                   {/* Life expectancy marker */}
@@ -599,7 +696,7 @@ export default function App() {
                   className="age-scale"
                   style={{
                     position: "relative",
-                    height: 40,
+                    height: "clamp(32px, 4vh, 38px)",
                     marginTop: 0,
                     marginBottom: 0,
                   }}
@@ -623,18 +720,18 @@ export default function App() {
                         <div
                           style={{
                             width: 2,
-                            height: isMajor ? 14 : 10,
+                            height: isMajor ? "clamp(12px, 1.5vh, 14px)" : "clamp(8px, 1vh, 10px)",
                             background: theme === "dark"
                               ? "rgba(255, 255, 255, 0.55)"
                               : "#8A8A8A",
-                            margin: "0 auto 6px",
+                            margin: "0 auto clamp(4px, 0.6vh, 6px)",
                             borderRadius: 999,
                           }}
                         />
                         <div
                           style={{
-                            fontSize: 13,
-                            fontWeight: 600,
+                            fontSize: "clamp(14px, 1.8vw, 16px)",
+                            fontWeight: 700,
                             color: theme === "dark" ? "#e5e7eb" : "#1A1A1A",
                             whiteSpace: "nowrap",
                             lineHeight: 1.2,
@@ -652,9 +749,9 @@ export default function App() {
                   className="phase-labels"
                   style={{
                     position: "relative",
-                    height: 90,
+                    height: "clamp(60px, 7vh, 75px)",
                     marginTop: 0,
-                    marginBottom: 12,
+                    marginBottom: "clamp(6px, 0.8vw, 10px)",
                   }}
                 >
                   {/* Childhood phase */}
@@ -669,12 +766,12 @@ export default function App() {
                   >
                     <div
                       style={{
-                        fontSize: 20,
+                        fontSize: "clamp(20px, 2.5vw, 24px)",
                         fontWeight: 900,
                         color: theme === "dark" ? "#9ca3af" : "#2B2B2B",
                         textTransform: "uppercase",
                         letterSpacing: 2,
-                        marginBottom: 8,
+                        marginBottom: "clamp(4px, 0.6vw, 8px)",
                         lineHeight: 1.2,
                       }}
                     >
@@ -682,7 +779,7 @@ export default function App() {
                     </div>
                     <div
                       style={{
-                        fontSize: 16,
+                        fontSize: "clamp(16px, 2vw, 18px)",
                         color: theme === "dark" ? "#6b7280" : "#1A1A1A",
                         fontWeight: 600,
                         lineHeight: 1.4,
@@ -704,7 +801,7 @@ export default function App() {
                   >
                     <div
                       style={{
-                        fontSize: 20,
+                        fontSize: "clamp(20px, 2.5vw, 24px)",
                         fontWeight: 900,
                         background: "linear-gradient(135deg, #3818A8, #6C34F8)",
                         WebkitBackgroundClip: "text",
@@ -712,7 +809,7 @@ export default function App() {
                         backgroundClip: "text",
                         textTransform: "uppercase",
                         letterSpacing: 2,
-                        marginBottom: 8,
+                        marginBottom: "clamp(4px, 0.6vw, 8px)",
                         lineHeight: 1.2,
                       }}
                     >
@@ -720,7 +817,7 @@ export default function App() {
                     </div>
                     <div
                       style={{
-                        fontSize: 16,
+                        fontSize: "clamp(16px, 2vw, 18px)",
                         color: theme === "dark" ? "#6b7280" : "#1A1A1A",
                         fontWeight: 600,
                         lineHeight: 1.4,
@@ -742,7 +839,7 @@ export default function App() {
                   >
                     <div
                       style={{
-                        fontSize: 20,
+                        fontSize: "clamp(20px, 2.5vw, 24px)",
                         fontWeight: 900,
                         background: "linear-gradient(135deg, #FAD961, #F76B1C)",
                         WebkitBackgroundClip: "text",
@@ -750,7 +847,7 @@ export default function App() {
                         backgroundClip: "text",
                         textTransform: "uppercase",
                         letterSpacing: 2,
-                        marginBottom: 8,
+                        marginBottom: "clamp(4px, 0.6vw, 8px)",
                         lineHeight: 1.2,
                       }}
                     >
@@ -758,7 +855,7 @@ export default function App() {
                     </div>
                     <div
                       style={{
-                        fontSize: 16,
+                        fontSize: "clamp(16px, 2vw, 18px)",
                         color: theme === "dark" ? "#6b7280" : "#1A1A1A",
                         fontWeight: 600,
                         lineHeight: 1.4,
@@ -776,9 +873,9 @@ export default function App() {
                 style={{
                   display: "flex",
                   flexWrap: "wrap",
-                  gap: 12,
-                  marginTop: 4,
-                  fontSize: 12,
+                  gap: "clamp(8px, 1vw, 12px)",
+                  marginTop: "clamp(2px, 0.4vw, 4px)",
+                  fontSize: "clamp(11px, 1.3vw, 12px)",
                   color: theme === "dark" ? colors.textSecondary : "#1A1A1A",
                   justifyContent: "center",
                 }}
@@ -807,16 +904,21 @@ export default function App() {
             {/* Controls */}
             <section
               style={{
-                padding: 14,
-                borderRadius: 18,
-                border: `1px solid ${colors.border}`,
-                background: colors.cardBg,
+                padding: "clamp(12px, 1.5vw, 16px)",
+                borderRadius: "clamp(16px, 2vw, 20px)",
+                border: `2px solid ${colors.border}`,
+                background: theme === "dark"
+                  ? "linear-gradient(135deg, rgba(15,23,42,0.98), rgba(30,41,59,0.95))"
+                  : "linear-gradient(135deg, rgba(255,255,255,1), rgba(248,250,252,0.98))",
+                boxShadow: theme === "dark"
+                  ? "0 4px 16px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.05)"
+                  : "0 4px 12px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.9)",
               }}
             >
               <h2
                 style={{
-                  margin: "0 0 20px",
-                  fontSize: 24,
+                  margin: "0 0 clamp(8px, 1vw, 10px)",
+                  fontSize: "clamp(18px, 2.2vw, 22px)",
                   fontWeight: 800,
                   color: colors.text,
                   letterSpacing: "-0.01em",
@@ -824,7 +926,13 @@ export default function App() {
               >
                 Your Timeline
               </h2>
-              <p style={{ margin: "0 0 20px", fontSize: 16, color: colors.textMuted, lineHeight: 1.6, fontWeight: 500 }}>
+              <p style={{ 
+                margin: "0 0 clamp(8px, 1vw, 10px)", 
+                fontSize: "clamp(13px, 1.6vw, 15px)", 
+                color: colors.textMuted, 
+                lineHeight: 1.5, 
+                fontWeight: 500 
+              }}>
                 Adjust these numbers to see how your choices change the rest of your life.
               </p>
 
@@ -832,36 +940,76 @@ export default function App() {
                 label="Current age"
                 value={cur}
                 min={0}
-                max={life - 1}
-                onChange={(v) => setCurrentAge(Number(v))}
+                max={Math.max(freedom - 1, 0)}
+                onChange={(v) => {
+                  const newAge = Math.max(0, Number(v));
+                  setCurrentAge(newAge);
+                  // If new age >= freedom, adjust freedom
+                  if (freedom <= newAge) {
+                    setFreedomAge(newAge + 1);
+                  }
+                  // If new age >= life, adjust life
+                  if (life <= newAge) {
+                    setLifeExpectancy(Math.min(newAge + 2, MAX_AGE));
+                    if (freedom <= newAge) {
+                      setFreedomAge(newAge + 1);
+                    }
+                  }
+                }}
                 theme={theme}
+                allowAnyNumber={true}
+                minConstraint={0}
+                maxConstraint={freedom - 1}
               />
               <SliderRow
-                label="Target retirement - financial freedom"
+                label="Target retirement"
                 value={freedom}
                 min={cur + 1}
-                max={life - 1}
-                onChange={(v) => setFreedomAge(Number(v))}
+                max={Math.max(life - 1, cur + 1)}
+                onChange={(v) => {
+                  const newFreedom = Number(v);
+                  // Allow any number while typing, will validate on blur
+                  if (!Number.isNaN(newFreedom) && newFreedom >= 0) {
+                    setFreedomAge(newFreedom);
+                    // If new freedom >= life, adjust life
+                    if (life <= newFreedom) {
+                      setLifeExpectancy(Math.min(newFreedom + 1, MAX_AGE));
+                    }
+                  }
+                }}
                 theme={theme}
+                isHighlighted={true}
+                allowAnyNumber={true}
+                minConstraint={cur + 1}
+                maxConstraint={life - 1}
               />
               <SliderRow
                 label="Life expectancy"
                 value={life}
                 min={freedom + 1}
                 max={MAX_AGE}
-                onChange={(v) => setLifeExpectancy(Number(v))}
+                onChange={(v) => {
+                  const newLife = Number(v);
+                  // Must be greater than freedom
+                  if (newLife > freedom && newLife <= MAX_AGE) {
+                    setLifeExpectancy(newLife);
+                  }
+                }}
                 theme={theme}
+                allowAnyNumber={true}
+                minConstraint={freedom + 1}
+                maxConstraint={MAX_AGE}
               />
             </section>
           </div>
 
           {/* Right: insights */}
-          <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "clamp(10px, 1.2vw, 14px)" }}>
             {/* Snapshot cards */}
             <section
               style={{
-                padding: 24,
-                borderRadius: 20,
+                padding: "clamp(12px, 1.5vw, 16px)",
+                borderRadius: "clamp(14px, 1.8vw, 18px)",
                 border: `1px solid ${colors.border}`,
                 background: theme === "dark"
                   ? "radial-gradient(circle at top, rgba(248,250,252,0.04), rgba(15,23,42,0.97))"
@@ -870,8 +1018,8 @@ export default function App() {
             >
               <h2
                 style={{
-                  margin: "0 0 20px",
-                  fontSize: 24,
+                  margin: "0 0 clamp(10px, 1.2vw, 14px)",
+                  fontSize: "clamp(18px, 2.2vw, 22px)",
                   fontWeight: 800,
                   color: colors.text,
                   letterSpacing: "-0.01em",
@@ -883,7 +1031,7 @@ export default function App() {
                 style={{
                   display: "grid",
                   gridTemplateColumns: "repeat(2, minmax(0,1fr))",
-                  gap: 10,
+                  gap: "clamp(8px, 1vw, 10px)",
                   fontSize: 12,
                 }}
               >
@@ -900,10 +1048,11 @@ export default function App() {
                   theme={theme}
                 />
                 <InfoCard
-                  label="Years to freedom"
+                  label="Years to retirement"
                   main={formatYears(yearsToFreedom)}
                   sub={`${percent(toFreedomPct)} of your life`}
                   theme={theme}
+                  isHighlighted={true}
                 />
                 <InfoCard
                   label="Golden Years"
@@ -917,69 +1066,118 @@ export default function App() {
             {/* Coaching / prompts */}
             <section
               style={{
-                padding: 28,
-                borderRadius: 20,
+                padding: "clamp(14px, 1.8vw, 20px)",
+                borderRadius: "clamp(14px, 1.8vw, 18px)",
                 border: `1px solid ${colors.border}`,
                 background: theme === "dark"
                   ? "linear-gradient(135deg, rgba(15,23,42,0.98), rgba(30,58,138,0.3))"
                   : "linear-gradient(135deg, rgba(255,255,255,0.98), rgba(241,245,249,0.5))",
-                fontSize: 16,
+                fontSize: "clamp(15px, 1.9vw, 17px)",
               }}
             >
               <h2
                 style={{
-                  margin: "0 0 16px",
-                  fontSize: 17,
-                  fontWeight: 700,
+                  margin: "0 0 clamp(10px, 1.2vw, 14px)",
+                  fontSize: "clamp(20px, 2.5vw, 24px)",
+                  fontWeight: 900,
                   color: colors.text,
+                  letterSpacing: "-0.02em",
                 }}
               >
                 Questions to Consider
               </h2>
-              <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: "clamp(12px, 1.5vw, 16px)" }}>
+                {/* Right Now */}
                 <div>
                   <div style={{ 
-                    fontSize: 14, 
+                    fontSize: "clamp(14px, 1.8vw, 16px)", 
                     textTransform: "uppercase", 
                     letterSpacing: 1.5, 
                     color: "#a5b4fc",
-                    fontWeight: 700,
-                    marginBottom: 10,
+                    fontWeight: 800,
+                    marginBottom: "clamp(10px, 1.2vw, 12px)",
                   }}>
                     Right Now
                   </div>
-                  <p style={{ margin: 0, color: colors.textSecondary, lineHeight: 1.7, fontSize: 16, fontWeight: 500 }}>
-                    If you only had {formatYears(yearsToFreedom)} to build the life you want, what would you start today?
+                  <p style={{ 
+                    margin: 0, 
+                    color: colors.textSecondary, 
+                    lineHeight: 1.8, 
+                    fontSize: "clamp(18px, 2.3vw, 22px)", 
+                    fontWeight: 500 
+                  }}>
+                    If you only had <strong style={{ 
+                      color: "#60a5fa", 
+                      fontWeight: 900, 
+                      fontSize: "clamp(22px, 2.8vw, 28px)",
+                      textShadow: theme === "dark" ? "0 0 12px rgba(96, 165, 250, 0.6)" : "none",
+                    }}>{formatYears(yearsToFreedom)}</strong> years left to retirement and create the life you truly want… what would you begin today?
                   </p>
                 </div>
+
+                {/* Your Path to Freedom */}
                 <div>
                   <div style={{ 
-                    fontSize: 14, 
+                    fontSize: "clamp(14px, 1.8vw, 16px)", 
                     textTransform: "uppercase", 
                     letterSpacing: 1.5, 
                     color: "#f97316",
-                    fontWeight: 700,
-                    marginBottom: 10,
+                    fontWeight: 800,
+                    marginBottom: "clamp(10px, 1.2vw, 12px)",
                   }}>
-                    The Next {formatYears(yearsToFreedom)}
+                    Your Path to Freedom
                   </div>
-                  <p style={{ margin: 0, color: colors.textSecondary, lineHeight: 1.7, fontSize: 16, fontWeight: 500 }}>
-                    What needs to happen between now and age {freedom} so you can truly live free?
+                  <p style={{ 
+                    margin: 0, 
+                    color: colors.textSecondary, 
+                    lineHeight: 1.8, 
+                    fontSize: "clamp(18px, 2.3vw, 22px)", 
+                    fontWeight: 500 
+                  }}>
+                    Between now and age <strong style={{ 
+                      color: "#f97316", 
+                      fontWeight: 900, 
+                      fontSize: "clamp(22px, 2.8vw, 28px)",
+                      textShadow: theme === "dark" ? "0 0 12px rgba(249, 115, 22, 0.6)" : "none",
+                    }}>{freedom}</strong>, what must happen so you can live fully on your own terms — financially free, secure, and unburdened?
                   </p>
                 </div>
+
+                {/* Your Golden Years */}
                 <div>
                   <div style={{ 
-                    fontSize: 11, 
+                    fontSize: "clamp(14px, 1.8vw, 16px)", 
                     textTransform: "uppercase", 
-                    letterSpacing: 1.2, 
+                    letterSpacing: 1.5, 
                     color: "#22c55e",
-                    fontWeight: 600,
-                    marginBottom: 6,
+                    fontWeight: 800,
+                    marginBottom: "clamp(10px, 1.2vw, 12px)",
                   }}>
-                    Your {formatYears(yearsAfterFreedom)} Golden Years
+                    Your Golden Years
                   </div>
-                  <p style={{ margin: 0, color: colors.textSecondary, lineHeight: 1.6 }}>
-                    When you're free at {freedom}, what will you do with your time? Who will you become?
+                  <p style={{ 
+                    margin: 0, 
+                    color: colors.textSecondary, 
+                    lineHeight: 1.8, 
+                    fontSize: "clamp(18px, 2.3vw, 22px)", 
+                    fontWeight: 500 
+                  }}>
+                    From age <strong style={{ 
+                      color: "#f97316", 
+                      fontWeight: 900, 
+                      fontSize: "clamp(22px, 2.8vw, 28px)",
+                      textShadow: theme === "dark" ? "0 0 12px rgba(249, 115, 22, 0.6)" : "none",
+                    }}>{freedom}</strong> to <strong style={{ 
+                      color: "#f97316", 
+                      fontWeight: 900, 
+                      fontSize: "clamp(22px, 2.8vw, 28px)",
+                      textShadow: theme === "dark" ? "0 0 12px rgba(249, 115, 22, 0.6)" : "none",
+                    }}>{life}</strong>, you have <strong style={{ 
+                      color: "#fbbf24", 
+                      fontWeight: 900, 
+                      fontSize: "clamp(22px, 2.8vw, 28px)",
+                      textShadow: theme === "dark" ? "0 0 12px rgba(251, 191, 36, 0.6)" : "none",
+                    }}>{formatYears(yearsAfterFreedom)}</strong> precious years of freedom. How will you use them?
                   </p>
                 </div>
               </div>
@@ -1151,9 +1349,9 @@ function CurrentAgeMarker({ positionPct, age, theme = "dark" }) {
             ? "rgba(15,23,42,0.95)"
             : "rgba(255,255,255,0.95)",
           borderRadius: 999,
-          padding: "4px 10px",
-          fontSize: 11,
-          fontWeight: 700,
+          padding: "clamp(4px, 0.5vw, 5px) clamp(10px, 1.2vw, 12px)",
+          fontSize: "clamp(13px, 1.6vw, 15px)",
+          fontWeight: 800,
           color: theme === "dark" ? "#e5e7eb" : "#1f2933",
           whiteSpace: "nowrap",
           boxShadow: theme === "dark"
@@ -1168,7 +1366,7 @@ function CurrentAgeMarker({ positionPct, age, theme = "dark" }) {
 }
 
 /** Marker on the main bar - just vertical line, no labels */
-function Marker({ positionPct, label, color = "#e5e7eb", align = "center", theme = "dark" }) {
+function Marker({ positionPct, label, color = "#e5e7eb", align = "center", theme = "dark", isHighlighted = false }) {
   const left = Math.min(Math.max(positionPct, 0), 100);
 
   return (
@@ -1188,12 +1386,16 @@ function Marker({ positionPct, label, color = "#e5e7eb", align = "center", theme
           top: 0,
           bottom: 0,
           left: "50%",
-          width: 2,
+          width: isHighlighted ? 4 : 2,
           borderRadius: 999,
           background: theme === "dark"
             ? color
             : (color === "#e5e7eb" ? "#8A8A8A" : color),
-          boxShadow: theme === "dark"
+          boxShadow: isHighlighted
+            ? theme === "dark"
+              ? `0 0 16px ${color}, 0 0 24px ${color}, 0 0 32px ${color}`
+              : `0 0 12px ${color}, 0 0 20px ${color}`
+            : theme === "dark"
             ? `0 0 8px ${color}, 0 0 12px ${color}`
             : `0 0 4px ${color === "#e5e7eb" ? "#8A8A8A" : color}`,
         }}
@@ -1226,8 +1428,8 @@ function LegendPill({ color, children, theme = "dark" }) {
       style={{
         display: "inline-flex",
         alignItems: "center",
-        gap: 10,
-        padding: "12px 20px",
+        gap: "clamp(8px, 1vw, 10px)",
+        padding: "clamp(8px, 1.2vw, 10px) clamp(14px, 1.8vw, 18px)",
         borderRadius: 999,
         background: getBackgroundColor(),
         border: theme === "dark" 
@@ -1240,8 +1442,8 @@ function LegendPill({ color, children, theme = "dark" }) {
     >
       <span
         style={{
-          width: 14,
-          height: 14,
+          width: "clamp(12px, 1.5vw, 14px)",
+          height: "clamp(12px, 1.5vw, 14px)",
           borderRadius: 999,
           background: color,
           boxShadow: theme === "dark"
@@ -1250,7 +1452,7 @@ function LegendPill({ color, children, theme = "dark" }) {
         }}
       />
       <span style={{ 
-        fontSize: 16, 
+        fontSize: "clamp(13px, 1.6vw, 15px)", 
         fontWeight: 700,
         color: theme === "dark" ? "#e5e7eb" : "#FFFFFF",
       }}>
@@ -1261,7 +1463,14 @@ function LegendPill({ color, children, theme = "dark" }) {
 }
 
 /** Slider + number input row */
-function SliderRow({ label, value, min, max, onChange, theme = "dark" }) {
+function SliderRow({ label, value, min, max, onChange, theme = "dark", isHighlighted = false, allowAnyNumber = false, minConstraint, maxConstraint }) {
+  const [localValue, setLocalValue] = useState(String(value));
+  
+  // Sync local value when prop value changes (from slider or external updates)
+  useEffect(() => {
+    setLocalValue(String(value));
+  }, [value]);
+  
   const themeColors = {
     dark: {
       text: "#d1d5db",
@@ -1279,30 +1488,33 @@ function SliderRow({ label, value, min, max, onChange, theme = "dark" }) {
   const colors = themeColors[theme];
   
   return (
-    <div style={{ marginBottom: 10 }}>
+    <div style={{ 
+      marginBottom: "clamp(8px, 1vw, 12px)",
+      padding: "clamp(6px, 0.8vw, 10px)",
+      borderRadius: "clamp(12px, 1.5vw, 16px)",
+      background: theme === "dark"
+        ? "rgba(15,23,42,0.6)"
+        : "rgba(248,250,252,0.5)",
+      border: `1px solid ${colors.border}`,
+    }}>
       <div
         style={{
-          display: "flex",
-          justifyContent: "space-between",
-          fontSize: 15,
-          marginBottom: 6,
-          color: colors.text,
-          fontWeight: 600,
+        display: "flex",
+        justifyContent: "flex-start",
+        alignItems: "center",
+        fontSize: "clamp(18px, 2.2vw, 22px)",
+        marginBottom: "clamp(6px, 0.8vw, 8px)",
+        color: colors.text,
+        fontWeight: isHighlighted ? 900 : 700,
         }}
       >
         <span>{label}</span>
-        <span style={{ opacity: 0.85 }}>
-          {value} yrs{" "}
-          <span style={{ color: colors.textMuted, fontSize: 11 }}>
-            (range {min}–{max})
-          </span>
-        </span>
       </div>
       <div
         style={{
           display: "grid",
           gridTemplateColumns: "minmax(0, 1fr) auto",
-          gap: 8,
+          gap: "clamp(10px, 1.2vw, 14px)",
           alignItems: "center",
         }}
       >
@@ -1312,27 +1524,98 @@ function SliderRow({ label, value, min, max, onChange, theme = "dark" }) {
           max={max}
           value={value}
           onChange={(e) => onChange(Number(e.target.value))}
-          style={{ width: "100%" }}
+          style={{ 
+            width: "100%",
+            height: "clamp(12px, 1.5vw, 14px)",
+            cursor: "pointer",
+          }}
         />
         <input
           type="number"
-          min={min}
-          max={max}
-          value={value}
+          min={allowAnyNumber ? undefined : min}
+          max={allowAnyNumber ? undefined : max}
+          value={localValue}
           onChange={(e) => {
-            const n = Number(e.target.value);
-            if (!Number.isNaN(n)) onChange(clamp(n, min, max));
+            const inputValue = e.target.value;
+            // Update local state immediately to allow free typing
+            setLocalValue(inputValue);
+            // Parse and update parent state if it's a valid number
+            if (inputValue !== "" && inputValue !== "-") {
+              const n = Number(inputValue);
+              if (!Number.isNaN(n)) {
+                if (allowAnyNumber) {
+                  // Allow any number while typing
+                  onChange(n);
+                } else {
+                  onChange(clamp(n, min, max));
+                }
+              }
+            }
           }}
           style={{
-            width: 60,
-            padding: "4px 6px",
-            borderRadius: 8,
-            border: `1px solid ${colors.border}`,
-            background: colors.bg,
+            width: "clamp(80px, 10vw, 90px)",
+            padding: "clamp(8px, 1vw, 10px) clamp(12px, 1.5vw, 14px)",
+            borderRadius: "clamp(8px, 1vw, 10px)",
+            border: `2px solid ${isHighlighted ? (theme === "dark" ? "rgba(108, 52, 248, 0.6)" : "rgba(108, 52, 248, 0.5)") : colors.border}`,
+            background: theme === "dark"
+              ? (isHighlighted ? "rgba(15,23,42,1)" : colors.bg)
+              : (isHighlighted ? "rgba(255,255,255,1)" : colors.bg),
             color: colors.text,
-            fontSize: 12,
+            fontSize: "clamp(18px, 2.2vw, 20px)",
+            fontWeight: isHighlighted ? 900 : 700,
             textAlign: "center",
             outline: "none",
+            fontFamily: "inherit",
+            boxShadow: isHighlighted
+              ? theme === "dark"
+                ? "0 0 20px rgba(108, 52, 248, 0.3), inset 0 1px 2px rgba(255,255,255,0.1)"
+                : "0 0 15px rgba(108, 52, 248, 0.2), inset 0 1px 2px rgba(255,255,255,0.9)"
+              : theme === "dark"
+              ? "inset 0 1px 2px rgba(255,255,255,0.05)"
+              : "inset 0 1px 2px rgba(0,0,0,0.05)",
+            transition: "all 0.2s ease",
+          }}
+          onFocus={(e) => {
+            e.currentTarget.style.boxShadow = isHighlighted
+              ? theme === "dark"
+                ? "0 0 30px rgba(108, 52, 248, 0.5), inset 0 1px 2px rgba(255,255,255,0.15)"
+                : "0 0 25px rgba(108, 52, 248, 0.35), inset 0 1px 2px rgba(255,255,255,1)"
+              : theme === "dark"
+              ? "0 0 15px rgba(148,163,184,0.4), inset 0 1px 2px rgba(255,255,255,0.1)"
+              : "0 0 12px rgba(71,85,105,0.2), inset 0 1px 2px rgba(0,0,0,0.05)";
+          }}
+          onBlur={(e) => {
+            // On blur, ensure the value meets constraints and reset shadow
+            const inputValue = e.target.value;
+            if (inputValue === "" || inputValue === "-") {
+              setLocalValue(String(value));
+            } else {
+              const n = Number(inputValue);
+              if (!Number.isNaN(n) && n >= 0) {
+                if (allowAnyNumber && minConstraint !== undefined && maxConstraint !== undefined) {
+                  const adjustedValue = Math.max(minConstraint, Math.min(n, maxConstraint));
+                  onChange(adjustedValue);
+                  setLocalValue(String(adjustedValue));
+                } else if (!allowAnyNumber) {
+                  const clampedValue = clamp(n, min, max);
+                  onChange(clampedValue);
+                  setLocalValue(String(clampedValue));
+                } else {
+                  onChange(n);
+                  setLocalValue(String(n));
+                }
+              } else {
+                setLocalValue(String(value));
+              }
+            }
+            // Reset shadow
+            e.currentTarget.style.boxShadow = isHighlighted
+              ? theme === "dark"
+                ? "0 0 20px rgba(108, 52, 248, 0.3), inset 0 1px 2px rgba(255,255,255,0.1)"
+                : "0 0 15px rgba(108, 52, 248, 0.2), inset 0 1px 2px rgba(255,255,255,0.9)"
+              : theme === "dark"
+              ? "inset 0 1px 2px rgba(255,255,255,0.05)"
+              : "inset 0 1px 2px rgba(0,0,0,0.05)";
           }}
         />
       </div>
@@ -1340,7 +1623,7 @@ function SliderRow({ label, value, min, max, onChange, theme = "dark" }) {
   );
 }
 /** Small info card */
-function InfoCard({ label, main, sub, theme = "dark" }) {
+function InfoCard({ label, main, sub, theme = "dark", isHighlighted = false }) {
   // Check if this is a key metric (Years lived or Years remaining) to make it stand out
   const isKeyMetric = label === "Years lived" || label === "Years remaining";
   
@@ -1366,38 +1649,44 @@ function InfoCard({ label, main, sub, theme = "dark" }) {
   return (
     <div
       style={{
-        borderRadius: 16,
-        padding: "16px 18px",
+        borderRadius: "clamp(12px, 1.5vw, 16px)",
+        padding: "clamp(12px, 1.5vw, 14px) clamp(14px, 1.8vw, 16px)",
         border: `1px solid ${colors.border}`,
         background: colors.cardBg,
       }}
     >
       <div
         style={{
-          fontSize: 13,
+          fontSize: "clamp(11px, 1.3vw, 12px)",
           color: colors.labelColor,
-          marginBottom: 6,
+          marginBottom: "clamp(4px, 0.6vw, 6px)",
           textTransform: "uppercase",
           letterSpacing: 1.2,
-          fontWeight: 600,
+          fontWeight: isHighlighted ? 700 : 600,
         }}
       >
         {label}
       </div>
       <div
         style={{
-          fontSize: isKeyMetric ? 32 : 24,
-          fontWeight: isKeyMetric ? 900 : 800,
-          marginBottom: 4,
+          fontSize: isHighlighted ? "clamp(28px, 3.5vw, 32px)" : (isKeyMetric ? "clamp(24px, 3vw, 28px)" : "clamp(20px, 2.5vw, 22px)"),
+          fontWeight: isHighlighted ? 900 : (isKeyMetric ? 900 : 800),
+          marginBottom: "clamp(2px, 0.4vw, 4px)",
           color: colors.mainColor,
-          textShadow: isKeyMetric && theme === "dark" ? "0 0 8px rgba(255,255,255,0.3)" : "none",
-          letterSpacing: isKeyMetric ? "-0.02em" : "-0.01em",
+          textShadow: isHighlighted && theme === "dark" 
+            ? "0 0 12px rgba(255,255,255,0.4)"
+            : (isKeyMetric && theme === "dark" ? "0 0 8px rgba(255,255,255,0.3)" : "none"),
+          letterSpacing: isHighlighted ? "-0.03em" : (isKeyMetric ? "-0.02em" : "-0.01em"),
         }}
       >
         {main}
       </div>
       {sub && (
-        <div style={{ fontSize: 13, color: colors.subColor, fontWeight: 500 }}>
+        <div style={{ 
+          fontSize: "clamp(11px, 1.3vw, 12px)", 
+          color: colors.subColor, 
+          fontWeight: isHighlighted ? 600 : 500 
+        }}>
           {sub}
         </div>
       )}
