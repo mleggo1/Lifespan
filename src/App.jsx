@@ -41,9 +41,10 @@ if (!document.getElementById('lifespan-styles')) {
     margin: 0 !important;
     padding: 0 !important;
     width: 100% !important;
-    height: 100% !important;
+    min-height: 100vh !important;
     background: white !important;
     overflow-x: hidden !important;
+    overflow-y: auto !important;
   }
   body.dark-mode, html.dark-mode {
     background: #000000 !important;
@@ -54,12 +55,7 @@ if (!document.getElementById('lifespan-styles')) {
     width: 100% !important;
     min-height: 100vh !important;
     overflow-y: auto !important;
-  }
-  @media (min-width: 1025px) {
-    #root {
-      max-height: 100vh !important;
-      overflow-y: hidden !important;
-    }
+    overflow-x: hidden !important;
   }
   @media (min-width: 1025px) {
     .lifespan-grid {
@@ -67,10 +63,6 @@ if (!document.getElementById('lifespan-styles')) {
     }
   }
   @media (max-width: 1024px) {
-    #root {
-      max-height: none !important;
-      overflow-y: auto !important;
-    }
     .lifespan-grid {
       grid-template-columns: 1fr !important;
     }
