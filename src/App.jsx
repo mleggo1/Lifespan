@@ -61,6 +61,11 @@ if (!document.getElementById('lifespan-styles')) {
       overflow-y: hidden !important;
     }
   }
+  @media (min-width: 1025px) {
+    .lifespan-grid {
+      grid-template-columns: minmax(0, 1.6fr) minmax(0, 1.1fr) !important;
+    }
+  }
   @media (max-width: 1024px) {
     #root {
       max-height: none !important;
@@ -73,6 +78,14 @@ if (!document.getElementById('lifespan-styles')) {
   @media (max-width: 768px) {
     .lifespan-grid {
       grid-template-columns: 1fr !important;
+    }
+    .numbers-grid {
+      grid-template-columns: 1fr !important;
+    }
+  }
+  @media (min-width: 769px) {
+    .numbers-grid {
+      grid-template-columns: repeat(2, minmax(0,1fr)) !important;
     }
   }
   @media print {
@@ -259,27 +272,31 @@ export default function App() {
     <div 
       style={{ 
         minHeight: "100vh",
-        height: "100vh",
         width: "100%",
+        maxWidth: "100vw",
         display: "flex",
         justifyContent: "center",
         alignItems: "flex-start",
-        padding: "clamp(8px, 1vw, 16px)",
+        padding: "clamp(16px, 4vw, 24px) clamp(16px, 2vw, 24px)",
         background: theme === "dark" ? "#000000" : "#FFFFFF",
         fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif",
+        overflowX: "hidden",
         overflowY: "auto",
+        boxSizing: "border-box",
       }}
     >
       <div style={{ 
         width: "100%", 
         maxWidth: "1400px",
-        padding: "clamp(4px, 0.5vw, 8px) 0",
+        padding: 0,
+        boxSizing: "border-box",
       }}>
         <div
           className="print-compact"
           style={{
             width: "100%",
-            padding: "clamp(12px, 1.5vw, 20px) clamp(16px, 2vw, 24px)",
+            maxWidth: "100%",
+            padding: "clamp(16px, 2vw, 24px) clamp(16px, 2vw, 24px)",
             borderRadius: "clamp(16px, 2vw, 24px)",
             border: `1px solid ${colors.border}`,
             background: colors.containerBg,
@@ -288,6 +305,7 @@ export default function App() {
               : "0 8px 32px rgba(0,0,0,0.08), 0 2px 8px rgba(0,0,0,0.04), inset 0 1px 0 rgba(255,255,255,1), inset 0 -1px 0 rgba(0,0,0,0.02)",
             position: "relative",
             color: colors.text,
+            boxSizing: "border-box",
           }}
         >
         {/* Header with controls */}
@@ -306,7 +324,8 @@ export default function App() {
               top: 0,
               right: 0,
               display: "flex",
-              gap: 8,
+              gap: "clamp(6px, 1vw, 8px)",
+              flexWrap: "wrap",
             }}
           >
             <button
@@ -386,7 +405,7 @@ export default function App() {
             <h1
               style={{
                 margin: 0,
-                fontSize: "clamp(32px, 5vw, 56px)",
+                fontSize: "clamp(28px, 6vw, 56px)",
                 fontWeight: 900,
                 lineHeight: 1.05,
                 letterSpacing: "-0.06em",
@@ -407,24 +426,15 @@ export default function App() {
               style={{
                 marginTop: "clamp(10px, 1.2vw, 16px)",
                 padding: "clamp(14px, 1.8vw, 20px) clamp(18px, 2.2vw, 24px)",
-                borderRadius: "clamp(14px, 1.8vw, 18px)",
-                background: theme === "dark"
-                  ? "linear-gradient(135deg, rgba(249, 115, 22, 0.15), rgba(15, 23, 42, 0.95))"
-                  : "rgba(255, 255, 255, 1)",
-                border: theme === "dark"
-                  ? "2px solid rgba(249, 115, 22, 0.4)"
-                  : "2px solid rgba(249, 115, 22, 0.5)",
-                boxShadow: theme === "dark"
-                  ? "0 0 40px rgba(249, 115, 22, 0.2), inset 0 0 20px rgba(249, 115, 22, 0.1)"
-                  : "0 4px 20px rgba(249, 115, 22, 0.25), 0 0 0 1px rgba(249, 115, 22, 0.1)",
+                background: "transparent",
                 textAlign: "center",
               }}
             >
               <p
                 style={{
                   margin: 0,
-                  fontSize: "clamp(20px, 2.8vw, 28px)",
-                  color: theme === "dark" ? "#f97316" : "#ea580c",
+                  fontSize: "clamp(18px, 4vw, 28px)",
+                  color: theme === "dark" ? "#ffffff" : "#1a1a1a",
                   fontWeight: 700,
                   lineHeight: 1.3,
                   marginBottom: "clamp(8px, 1vw, 12px)",
@@ -435,19 +445,8 @@ export default function App() {
                 <span
                   style={{
                     fontWeight: 900,
-                    fontSize: "clamp(28px, 4vw, 40px)",
-                    color: theme === "dark" 
-                      ? "#facc15"
-                      : "#ea580c",
-                    background: theme === "dark"
-                      ? "linear-gradient(135deg, #facc15, #f97316, #ea580c)"
-                      : "linear-gradient(135deg, #ea580c, #dc2626, #b91c1c)",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                    backgroundClip: "text",
-                    textShadow: theme === "dark"
-                      ? "0 0 30px rgba(249, 115, 22, 0.5)"
-                      : "0 2px 8px rgba(234, 88, 12, 0.5)",
+                    fontSize: "clamp(24px, 5vw, 40px)",
+                    color: theme === "dark" ? "#ffffff" : "#1a1a1a",
                     letterSpacing: "-0.03em",
                     display: "inline-block",
                   }}
@@ -455,21 +454,18 @@ export default function App() {
                   {formatYears(yearsToFreedom + yearsAfterFreedom)} ({percent(remainingPct)})
                 </span>{" "}
                 <span style={{ 
-                  color: theme === "dark" ? "#f97316" : "#ea580c",
+                  color: theme === "dark" ? "#ffffff" : "#1a1a1a",
                   fontWeight: 700,
                 }}>left.</span>
               </p>
               <p
                 style={{
                   margin: 0,
-                  fontSize: "clamp(22px, 3.2vw, 32px)",
+                  fontSize: "clamp(20px, 4.5vw, 32px)",
                   fontWeight: 900,
-                  color: theme === "dark" ? "#ffffff" : "#0f172a",
+                  color: theme === "dark" ? "#ffffff" : "#1a1a1a",
                   lineHeight: 1.2,
                   letterSpacing: "-0.03em",
-                  textShadow: theme === "dark"
-                    ? "0 0 20px rgba(255, 255, 255, 0.2)"
-                    : "0 2px 10px rgba(0, 0, 0, 0.25)",
                 }}
               >
                 What will you do with it?
@@ -489,6 +485,9 @@ export default function App() {
               ? "linear-gradient(135deg, rgba(34,197,94,0.1), rgba(15,23,42,0.95))"
               : "linear-gradient(135deg, rgba(34,197,94,0.12), rgba(255,255,255,1))",
             textAlign: "center",
+            width: "100%",
+            maxWidth: "100%",
+            boxSizing: "border-box",
           }}
         >
           <div
@@ -509,7 +508,7 @@ export default function App() {
             placeholder="What does your ideal life look like?"
             style={{
               width: "100%",
-              maxWidth: 800,
+              maxWidth: "100%",
               margin: "0 auto",
               padding: "clamp(10px, 1.2vw, 14px) clamp(14px, 1.8vw, 18px)",
               borderRadius: "clamp(12px, 1.5vw, 16px)",
@@ -520,6 +519,7 @@ export default function App() {
               outline: "none",
               textAlign: "center",
               fontWeight: 600,
+              boxSizing: "border-box",
             }}
           />
         </section>
@@ -529,16 +529,26 @@ export default function App() {
           className="lifespan-grid"
           style={{
             display: "grid",
-            gridTemplateColumns: "minmax(0, 1.6fr) minmax(0, 1.1fr)",
-            gap: "clamp(10px, 1.2vw, 14px)",
+            gridTemplateColumns: "1fr",
+            gap: "clamp(16px, 2vw, 20px)",
+            width: "100%",
+            maxWidth: "100%",
+            boxSizing: "border-box",
           }}
         >
           {/* Left: Timeline + sliders */}
-          <div style={{ display: "flex", flexDirection: "column", gap: "clamp(10px, 1.2vw, 14px)" }}>
+          <div style={{ 
+            display: "flex", 
+            flexDirection: "column", 
+            gap: "clamp(10px, 1.2vw, 14px)",
+            width: "100%",
+            maxWidth: "100%",
+            boxSizing: "border-box",
+          }}>
             {/* Main bar */}
             <section
               style={{
-                padding: "clamp(10px, 1.3vw, 16px)",
+                padding: "clamp(12px, 1.5vw, 16px)",
                 borderRadius: "clamp(14px, 1.8vw, 18px)",
                 border: theme === "dark" 
                   ? "1px solid rgba(148,163,184,0.45)"
@@ -549,6 +559,10 @@ export default function App() {
                 boxShadow: theme === "dark"
                   ? "none"
                   : "0 2px 8px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.02)",
+                width: "100%",
+                maxWidth: "100%",
+                boxSizing: "border-box",
+                overflow: "hidden",
               }}
             >
               <div
@@ -589,7 +603,9 @@ export default function App() {
                   className="chart-container"
                   style={{
                     position: "relative",
-                    height: "clamp(70px, 9vh, 100px)",
+                    height: "clamp(60px, 8vh, 100px)",
+                    width: "100%",
+                    maxWidth: "100%",
                     borderRadius: 999,
                     overflow: "hidden",
                     background: theme === "dark"
@@ -612,6 +628,7 @@ export default function App() {
                         inset 0 2px 0 rgba(255,255,255,0.9),
                         0 0 40px rgba(108, 52, 248, 0.15)
                       `,
+                    boxSizing: "border-box",
                   }}
                 >
                   {/* Lived - Childhood */}
@@ -913,6 +930,9 @@ export default function App() {
                 boxShadow: theme === "dark"
                   ? "0 4px 16px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.05)"
                   : "0 4px 12px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.9)",
+                width: "100%",
+                maxWidth: "100%",
+                boxSizing: "border-box",
               }}
             >
               <h2
@@ -1004,7 +1024,14 @@ export default function App() {
           </div>
 
           {/* Right: insights */}
-          <div style={{ display: "flex", flexDirection: "column", gap: "clamp(10px, 1.2vw, 14px)" }}>
+          <div style={{ 
+            display: "flex", 
+            flexDirection: "column", 
+            gap: "clamp(10px, 1.2vw, 14px)",
+            width: "100%",
+            maxWidth: "100%",
+            boxSizing: "border-box",
+          }}>
             {/* Snapshot cards */}
             <section
               style={{
@@ -1014,6 +1041,9 @@ export default function App() {
                 background: theme === "dark"
                   ? "radial-gradient(circle at top, rgba(248,250,252,0.04), rgba(15,23,42,0.97))"
                   : "radial-gradient(circle at top, rgba(255,255,255,0.6), rgba(248,250,252,0.98))",
+                width: "100%",
+                maxWidth: "100%",
+                boxSizing: "border-box",
               }}
             >
               <h2
@@ -1028,11 +1058,15 @@ export default function App() {
                 The Numbers
               </h2>
               <div
+                className="numbers-grid"
                 style={{
                   display: "grid",
                   gridTemplateColumns: "repeat(2, minmax(0,1fr))",
                   gap: "clamp(8px, 1vw, 10px)",
                   fontSize: 12,
+                  width: "100%",
+                  maxWidth: "100%",
+                  boxSizing: "border-box",
                 }}
               >
                 <InfoCard
@@ -1073,6 +1107,9 @@ export default function App() {
                   ? "linear-gradient(135deg, rgba(15,23,42,0.98), rgba(30,58,138,0.3))"
                   : "linear-gradient(135deg, rgba(255,255,255,0.98), rgba(241,245,249,0.5))",
                 fontSize: "clamp(15px, 1.9vw, 17px)",
+                width: "100%",
+                maxWidth: "100%",
+                boxSizing: "border-box",
               }}
             >
               <h2
