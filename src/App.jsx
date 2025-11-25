@@ -1176,7 +1176,7 @@ export default function App() {
                       fontWeight: 900, 
                       fontSize: "clamp(22px, 2.8vw, 28px)",
                       textShadow: theme === "dark" ? "0 0 12px rgba(249, 115, 22, 0.6)" : "none",
-                    }}>{freedom}</strong>, what must happen so you can live fully on your own terms — financially free, secure, and unburdened?
+                    }}>55</strong>, what must happen so you live life on your terms — financially free, secure, and unburdened?
                   </p>
                 </div>
 
@@ -1204,17 +1204,17 @@ export default function App() {
                       fontWeight: 900, 
                       fontSize: "clamp(22px, 2.8vw, 28px)",
                       textShadow: theme === "dark" ? "0 0 12px rgba(249, 115, 22, 0.6)" : "none",
-                    }}>{freedom}</strong> to <strong style={{ 
+                    }}>55</strong> to <strong style={{ 
                       color: "#f97316", 
                       fontWeight: 900, 
                       fontSize: "clamp(22px, 2.8vw, 28px)",
                       textShadow: theme === "dark" ? "0 0 12px rgba(249, 115, 22, 0.6)" : "none",
-                    }}>{life}</strong>, you have <strong style={{ 
+                    }}>90</strong>, you have <strong style={{ 
                       color: "#fbbf24", 
                       fontWeight: 900, 
                       fontSize: "clamp(22px, 2.8vw, 28px)",
                       textShadow: theme === "dark" ? "0 0 12px rgba(251, 191, 36, 0.6)" : "none",
-                    }}>{formatYears(yearsAfterFreedom)}</strong> precious years of freedom. How will you use them?
+                    }}>35</strong> precious years left. How will you use them?
                   </p>
                 </div>
               </div>
