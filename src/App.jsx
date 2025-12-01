@@ -20,6 +20,44 @@ if (!document.getElementById('lifespan-styles')) {
       0%, 100% { box-shadow: 0 0 10px rgba(255, 255, 255, 0.3), 0 0 20px rgba(96, 165, 250, 0.4); }
       50% { box-shadow: 0 0 15px rgba(255, 255, 255, 0.5), 0 0 30px rgba(96, 165, 250, 0.6); }
     }
+    @keyframes lifeForcePurple {
+      0%, 100% { 
+        box-shadow: 
+          inset 0 0 40px rgba(56, 24, 168, 0.7),
+          inset 0 2px 8px rgba(255, 255, 255, 0.2),
+          0 0 30px rgba(108, 52, 248, 0.5),
+          0 0 60px rgba(108, 52, 248, 0.3);
+        filter: brightness(1);
+      }
+      50% { 
+        box-shadow: 
+          inset 0 0 60px rgba(56, 24, 168, 1),
+          inset 0 2px 12px rgba(255, 255, 255, 0.4),
+          0 0 50px rgba(108, 52, 248, 0.9),
+          0 0 100px rgba(108, 52, 248, 0.7),
+          0 0 150px rgba(108, 52, 248, 0.5);
+        filter: brightness(1.2);
+      }
+    }
+    @keyframes lifeForceGolden {
+      0%, 100% { 
+        box-shadow: 
+          inset 0 0 50px rgba(250, 217, 97, 0.8),
+          inset 0 2px 8px rgba(255, 255, 255, 0.3),
+          0 0 35px rgba(247, 107, 28, 0.6),
+          0 0 70px rgba(247, 107, 28, 0.4);
+        filter: brightness(1);
+      }
+      50% { 
+        box-shadow: 
+          inset 0 0 70px rgba(250, 217, 97, 1),
+          inset 0 2px 12px rgba(255, 255, 255, 0.5),
+          0 0 60px rgba(251, 191, 36, 1),
+          0 0 120px rgba(247, 107, 28, 0.9),
+          0 0 180px rgba(247, 107, 28, 0.7);
+        filter: brightness(1.25);
+      }
+    }
     .fade-in {
       animation: fadeIn 0.6s ease-out forwards;
     }
@@ -42,12 +80,12 @@ if (!document.getElementById('lifespan-styles')) {
     padding: 0 !important;
     width: 100% !important;
     min-height: 100vh !important;
-    background: white !important;
+    background: radial-gradient(ellipse at top, #e0f2fe 0%, #bae6fd 20%, #f0f9ff 40%, #f8fafc 70%, #ffffff 100%), radial-gradient(circle at 15% 25%, rgba(147, 197, 253, 0.2) 0%, transparent 40%), radial-gradient(circle at 85% 75%, rgba(191, 219, 254, 0.15) 0%, transparent 40%) !important;
     overflow-x: hidden !important;
     overflow-y: auto !important;
   }
   body.dark-mode, html.dark-mode {
-    background: #000000 !important;
+    background: radial-gradient(ellipse at top, #1a1a2e 0%, #16213e 30%, #0f172a 60%, #020617 100%), radial-gradient(circle at 20% 30%, rgba(108, 52, 248, 0.15) 0%, transparent 50%), radial-gradient(circle at 80% 70%, rgba(6, 182, 212, 0.1) 0%, transparent 50%) !important;
   }
   #root {
     margin: 0 !important;
@@ -63,6 +101,10 @@ if (!document.getElementById('lifespan-styles')) {
     }
   }
   @media (max-width: 1024px) {
+    #root {
+      max-height: none !important;
+      overflow-y: auto !important;
+    }
     .lifespan-grid {
       grid-template-columns: 1fr !important;
     }
@@ -219,8 +261,8 @@ export default function App() {
   // Theme colors
   const themeColors = {
     dark: {
-      bg: "radial-gradient(ellipse at top, #0f172a 0%, #020617 40%, #000 100%)",
-      containerBg: "radial-gradient(ellipse at center, rgba(15,23,42,0.98) 0%, rgba(15,23,42,0.99) 50%, rgba(8,47,73,0.97) 100%)",
+      bg: "radial-gradient(ellipse at top, #1a1a2e 0%, #16213e 30%, #0f172a 60%, #020617 100%), radial-gradient(circle at 20% 30%, rgba(108, 52, 248, 0.15) 0%, transparent 50%), radial-gradient(circle at 80% 70%, rgba(6, 182, 212, 0.1) 0%, transparent 50%)",
+      containerBg: "radial-gradient(ellipse at center, rgba(15,23,42,0.95) 0%, rgba(15,23,42,0.97) 50%, rgba(8,47,73,0.95) 100%)",
       text: "#e5e7eb",
       textSecondary: "#d1d5db",
       textMuted: "#9ca3af",
@@ -228,13 +270,13 @@ export default function App() {
       cardBg: "rgba(15,23,42,0.9)",
     },
     light: {
-      bg: "radial-gradient(ellipse at top, #ffffff 0%, #f8fafc 40%, #f1f5f9 100%)",
-      containerBg: "linear-gradient(145deg, rgba(255,255,255,0.99) 0%, rgba(255,255,255,1) 50%, rgba(248,250,252,0.98) 100%)",
+      bg: "radial-gradient(ellipse at top, #e0f2fe 0%, #bae6fd 20%, #f0f9ff 40%, #f8fafc 70%, #ffffff 100%), radial-gradient(circle at 15% 25%, rgba(147, 197, 253, 0.2) 0%, transparent 40%), radial-gradient(circle at 85% 75%, rgba(191, 219, 254, 0.15) 0%, transparent 40%)",
+      containerBg: "linear-gradient(145deg, rgba(255,255,255,0.98) 0%, rgba(248,250,252,0.99) 50%, rgba(241,245,249,0.97) 100%)",
       text: "#0f172a",
       textSecondary: "#1e293b",
       textMuted: "#475569",
       border: "rgba(71,85,105,0.2)",
-      cardBg: "rgba(255,255,255,1)",
+      cardBg: "rgba(255,255,255,0.95)",
     },
   };
 
@@ -270,7 +312,7 @@ export default function App() {
         justifyContent: "center",
         alignItems: "flex-start",
         padding: "clamp(16px, 4vw, 24px) clamp(16px, 2vw, 24px)",
-        background: theme === "dark" ? "#000000" : "#FFFFFF",
+        background: colors.bg,
         fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif",
         overflowX: "hidden",
         overflowY: "auto",
@@ -396,10 +438,10 @@ export default function App() {
             </div>
             <h1
               style={{
-                margin: 0,
+                margin: "clamp(8px, 1.2vw, 14px) 0 clamp(10px, 1.5vw, 18px) 0",
                 fontSize: "clamp(28px, 6vw, 56px)",
                 fontWeight: 900,
-                lineHeight: 1.05,
+                lineHeight: 1.1,
                 letterSpacing: "-0.06em",
                 background: "linear-gradient(120deg, #e5e7eb, #f97316, #facc15)",
                 WebkitBackgroundClip: "text",
@@ -412,28 +454,27 @@ export default function App() {
                   : "0 2px 8px rgba(0,0,0,0.1)",
               }}
             >
-              The Time You Have Left
+              Life Is Short — What Will You Do With Yours?
             </h1>
             <div
               style={{
-                marginTop: "clamp(10px, 1.2vw, 16px)",
-                padding: "clamp(14px, 1.8vw, 20px) clamp(18px, 2.2vw, 24px)",
+                marginTop: 0,
+                padding: "clamp(6px, 0.8vw, 10px) clamp(14px, 1.8vw, 24px)",
                 background: "transparent",
                 textAlign: "center",
               }}
             >
               <p
                 style={{
-                  margin: 0,
+                  margin: "0 0 clamp(8px, 1.2vw, 14px) 0",
                   fontSize: "clamp(18px, 4vw, 28px)",
                   color: theme === "dark" ? "#ffffff" : "#1a1a1a",
                   fontWeight: 700,
-                  lineHeight: 1.3,
-                  marginBottom: "clamp(8px, 1vw, 12px)",
+                  lineHeight: 1.25,
                   letterSpacing: "-0.02em",
                 }}
               >
-                You have{" "}
+                If you have{" "}
                 <span
                   style={{
                     fontWeight: 900,
@@ -448,7 +489,7 @@ export default function App() {
                 <span style={{ 
                   color: theme === "dark" ? "#ffffff" : "#1a1a1a",
                   fontWeight: 700,
-                }}>left.</span>
+                }}>left</span>
               </p>
               <p
                 style={{
@@ -456,7 +497,7 @@ export default function App() {
                   fontSize: "clamp(20px, 4.5vw, 32px)",
                   fontWeight: 900,
                   color: theme === "dark" ? "#ffffff" : "#1a1a1a",
-                  lineHeight: 1.2,
+                  lineHeight: 1.15,
                   letterSpacing: "-0.03em",
                 }}
               >
@@ -465,56 +506,6 @@ export default function App() {
             </div>
           </div>
         </header>
-
-        {/* Goal */}
-        <section
-          style={{
-            marginBottom: "clamp(8px, 1vw, 12px)",
-            padding: "clamp(6px, 0.8vw, 10px) clamp(10px, 1.2vw, 14px)",
-            borderRadius: "clamp(10px, 1.3vw, 14px)",
-            border: `1px solid ${colors.border}`,
-            background: theme === "dark" 
-              ? "linear-gradient(135deg, rgba(34,197,94,0.1), rgba(15,23,42,0.95))"
-              : "linear-gradient(135deg, rgba(34,197,94,0.12), rgba(255,255,255,1))",
-            textAlign: "center",
-            width: "100%",
-            maxWidth: "100%",
-            boxSizing: "border-box",
-          }}
-        >
-          <div
-            style={{
-              fontSize: "clamp(11px, 1.3vw, 13px)",
-              textTransform: "uppercase",
-              letterSpacing: 1.5,
-              color: colors.textMuted,
-              marginBottom: "clamp(6px, 0.8vw, 10px)",
-              fontWeight: 700,
-            }}
-          >
-            What are you building toward?
-          </div>
-          <input
-            value={bigGoal}
-            onChange={(e) => setBigGoal(e.target.value)}
-            placeholder="What does your ideal life look like?"
-            style={{
-              width: "100%",
-              maxWidth: "100%",
-              margin: "0 auto",
-              padding: "clamp(10px, 1.2vw, 14px) clamp(14px, 1.8vw, 18px)",
-              borderRadius: "clamp(12px, 1.5vw, 16px)",
-              border: `2px solid ${colors.border}`,
-              background: colors.cardBg,
-              color: colors.text,
-              fontSize: "clamp(14px, 1.8vw, 16px)",
-              outline: "none",
-              textAlign: "center",
-              fontWeight: 600,
-              boxSizing: "border-box",
-            }}
-          />
-        </section>
 
         {/* Layout grid */}
         <div
@@ -652,6 +643,7 @@ export default function App() {
                           0 0 30px rgba(108, 52, 248, 0.5),
                           0 0 60px rgba(108, 52, 248, 0.3)
                         `,
+                        animation: "lifeForcePurple 2.5s ease-in-out infinite",
                       }}
                     />
                   )}
@@ -673,6 +665,7 @@ export default function App() {
                           0 0 35px rgba(247, 107, 28, 0.6),
                           0 0 70px rgba(247, 107, 28, 0.4)
                         `,
+                        animation: "lifeForceGolden 2.5s ease-in-out infinite 0.3s",
                       }}
                     />
                   )}
@@ -1119,10 +1112,13 @@ export default function App() {
                 {/* Right Now */}
                 <div>
                   <div style={{ 
-                    fontSize: "clamp(14px, 1.8vw, 16px)", 
+                    fontSize: "clamp(18px, 2.4vw, 24px)", 
                     textTransform: "uppercase", 
                     letterSpacing: 1.5, 
-                    color: "#a5b4fc",
+                    background: "linear-gradient(135deg, #06b6d4, #3b82f6, #2563eb)",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                    backgroundClip: "text",
                     fontWeight: 800,
                     marginBottom: "clamp(10px, 1.2vw, 12px)",
                   }}>
@@ -1136,25 +1132,31 @@ export default function App() {
                     fontWeight: 500 
                   }}>
                     If you only had <strong style={{ 
-                      color: "#60a5fa", 
+                      color: "#06b6d4", 
                       fontWeight: 900, 
                       fontSize: "clamp(22px, 2.8vw, 28px)",
-                      textShadow: theme === "dark" ? "0 0 12px rgba(96, 165, 250, 0.6)" : "none",
+                      textShadow: theme === "dark" 
+                        ? "0 0 20px rgba(6, 182, 212, 0.8), 0 0 40px rgba(6, 182, 212, 0.4)" 
+                        : "0 2px 8px rgba(6, 182, 212, 0.3)",
                     }}>{formatYears(yearsToFreedom)}</strong> years left to retirement and create the life you truly want… what would you begin today?
                   </p>
                 </div>
 
-                {/* Your Path to Freedom */}
+                {/* Your Path to Retirement */}
                 <div>
                   <div style={{ 
-                    fontSize: "clamp(14px, 1.8vw, 16px)", 
+                    fontSize: "clamp(18px, 2.4vw, 24px)", 
                     textTransform: "uppercase", 
                     letterSpacing: 1.5, 
-                    color: "#f97316",
+                    background: "linear-gradient(135deg, #6C34F8, #8B5CF6, #A78BFA)",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                    backgroundClip: "text",
                     fontWeight: 800,
                     marginBottom: "clamp(10px, 1.2vw, 12px)",
+                    filter: theme === "dark" ? "drop-shadow(0 0 8px rgba(108, 52, 248, 0.5))" : "none",
                   }}>
-                    Your Path to Freedom
+                    Your Path to Retirement
                   </div>
                   <p style={{ 
                     margin: 0, 
@@ -1164,23 +1166,29 @@ export default function App() {
                     fontWeight: 500 
                   }}>
                     Between now and age <strong style={{ 
-                      color: "#f97316", 
+                      color: "#8B5CF6", 
                       fontWeight: 900, 
                       fontSize: "clamp(22px, 2.8vw, 28px)",
-                      textShadow: theme === "dark" ? "0 0 12px rgba(249, 115, 22, 0.6)" : "none",
-                    }}>55</strong>, what must happen so you live life on your terms — financially free, secure, and unburdened?
+                      textShadow: theme === "dark" 
+                        ? "0 0 20px rgba(139, 92, 246, 0.8), 0 0 40px rgba(108, 52, 248, 0.5)" 
+                        : "0 2px 8px rgba(139, 92, 246, 0.4)",
+                    }}>{freedom}</strong>, what must happen so you live life on your terms — financially free, secure, and unburdened?
                   </p>
                 </div>
 
                 {/* Your Golden Years */}
                 <div>
                   <div style={{ 
-                    fontSize: "clamp(14px, 1.8vw, 16px)", 
+                    fontSize: "clamp(18px, 2.4vw, 24px)", 
                     textTransform: "uppercase", 
                     letterSpacing: 1.5, 
-                    color: "#22c55e",
+                    background: "linear-gradient(135deg, #FBBF24, #F76B1C, #EA580C)",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                    backgroundClip: "text",
                     fontWeight: 800,
                     marginBottom: "clamp(10px, 1.2vw, 12px)",
+                    filter: theme === "dark" ? "drop-shadow(0 0 8px rgba(251, 191, 36, 0.5))" : "none",
                   }}>
                     Your Golden Years
                   </div>
@@ -1192,21 +1200,27 @@ export default function App() {
                     fontWeight: 500 
                   }}>
                     From age <strong style={{ 
-                      color: "#f97316", 
+                      color: "#F76B1C", 
                       fontWeight: 900, 
                       fontSize: "clamp(22px, 2.8vw, 28px)",
-                      textShadow: theme === "dark" ? "0 0 12px rgba(249, 115, 22, 0.6)" : "none",
-                    }}>55</strong> to <strong style={{ 
-                      color: "#f97316", 
+                      textShadow: theme === "dark" 
+                        ? "0 0 20px rgba(247, 107, 28, 0.8), 0 0 40px rgba(247, 107, 28, 0.5)" 
+                        : "0 2px 8px rgba(247, 107, 28, 0.4)",
+                    }}>{freedom}</strong> to <strong style={{ 
+                      color: "#F76B1C", 
                       fontWeight: 900, 
                       fontSize: "clamp(22px, 2.8vw, 28px)",
-                      textShadow: theme === "dark" ? "0 0 12px rgba(249, 115, 22, 0.6)" : "none",
-                    }}>90</strong>, you have <strong style={{ 
-                      color: "#fbbf24", 
+                      textShadow: theme === "dark" 
+                        ? "0 0 20px rgba(247, 107, 28, 0.8), 0 0 40px rgba(247, 107, 28, 0.5)" 
+                        : "0 2px 8px rgba(247, 107, 28, 0.4)",
+                    }}>{life}</strong>, you have <strong style={{ 
+                      color: "#FBBF24", 
                       fontWeight: 900, 
                       fontSize: "clamp(22px, 2.8vw, 28px)",
-                      textShadow: theme === "dark" ? "0 0 12px rgba(251, 191, 36, 0.6)" : "none",
-                    }}>35</strong> precious years left. How will you use them?
+                      textShadow: theme === "dark" 
+                        ? "0 0 20px rgba(251, 191, 36, 0.9), 0 0 40px rgba(251, 191, 36, 0.6)" 
+                        : "0 2px 8px rgba(251, 191, 36, 0.4)",
+                    }}>{yearsAfterFreedom}</strong> precious years left. How will you use them?
                   </p>
                 </div>
               </div>
