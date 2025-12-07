@@ -194,14 +194,380 @@ function percent(n) {
   return `${Math.round(n)}%`;
 }
 
+/** Welcome Modal Component */
+function WelcomeModal({ currentAge, setCurrentAge, retirementAge, setRetirementAge, lifeExpectancy, setLifeExpectancy, onSubmit, theme, MAX_AGE, clamp }) {
+  const [localCurrentAge, setLocalCurrentAge] = useState(String(currentAge));
+  const [localRetirement, setLocalRetirement] = useState(String(retirementAge));
+  const [localLifeExpectancy, setLocalLifeExpectancy] = useState(String(lifeExpectancy));
+  
+  const themeColors = {
+    dark: {
+      bg: "radial-gradient(ellipse at top, #1a1a2e 0%, #16213e 30%, #0f172a 60%, #020617 100%), radial-gradient(circle at 20% 30%, rgba(108, 52, 248, 0.15) 0%, transparent 50%), radial-gradient(circle at 80% 70%, rgba(6, 182, 212, 0.1) 0%, transparent 50%)",
+      modalBg: "linear-gradient(135deg, rgba(15,23,42,0.98), rgba(30,41,59,0.95))",
+      text: "#e5e7eb",
+      textSecondary: "#d1d5db",
+      textMuted: "#9ca3af",
+      border: "rgba(148,163,184,0.4)",
+      cardBg: "rgba(15,23,42,0.9)",
+      inputBg: "rgba(15,23,42,0.95)",
+    },
+    light: {
+      bg: "radial-gradient(ellipse at top, #e0f2fe 0%, #bae6fd 20%, #f0f9ff 40%, #f8fafc 70%, #ffffff 100%), radial-gradient(circle at 15% 25%, rgba(147, 197, 253, 0.2) 0%, transparent 40%), radial-gradient(circle at 85% 75%, rgba(191, 219, 254, 0.15) 0%, transparent 40%)",
+      modalBg: "linear-gradient(135deg, rgba(255,255,255,0.98), rgba(248,250,252,0.95))",
+      text: "#0f172a",
+      textSecondary: "#1e293b",
+      textMuted: "#475569",
+      border: "rgba(71,85,105,0.3)",
+      cardBg: "rgba(255,255,255,0.95)",
+      inputBg: "rgba(255,255,255,1)",
+    },
+  };
+  
+  const colors = themeColors[theme];
+  
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const curAge = Math.max(0, Math.min(MAX_AGE - 2, Number(localCurrentAge) || 42));
+    const retAge = Math.max(curAge + 1, Math.min(MAX_AGE - 1, Number(localRetirement) || 65));
+    const lifeExp = Math.max(retAge + 1, Math.min(MAX_AGE, Number(localLifeExpectancy) || 81));
+    
+    // Pass values directly to onSubmit handler
+    onSubmit(curAge, retAge, lifeExp);
+  };
+  
+  const currentAgeNum = Number(localCurrentAge) || 42;
+  const retirementNum = Number(localRetirement) || 65;
+  const lifeExpNum = Number(localLifeExpectancy) || 81;
+  
+  // Validation helpers
+  const isValid = currentAgeNum >= 0 && currentAgeNum < MAX_AGE - 2 &&
+                  retirementNum > currentAgeNum && retirementNum < MAX_AGE &&
+                  lifeExpNum > retirementNum && lifeExpNum <= MAX_AGE;
+  
+  return (
+    <div
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        background: colors.bg,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: "clamp(16px, 4vw, 32px)",
+        zIndex: 10000,
+        overflowY: "auto",
+        fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif",
+      }}
+    >
+      <div
+        style={{
+          width: "100%",
+          maxWidth: "600px",
+          background: colors.modalBg,
+          borderRadius: "clamp(20px, 3vw, 32px)",
+          border: `2px solid ${colors.border}`,
+          boxShadow: theme === "dark"
+            ? "0 40px 100px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.05)"
+            : "0 20px 60px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.9)",
+          padding: "clamp(24px, 4vw, 40px)",
+          color: colors.text,
+          animation: "fadeIn 0.6s ease-out",
+        }}
+      >
+        <div style={{ textAlign: "center", marginBottom: "clamp(24px, 3vw, 32px)" }}>
+          <div
+            style={{
+              fontSize: "clamp(11px, 1.2vw, 13px)",
+              textTransform: "uppercase",
+              letterSpacing: 6,
+              color: colors.textMuted,
+              marginBottom: "clamp(8px, 1vw, 12px)",
+              fontWeight: 600,
+            }}
+          >
+            LifeSpan
+          </div>
+          <h1
+            style={{
+              margin: 0,
+              fontSize: "clamp(28px, 5vw, 42px)",
+              fontWeight: 900,
+              lineHeight: 1.1,
+              letterSpacing: "-0.03em",
+              background: "linear-gradient(120deg, #e5e7eb, #f97316, #facc15)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundClip: "text",
+              marginBottom: "clamp(12px, 1.5vw, 16px)",
+            }}
+          >
+            Welcome to Your Life Timeline
+          </h1>
+          <p
+            style={{
+              margin: 0,
+              fontSize: "clamp(16px, 2vw, 18px)",
+              color: colors.textSecondary,
+              lineHeight: 1.6,
+              fontWeight: 500,
+            }}
+          >
+            Let's personalize your timeline to see how your choices shape your future.
+          </p>
+        </div>
+        
+        <form onSubmit={handleSubmit}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "clamp(20px, 2.5vw, 28px)" }}>
+            {/* Current Age */}
+            <div>
+              <label
+                style={{
+                  display: "block",
+                  fontSize: "clamp(16px, 2vw, 18px)",
+                  fontWeight: 700,
+                  color: colors.text,
+                  marginBottom: "clamp(8px, 1vw, 12px)",
+                }}
+              >
+                Current age
+              </label>
+              <WelcomeSliderRow
+                value={localCurrentAge}
+                setValue={setLocalCurrentAge}
+                min={0}
+                max={Math.max(retirementNum - 1, 0)}
+                theme={theme}
+                colors={colors}
+                MAX_AGE={MAX_AGE}
+              />
+            </div>
+            
+            {/* Target Retirement */}
+            <div>
+              <label
+                style={{
+                  display: "block",
+                  fontSize: "clamp(16px, 2vw, 18px)",
+                  fontWeight: 700,
+                  color: colors.text,
+                  marginBottom: "clamp(8px, 1vw, 12px)",
+                }}
+              >
+                Target retirement
+              </label>
+              <WelcomeSliderRow
+                value={localRetirement}
+                setValue={setLocalRetirement}
+                min={currentAgeNum + 1}
+                max={Math.max(lifeExpNum - 1, currentAgeNum + 1)}
+                theme={theme}
+                colors={colors}
+                MAX_AGE={MAX_AGE}
+                isHighlighted={true}
+              />
+            </div>
+            
+            {/* Life Expectancy */}
+            <div>
+              <label
+                style={{
+                  display: "block",
+                  fontSize: "clamp(16px, 2vw, 18px)",
+                  fontWeight: 700,
+                  color: colors.text,
+                  marginBottom: "clamp(8px, 1vw, 12px)",
+                }}
+              >
+                Life expectancy
+              </label>
+              <WelcomeSliderRow
+                value={localLifeExpectancy}
+                setValue={setLocalLifeExpectancy}
+                min={retirementNum + 1}
+                max={MAX_AGE}
+                theme={theme}
+                colors={colors}
+                MAX_AGE={MAX_AGE}
+              />
+            </div>
+          </div>
+          
+          <div style={{ marginTop: "clamp(32px, 4vw, 40px)", display: "flex", justifyContent: "center" }}>
+            <button
+              type="submit"
+              disabled={!isValid}
+              style={{
+                padding: "clamp(14px, 1.8vw, 18px) clamp(32px, 4vw, 48px)",
+                fontSize: "clamp(16px, 2vw, 18px)",
+                fontWeight: 700,
+                borderRadius: "clamp(12px, 1.5vw, 16px)",
+                border: "none",
+                background: isValid
+                  ? "linear-gradient(135deg, #3818A8, #6C34F8, #8B5CF6)"
+                  : "rgba(148,163,184,0.3)",
+                color: "#ffffff",
+                cursor: isValid ? "pointer" : "not-allowed",
+                boxShadow: isValid
+                  ? theme === "dark"
+                    ? "0 8px 32px rgba(108, 52, 248, 0.4), 0 0 60px rgba(108, 52, 248, 0.2)"
+                    : "0 4px 16px rgba(108, 52, 248, 0.3)"
+                  : "none",
+                transition: "all 0.3s ease",
+                opacity: isValid ? 1 : 0.6,
+              }}
+              onMouseEnter={(e) => {
+                if (isValid) {
+                  e.currentTarget.style.transform = "scale(1.05)";
+                  e.currentTarget.style.boxShadow = theme === "dark"
+                    ? "0 12px 48px rgba(108, 52, 248, 0.6), 0 0 80px rgba(108, 52, 248, 0.3)"
+                    : "0 6px 24px rgba(108, 52, 248, 0.4)";
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (isValid) {
+                  e.currentTarget.style.transform = "scale(1)";
+                  e.currentTarget.style.boxShadow = isValid
+                    ? theme === "dark"
+                      ? "0 8px 32px rgba(108, 52, 248, 0.4), 0 0 60px rgba(108, 52, 248, 0.2)"
+                      : "0 4px 16px rgba(108, 52, 248, 0.3)"
+                    : "none";
+                }
+              }}
+            >
+              Create My Timeline →
+            </button>
+          </div>
+        </form>
+        
+        <p
+          style={{
+            marginTop: "clamp(16px, 2vw, 20px)",
+            fontSize: "clamp(12px, 1.4vw, 13px)",
+            color: colors.textMuted,
+            textAlign: "center",
+            lineHeight: 1.5,
+          }}
+        >
+          You can adjust these values later in your timeline.
+        </p>
+      </div>
+    </div>
+  );
+}
+
+/** Welcome Modal Slider Row */
+function WelcomeSliderRow({ value, setValue, min, max, theme, colors, MAX_AGE, isHighlighted = false }) {
+  const numValue = Number(value) || min;
+  const clampedValue = clamp(numValue, min, max);
+  
+  return (
+    <div
+      style={{
+        padding: "clamp(12px, 1.5vw, 16px)",
+        borderRadius: "clamp(12px, 1.5vw, 16px)",
+        background: theme === "dark"
+          ? "rgba(15,23,42,0.6)"
+          : "rgba(248,250,252,0.5)",
+        border: `1px solid ${isHighlighted ? (theme === "dark" ? "rgba(108, 52, 248, 0.6)" : "rgba(108, 52, 248, 0.5)") : colors.border}`,
+      }}
+    >
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "minmax(0, 1fr) auto",
+          gap: "clamp(12px, 1.5vw, 16px)",
+          alignItems: "center",
+        }}
+      >
+        <input
+          type="range"
+          min={min}
+          max={max}
+          value={clampedValue}
+          onChange={(e) => setValue(e.target.value)}
+          style={{
+            width: "100%",
+            height: "clamp(10px, 1.2vw, 12px)",
+            cursor: "pointer",
+            accentColor: theme === "dark" ? "#6C34F8" : "#6C34F8",
+          }}
+        />
+        <input
+          type="number"
+          min={min}
+          max={max}
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+          onBlur={(e) => {
+            const num = Number(e.target.value);
+            if (!Number.isNaN(num) && num >= min && num <= max) {
+              setValue(String(Math.round(num)));
+            } else {
+              setValue(String(clamp(num, min, max)));
+            }
+          }}
+          style={{
+            width: "clamp(80px, 10vw, 90px)",
+            padding: "clamp(10px, 1.2vw, 12px) clamp(14px, 1.8vw, 16px)",
+            borderRadius: "clamp(8px, 1vw, 10px)",
+            border: `2px solid ${isHighlighted ? (theme === "dark" ? "rgba(108, 52, 248, 0.6)" : "rgba(108, 52, 248, 0.5)") : colors.border}`,
+            background: colors.inputBg,
+            color: colors.text,
+            fontSize: "clamp(18px, 2.2vw, 20px)",
+            fontWeight: isHighlighted ? 900 : 700,
+            textAlign: "center",
+            outline: "none",
+            fontFamily: "inherit",
+            boxShadow: isHighlighted
+              ? theme === "dark"
+                ? "0 0 20px rgba(108, 52, 248, 0.3), inset 0 1px 2px rgba(255,255,255,0.1)"
+                : "0 0 15px rgba(108, 52, 248, 0.2), inset 0 1px 2px rgba(255,255,255,0.9)"
+              : "none",
+          }}
+        />
+      </div>
+    </div>
+  );
+}
+
 export default function App() {
-  const [currentAge, setCurrentAge] = useState(42);
-  const [freedomAge, setFreedomAge] = useState(55);
-  const [lifeExpectancy, setLifeExpectancy] = useState(90);
+  // Check if user has completed the welcome modal
+  const [hasCompletedWelcome, setHasCompletedWelcome] = useState(() => {
+    const saved = localStorage.getItem('lifespan-welcome-completed');
+    return saved === 'true';
+  });
+  
+  const [currentAge, setCurrentAge] = useState(() => {
+    const saved = localStorage.getItem('lifespan-current-age');
+    return saved ? Number(saved) : 42;
+  });
+  const [freedomAge, setFreedomAge] = useState(() => {
+    const saved = localStorage.getItem('lifespan-freedom-age');
+    return saved ? Number(saved) : 65;
+  });
+  const [lifeExpectancy, setLifeExpectancy] = useState(() => {
+    const saved = localStorage.getItem('lifespan-life-expectancy');
+    return saved ? Number(saved) : 81;
+  });
 
   const [labelName, setLabelName] = useState("Michael");
   const [bigGoal, setBigGoal] = useState("Freedom to live life on your terms — every day, not someday.");
   const [theme, setTheme] = useState("dark"); // 'dark' or 'light'
+  
+  // Welcome modal state - use defaults if not completed before
+  const [showWelcome, setShowWelcome] = useState(!hasCompletedWelcome);
+  const [welcomeCurrentAge, setWelcomeCurrentAge] = useState(() => {
+    return hasCompletedWelcome ? currentAge : 42;
+  });
+  const [welcomeRetirement, setWelcomeRetirement] = useState(() => {
+    return hasCompletedWelcome ? freedomAge : 65;
+  });
+  const [welcomeLifeExpectancy, setWelcomeLifeExpectancy] = useState(() => {
+    return hasCompletedWelcome ? lifeExpectancy : 81;
+  });
 
   const data = useMemo(() => {
     const cur = clamp(currentAge, 0, MAX_AGE);
@@ -291,6 +657,45 @@ export default function App() {
     setTheme(theme === "dark" ? "light" : "dark");
   };
 
+  // Handle welcome modal submission
+  const handleWelcomeSubmit = (curAge, retAge, lifeExp) => {
+    // Update state with the provided values
+    setCurrentAge(curAge);
+    setFreedomAge(retAge);
+    setLifeExpectancy(lifeExp);
+    
+    // Save to localStorage
+    localStorage.setItem('lifespan-current-age', String(curAge));
+    localStorage.setItem('lifespan-freedom-age', String(retAge));
+    localStorage.setItem('lifespan-life-expectancy', String(lifeExp));
+    localStorage.setItem('lifespan-welcome-completed', 'true');
+    
+    // Close modal
+    setHasCompletedWelcome(true);
+    setShowWelcome(false);
+  };
+  
+  // Reset button handler - clears localStorage and shows welcome modal again
+  const handleReset = () => {
+    // Clear localStorage
+    localStorage.removeItem('lifespan-welcome-completed');
+    localStorage.removeItem('lifespan-current-age');
+    localStorage.removeItem('lifespan-freedom-age');
+    localStorage.removeItem('lifespan-life-expectancy');
+    
+    // Reset to defaults
+    setCurrentAge(42);
+    setFreedomAge(65);
+    setLifeExpectancy(81);
+    setWelcomeCurrentAge(42);
+    setWelcomeRetirement(65);
+    setWelcomeLifeExpectancy(81);
+    
+    // Show welcome modal again
+    setHasCompletedWelcome(false);
+    setShowWelcome(true);
+  };
+
   // Apply dark-mode class to body/html for background
   useEffect(() => {
     if (theme === "dark") {
@@ -301,6 +706,24 @@ export default function App() {
       document.body.classList.remove("dark-mode");
     }
   }, [theme]);
+
+  // Welcome Modal Component
+  if (showWelcome) {
+    return (
+      <WelcomeModal
+        currentAge={welcomeCurrentAge}
+        setCurrentAge={setWelcomeCurrentAge}
+        retirementAge={welcomeRetirement}
+        setRetirementAge={setWelcomeRetirement}
+        lifeExpectancy={welcomeLifeExpectancy}
+        setLifeExpectancy={setWelcomeLifeExpectancy}
+        onSubmit={handleWelcomeSubmit}
+        theme={theme}
+        MAX_AGE={MAX_AGE}
+        clamp={clamp}
+      />
+    );
+  }
 
   return (
     <div 
@@ -415,6 +838,33 @@ export default function App() {
               }}
             >
               📄 Export PDF
+            </button>
+            <button
+              onClick={handleReset}
+              style={{
+                padding: "clamp(6px, 0.8vw, 8px) clamp(10px, 1.2vw, 12px)",
+                borderRadius: "clamp(6px, 0.8vw, 8px)",
+                border: `1px solid ${colors.border}`,
+                background: colors.cardBg,
+                color: colors.text,
+                fontSize: "clamp(11px, 1.3vw, 12px)",
+                fontWeight: 600,
+                cursor: "pointer",
+                display: "flex",
+                alignItems: "center",
+                gap: "clamp(4px, 0.6vw, 6px)",
+                transition: "all 0.2s",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.opacity = "0.8";
+                e.currentTarget.style.transform = "scale(1.05)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.opacity = "1";
+                e.currentTarget.style.transform = "scale(1)";
+              }}
+            >
+              🔄 Reset Timeline
             </button>
           </div>
           <div
@@ -551,13 +1001,14 @@ export default function App() {
               <div
                 style={{
                   textAlign: "center",
-                  marginBottom: "clamp(6px, 0.8vw, 10px)",
+                  marginBottom: "clamp(16px, 2vw, 24px)",
+                  marginTop: "clamp(12px, 1.5vw, 20px)",
                 }}
               >
                 <div style={{ 
                   fontSize: "clamp(14px, 1.8vw, 16px)", 
                   color: theme === "dark" ? colors.textMuted : "#2B2B2B", 
-                  marginBottom: "clamp(4px, 0.6vw, 8px)",
+                  marginBottom: "clamp(8px, 1vw, 12px)",
                   fontWeight: 600,
                 }}>
                   Age {cur} of {life}
@@ -578,7 +1029,7 @@ export default function App() {
                 style={{
                   display: "flex",
                   flexDirection: "column",
-                  gap: "clamp(10px, 1.2vw, 14px)",
+                  gap: "clamp(20px, 2.5vw, 28px)",
                 }}
               >
                 {/* The bar */}
@@ -586,7 +1037,7 @@ export default function App() {
                   className="chart-container"
                   style={{
                     position: "relative",
-                    height: "clamp(60px, 8vh, 100px)",
+                    height: "clamp(100px, 12vh, 160px)",
                     width: "100%",
                     maxWidth: "100%",
                     borderRadius: 999,
@@ -698,8 +1149,8 @@ export default function App() {
                   className="age-scale"
                   style={{
                     position: "relative",
-                    height: "clamp(32px, 4vh, 38px)",
-                    marginTop: 0,
+                    height: "clamp(48px, 6vh, 64px)",
+                    marginTop: "clamp(8px, 1vw, 12px)",
                     marginBottom: 0,
                   }}
                 >
@@ -721,22 +1172,26 @@ export default function App() {
                       >
                         <div
                           style={{
-                            width: 2,
-                            height: isMajor ? "clamp(12px, 1.5vh, 14px)" : "clamp(8px, 1vh, 10px)",
+                            width: isMajor ? 3 : 2,
+                            height: isMajor ? "clamp(16px, 2vh, 20px)" : "clamp(10px, 1.3vh, 12px)",
                             background: theme === "dark"
-                              ? "rgba(255, 255, 255, 0.55)"
+                              ? "rgba(255, 255, 255, 0.7)"
                               : "#8A8A8A",
-                            margin: "0 auto clamp(4px, 0.6vh, 6px)",
+                            margin: "0 auto clamp(6px, 0.8vh, 10px)",
                             borderRadius: 999,
                           }}
                         />
                         <div
                           style={{
-                            fontSize: "clamp(14px, 1.8vw, 16px)",
-                            fontWeight: 700,
-                            color: theme === "dark" ? "#e5e7eb" : "#1A1A1A",
+                            fontSize: "clamp(20px, 2.5vw, 28px)",
+                            fontWeight: 900,
+                            color: theme === "dark" ? "#ffffff" : "#1A1A1A",
                             whiteSpace: "nowrap",
                             lineHeight: 1.2,
+                            textShadow: theme === "dark"
+                              ? "0 0 12px rgba(255, 255, 255, 0.6), 0 0 24px rgba(255, 255, 255, 0.3), 0 2px 4px rgba(0, 0, 0, 0.5)"
+                              : "0 2px 8px rgba(0, 0, 0, 0.2)",
+                            filter: theme === "dark" ? "brightness(1.2)" : "none",
                           }}
                         >
                           {age}
@@ -751,9 +1206,9 @@ export default function App() {
                   className="phase-labels"
                   style={{
                     position: "relative",
-                    height: "clamp(60px, 7vh, 75px)",
-                    marginTop: 0,
-                    marginBottom: "clamp(6px, 0.8vw, 10px)",
+                    height: "clamp(80px, 9vh, 110px)",
+                    marginTop: "clamp(8px, 1vw, 12px)",
+                    marginBottom: "clamp(12px, 1.5vw, 18px)",
                   }}
                 >
                   {/* Childhood phase */}
@@ -768,12 +1223,12 @@ export default function App() {
                   >
                     <div
                       style={{
-                        fontSize: "clamp(20px, 2.5vw, 24px)",
+                        fontSize: "clamp(24px, 3vw, 32px)",
                         fontWeight: 900,
                         color: theme === "dark" ? "#9ca3af" : "#2B2B2B",
                         textTransform: "uppercase",
                         letterSpacing: 2,
-                        marginBottom: "clamp(4px, 0.6vw, 8px)",
+                        marginBottom: "clamp(8px, 1vw, 12px)",
                         lineHeight: 1.2,
                       }}
                     >
@@ -781,9 +1236,9 @@ export default function App() {
                     </div>
                     <div
                       style={{
-                        fontSize: "clamp(16px, 2vw, 18px)",
+                        fontSize: "clamp(18px, 2.3vw, 22px)",
                         color: theme === "dark" ? "#6b7280" : "#1A1A1A",
-                        fontWeight: 600,
+                        fontWeight: 700,
                         lineHeight: 1.4,
                       }}
                     >
@@ -803,7 +1258,7 @@ export default function App() {
                   >
                     <div
                       style={{
-                        fontSize: "clamp(20px, 2.5vw, 24px)",
+                        fontSize: "clamp(24px, 3vw, 32px)",
                         fontWeight: 900,
                         background: "linear-gradient(135deg, #3818A8, #6C34F8)",
                         WebkitBackgroundClip: "text",
@@ -811,7 +1266,7 @@ export default function App() {
                         backgroundClip: "text",
                         textTransform: "uppercase",
                         letterSpacing: 2,
-                        marginBottom: "clamp(4px, 0.6vw, 8px)",
+                        marginBottom: "clamp(8px, 1vw, 12px)",
                         lineHeight: 1.2,
                       }}
                     >
@@ -819,9 +1274,9 @@ export default function App() {
                     </div>
                     <div
                       style={{
-                        fontSize: "clamp(16px, 2vw, 18px)",
+                        fontSize: "clamp(18px, 2.3vw, 22px)",
                         color: theme === "dark" ? "#6b7280" : "#1A1A1A",
-                        fontWeight: 600,
+                        fontWeight: 700,
                         lineHeight: 1.4,
                       }}
                     >
@@ -841,7 +1296,7 @@ export default function App() {
                   >
                     <div
                       style={{
-                        fontSize: "clamp(20px, 2.5vw, 24px)",
+                        fontSize: "clamp(24px, 3vw, 32px)",
                         fontWeight: 900,
                         background: "linear-gradient(135deg, #FAD961, #F76B1C)",
                         WebkitBackgroundClip: "text",
@@ -849,7 +1304,7 @@ export default function App() {
                         backgroundClip: "text",
                         textTransform: "uppercase",
                         letterSpacing: 2,
-                        marginBottom: "clamp(4px, 0.6vw, 8px)",
+                        marginBottom: "clamp(8px, 1vw, 12px)",
                         lineHeight: 1.2,
                       }}
                     >
@@ -857,9 +1312,9 @@ export default function App() {
                     </div>
                     <div
                       style={{
-                        fontSize: "clamp(16px, 2vw, 18px)",
+                        fontSize: "clamp(18px, 2.3vw, 22px)",
                         color: theme === "dark" ? "#6b7280" : "#1A1A1A",
-                        fontWeight: 600,
+                        fontWeight: 700,
                         lineHeight: 1.4,
                       }}
                     >
@@ -875,8 +1330,8 @@ export default function App() {
                 style={{
                   display: "flex",
                   flexWrap: "wrap",
-                  gap: "clamp(8px, 1vw, 12px)",
-                  marginTop: "clamp(2px, 0.4vw, 4px)",
+                  gap: "clamp(12px, 1.5vw, 16px)",
+                  marginTop: "clamp(8px, 1vw, 12px)",
                   fontSize: "clamp(11px, 1.3vw, 12px)",
                   color: theme === "dark" ? colors.textSecondary : "#1A1A1A",
                   justifyContent: "center",
@@ -949,15 +1404,22 @@ export default function App() {
                 onChange={(v) => {
                   const newAge = Math.max(0, Number(v));
                   setCurrentAge(newAge);
+                  localStorage.setItem('lifespan-current-age', String(newAge));
                   // If new age >= freedom, adjust freedom
                   if (freedom <= newAge) {
-                    setFreedomAge(newAge + 1);
+                    const newFreedom = newAge + 1;
+                    setFreedomAge(newFreedom);
+                    localStorage.setItem('lifespan-freedom-age', String(newFreedom));
                   }
                   // If new age >= life, adjust life
                   if (life <= newAge) {
-                    setLifeExpectancy(Math.min(newAge + 2, MAX_AGE));
+                    const newLife = Math.min(newAge + 2, MAX_AGE);
+                    setLifeExpectancy(newLife);
+                    localStorage.setItem('lifespan-life-expectancy', String(newLife));
                     if (freedom <= newAge) {
-                      setFreedomAge(newAge + 1);
+                      const newFreedom = newAge + 1;
+                      setFreedomAge(newFreedom);
+                      localStorage.setItem('lifespan-freedom-age', String(newFreedom));
                     }
                   }
                 }}
@@ -976,9 +1438,12 @@ export default function App() {
                   // Allow any number while typing, will validate on blur
                   if (!Number.isNaN(newFreedom) && newFreedom >= 0) {
                     setFreedomAge(newFreedom);
+                    localStorage.setItem('lifespan-freedom-age', String(newFreedom));
                     // If new freedom >= life, adjust life
                     if (life <= newFreedom) {
-                      setLifeExpectancy(Math.min(newFreedom + 1, MAX_AGE));
+                      const newLife = Math.min(newFreedom + 1, MAX_AGE);
+                      setLifeExpectancy(newLife);
+                      localStorage.setItem('lifespan-life-expectancy', String(newLife));
                     }
                   }
                 }}
@@ -998,6 +1463,7 @@ export default function App() {
                   // Must be greater than freedom
                   if (newLife > freedom && newLife <= MAX_AGE) {
                     setLifeExpectancy(newLife);
+                    localStorage.setItem('lifespan-life-expectancy', String(newLife));
                   }
                 }}
                 theme={theme}
@@ -1364,21 +1830,21 @@ function CurrentAgeMarker({ positionPct, age, theme = "dark" }) {
           top: 0,
           bottom: 0,
           left: "50%",
-          width: 4,
+          width: 5,
           borderRadius: 999,
           background: theme === "dark"
-            ? "linear-gradient(180deg, rgba(255,255,255,0.9), rgba(96,165,250,0.8))"
-            : "linear-gradient(180deg, rgba(56,24,168,0.9), rgba(108,52,248,0.8))",
+            ? "linear-gradient(180deg, rgba(255,255,255,0.95), rgba(96,165,250,0.9))"
+            : "linear-gradient(180deg, rgba(56,24,168,0.95), rgba(108,52,248,0.9))",
           boxShadow: theme === "dark"
             ? `
-              0 0 12px rgba(255, 255, 255, 0.6),
-              0 0 24px rgba(96, 165, 250, 0.5),
-              0 0 36px rgba(96, 165, 250, 0.3)
+              0 0 16px rgba(255, 255, 255, 0.8),
+              0 0 32px rgba(96, 165, 250, 0.6),
+              0 0 48px rgba(96, 165, 250, 0.4)
             `
             : `
-              0 0 12px rgba(56, 24, 168, 0.4),
-              0 0 24px rgba(108, 52, 248, 0.3),
-              0 0 36px rgba(108, 52, 248, 0.2)
+              0 0 16px rgba(56, 24, 168, 0.5),
+              0 0 32px rgba(108, 52, 248, 0.4),
+              0 0 48px rgba(108, 52, 248, 0.3)
             `,
         }}
       />
@@ -1389,17 +1855,21 @@ function CurrentAgeMarker({ positionPct, age, theme = "dark" }) {
           left: "50%",
           transform: "translate(-50%, -50%)",
           background: theme === "dark"
-            ? "rgba(15,23,42,0.95)"
-            : "rgba(255,255,255,0.95)",
+            ? "rgba(15,23,42,0.98)"
+            : "rgba(255,255,255,0.98)",
           borderRadius: 999,
-          padding: "clamp(4px, 0.5vw, 5px) clamp(10px, 1.2vw, 12px)",
-          fontSize: "clamp(13px, 1.6vw, 15px)",
-          fontWeight: 800,
-          color: theme === "dark" ? "#e5e7eb" : "#1f2933",
+          padding: "clamp(6px, 0.8vw, 8px) clamp(14px, 1.8vw, 18px)",
+          fontSize: "clamp(18px, 2.3vw, 24px)",
+          fontWeight: 900,
+          color: theme === "dark" ? "#ffffff" : "#1f2933",
           whiteSpace: "nowrap",
           boxShadow: theme === "dark"
-            ? "0 0 10px rgba(15,23,42,0.9)"
-            : "0 0 6px rgba(15,23,42,0.25)",
+            ? "0 0 20px rgba(15,23,42,0.95), 0 0 40px rgba(96, 165, 250, 0.3)"
+            : "0 0 12px rgba(15,23,42,0.3), 0 0 24px rgba(108, 52, 248, 0.2)",
+          textShadow: theme === "dark"
+            ? "0 0 8px rgba(255, 255, 255, 0.5)"
+            : "0 2px 4px rgba(0, 0, 0, 0.2)",
+          filter: theme === "dark" ? "brightness(1.1)" : "none",
         }}
       >
         {age}
