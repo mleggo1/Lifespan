@@ -116,10 +116,53 @@ if (!document.getElementById('lifespan-styles')) {
     .numbers-grid {
       grid-template-columns: 1fr !important;
     }
+    /* Mobile optimizations */
+    .chart-container {
+      height: clamp(70px, 10vh, 90px) !important;
+    }
+    .age-scale {
+      height: clamp(36px, 5vh, 44px) !important;
+    }
+    .phase-labels {
+      height: clamp(60px, 8vh, 75px) !important;
+    }
+    /* Reduce padding on mobile */
+    body {
+      padding: clamp(8px, 2vw, 12px) clamp(8px, 2vw, 12px) !important;
+    }
+    /* Smaller font sizes for mobile */
+    .mobile-text-sm {
+      font-size: clamp(12px, 3vw, 14px) !important;
+    }
+    .mobile-text-md {
+      font-size: clamp(16px, 4vw, 20px) !important;
+    }
+    .mobile-text-lg {
+      font-size: clamp(18px, 4.5vw, 24px) !important;
+    }
+    /* Reduce gaps on mobile */
+    .mobile-gap-sm {
+      gap: clamp(8px, 2vw, 12px) !important;
+    }
+    .mobile-gap-md {
+      gap: clamp(12px, 3vw, 16px) !important;
+    }
   }
   @media (min-width: 769px) {
     .numbers-grid {
       grid-template-columns: repeat(2, minmax(0,1fr)) !important;
+    }
+  }
+  /* Tablet optimizations (iPad) */
+  @media (min-width: 769px) and (max-width: 1024px) {
+    .chart-container {
+      height: clamp(85px, 11vh, 120px) !important;
+    }
+    .age-scale {
+      height: clamp(42px, 5.5vh, 52px) !important;
+    }
+    .phase-labels {
+      height: clamp(70px, 8.5vh, 90px) !important;
     }
   }
   @media print {
@@ -195,7 +238,7 @@ function percent(n) {
 }
 
 /** Welcome Modal Component */
-function WelcomeModal({ currentAge, setCurrentAge, retirementAge, setRetirementAge, lifeExpectancy, setLifeExpectancy, onSubmit, theme, MAX_AGE, clamp }) {
+function WelcomeModal({ currentAge, setCurrentAge, retirementAge, setRetirementAge, lifeExpectancy, setLifeExpectancy, onSubmit, theme, MAX_AGE, clamp, isMobile }) {
   const [localCurrentAge, setLocalCurrentAge] = useState(String(currentAge));
   const [localRetirement, setLocalRetirement] = useState(String(retirementAge));
   const [localLifeExpectancy, setLocalLifeExpectancy] = useState(String(lifeExpectancy));
@@ -256,7 +299,7 @@ function WelcomeModal({ currentAge, setCurrentAge, retirementAge, setRetirementA
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        padding: "clamp(16px, 4vw, 32px)",
+        padding: isMobile ? "clamp(12px, 3vw, 16px)" : "clamp(16px, 4vw, 32px)",
         zIndex: 10000,
         overflowY: "auto",
         fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif",
@@ -265,14 +308,14 @@ function WelcomeModal({ currentAge, setCurrentAge, retirementAge, setRetirementA
       <div
         style={{
           width: "100%",
-          maxWidth: "600px",
+          maxWidth: isMobile ? "100%" : "600px",
           background: colors.modalBg,
-          borderRadius: "clamp(20px, 3vw, 32px)",
+          borderRadius: isMobile ? "clamp(16px, 4vw, 20px)" : "clamp(20px, 3vw, 32px)",
           border: `2px solid ${colors.border}`,
           boxShadow: theme === "dark"
             ? "0 40px 100px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.05)"
             : "0 20px 60px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.9)",
-          padding: "clamp(24px, 4vw, 40px)",
+          padding: isMobile ? "clamp(20px, 5vw, 24px)" : "clamp(24px, 4vw, 40px)",
           color: colors.text,
           animation: "fadeIn 0.6s ease-out",
         }}
@@ -534,6 +577,20 @@ function WelcomeSliderRow({ value, setValue, min, max, theme, colors, MAX_AGE, i
 }
 
 export default function App() {
+  // Track window size for responsive design
+  const [windowWidth, setWindowWidth] = useState(() => typeof window !== 'undefined' ? window.innerWidth : 1024);
+  
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+  
+  const isMobile = windowWidth <= 768;
+  const isTablet = windowWidth > 768 && windowWidth <= 1024;
+  
   // Check if user has completed the welcome modal
   const [hasCompletedWelcome, setHasCompletedWelcome] = useState(() => {
     const saved = localStorage.getItem('lifespan-welcome-completed');
@@ -734,7 +791,9 @@ export default function App() {
         display: "flex",
         justifyContent: "center",
         alignItems: "flex-start",
-        padding: "clamp(16px, 4vw, 24px) clamp(16px, 2vw, 24px)",
+        padding: isMobile 
+          ? "clamp(8px, 2vw, 12px) clamp(8px, 2vw, 12px)"
+          : "clamp(16px, 4vw, 24px) clamp(16px, 2vw, 24px)",
         background: colors.bg,
         fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif",
         overflowX: "hidden",
@@ -753,7 +812,9 @@ export default function App() {
           style={{
             width: "100%",
             maxWidth: "100%",
-            padding: "clamp(16px, 2vw, 24px) clamp(16px, 2vw, 24px)",
+            padding: isMobile
+              ? "clamp(12px, 3vw, 16px) clamp(12px, 3vw, 16px)"
+              : "clamp(16px, 2vw, 24px) clamp(16px, 2vw, 24px)",
             borderRadius: "clamp(16px, 2vw, 24px)",
             border: `1px solid ${colors.border}`,
             background: colors.containerBg,
@@ -788,73 +849,73 @@ export default function App() {
             <button
               onClick={toggleTheme}
               style={{
-                padding: "clamp(6px, 0.8vw, 8px) clamp(10px, 1.2vw, 12px)",
-                borderRadius: "clamp(6px, 0.8vw, 8px)",
-                border: `1px solid ${colors.border}`,
-                background: colors.cardBg,
-                color: colors.text,
-                fontSize: "clamp(11px, 1.3vw, 12px)",
-                fontWeight: 600,
-                cursor: "pointer",
-                display: "flex",
-                alignItems: "center",
-                gap: "clamp(4px, 0.6vw, 6px)",
-                transition: "all 0.2s",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.opacity = "0.8";
-                e.currentTarget.style.transform = "scale(1.05)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.opacity = "1";
-                e.currentTarget.style.transform = "scale(1)";
-              }}
-            >
-              {theme === "dark" ? "☀️" : "🌙"} {theme === "dark" ? "Light" : "Dark"}
-            </button>
-            <button
-              onClick={exportToPDF}
-              style={{
-                padding: "clamp(6px, 0.8vw, 8px) clamp(10px, 1.2vw, 12px)",
-                borderRadius: "clamp(6px, 0.8vw, 8px)",
-                border: `1px solid ${colors.border}`,
-                background: colors.cardBg,
-                color: colors.text,
-                fontSize: "clamp(11px, 1.3vw, 12px)",
-                fontWeight: 600,
-                cursor: "pointer",
-                display: "flex",
-                alignItems: "center",
-                gap: "clamp(4px, 0.6vw, 6px)",
-                transition: "all 0.2s",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.opacity = "0.8";
-                e.currentTarget.style.transform = "scale(1.05)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.opacity = "1";
-                e.currentTarget.style.transform = "scale(1)";
-              }}
-            >
-              📄 Export PDF
-            </button>
-            <button
-              onClick={handleReset}
-              style={{
-                padding: "clamp(6px, 0.8vw, 8px) clamp(10px, 1.2vw, 12px)",
-                borderRadius: "clamp(6px, 0.8vw, 8px)",
-                border: `1px solid ${colors.border}`,
-                background: colors.cardBg,
-                color: colors.text,
-                fontSize: "clamp(11px, 1.3vw, 12px)",
-                fontWeight: 600,
-                cursor: "pointer",
-                display: "flex",
-                alignItems: "center",
-                gap: "clamp(4px, 0.6vw, 6px)",
-                transition: "all 0.2s",
-              }}
+          padding: isMobile ? "clamp(8px, 2vw, 10px) clamp(12px, 3vw, 14px)" : "clamp(6px, 0.8vw, 8px) clamp(10px, 1.2vw, 12px)",
+          borderRadius: "clamp(6px, 0.8vw, 8px)",
+          border: `1px solid ${colors.border}`,
+          background: colors.cardBg,
+          color: colors.text,
+          fontSize: isMobile ? "clamp(10px, 2.5vw, 11px)" : "clamp(11px, 1.3vw, 12px)",
+          fontWeight: 600,
+          cursor: "pointer",
+          display: "flex",
+          alignItems: "center",
+          gap: isMobile ? "clamp(3px, 1vw, 4px)" : "clamp(4px, 0.6vw, 6px)",
+          transition: "all 0.2s",
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.opacity = "0.8";
+          e.currentTarget.style.transform = "scale(1.05)";
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.opacity = "1";
+          e.currentTarget.style.transform = "scale(1)";
+        }}
+      >
+        {theme === "dark" ? "☀️" : "🌙"} {theme === "dark" ? "Light" : "Dark"}
+      </button>
+      <button
+        onClick={exportToPDF}
+        style={{
+          padding: isMobile ? "clamp(8px, 2vw, 10px) clamp(12px, 3vw, 14px)" : "clamp(6px, 0.8vw, 8px) clamp(10px, 1.2vw, 12px)",
+          borderRadius: "clamp(6px, 0.8vw, 8px)",
+          border: `1px solid ${colors.border}`,
+          background: colors.cardBg,
+          color: colors.text,
+          fontSize: isMobile ? "clamp(10px, 2.5vw, 11px)" : "clamp(11px, 1.3vw, 12px)",
+          fontWeight: 600,
+          cursor: "pointer",
+          display: "flex",
+          alignItems: "center",
+          gap: isMobile ? "clamp(3px, 1vw, 4px)" : "clamp(4px, 0.6vw, 6px)",
+          transition: "all 0.2s",
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.opacity = "0.8";
+          e.currentTarget.style.transform = "scale(1.05)";
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.opacity = "1";
+          e.currentTarget.style.transform = "scale(1)";
+        }}
+      >
+        📄 Export PDF
+      </button>
+      <button
+        onClick={handleReset}
+        style={{
+          padding: isMobile ? "clamp(8px, 2vw, 10px) clamp(12px, 3vw, 14px)" : "clamp(6px, 0.8vw, 8px) clamp(10px, 1.2vw, 12px)",
+          borderRadius: "clamp(6px, 0.8vw, 8px)",
+          border: `1px solid ${colors.border}`,
+          background: colors.cardBg,
+          color: colors.text,
+          fontSize: isMobile ? "clamp(10px, 2.5vw, 11px)" : "clamp(11px, 1.3vw, 12px)",
+          fontWeight: 600,
+          cursor: "pointer",
+          display: "flex",
+          alignItems: "center",
+          gap: isMobile ? "clamp(3px, 1vw, 4px)" : "clamp(4px, 0.6vw, 6px)",
+          transition: "all 0.2s",
+        }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.opacity = "0.8";
                 e.currentTarget.style.transform = "scale(1.05)";
@@ -1001,20 +1062,30 @@ export default function App() {
               <div
                 style={{
                   textAlign: "center",
-                  marginBottom: "clamp(16px, 2vw, 24px)",
-                  marginTop: "clamp(12px, 1.5vw, 20px)",
+                  marginBottom: isMobile 
+                    ? "clamp(12px, 3vw, 16px)"
+                    : "clamp(16px, 2vw, 24px)",
+                  marginTop: isMobile
+                    ? "clamp(8px, 2vw, 12px)"
+                    : "clamp(12px, 1.5vw, 20px)",
                 }}
               >
                 <div style={{ 
-                  fontSize: "clamp(14px, 1.8vw, 16px)", 
+                  fontSize: isMobile
+                    ? "clamp(12px, 3vw, 14px)"
+                    : "clamp(14px, 1.8vw, 16px)", 
                   color: theme === "dark" ? colors.textMuted : "#2B2B2B", 
-                  marginBottom: "clamp(8px, 1vw, 12px)",
+                  marginBottom: isMobile
+                    ? "clamp(6px, 1.5vw, 8px)"
+                    : "clamp(8px, 1vw, 12px)",
                   fontWeight: 600,
                 }}>
                   Age {cur} of {life}
                 </div>
                 <div style={{ 
-                  fontSize: "clamp(24px, 3vw, 32px)", 
+                  fontSize: isMobile
+                    ? "clamp(18px, 4.5vw, 24px)"
+                    : "clamp(24px, 3vw, 32px)", 
                   fontWeight: 900, 
                   color: theme === "dark" ? colors.text : "#1A1A1A",
                   letterSpacing: "-0.02em",
@@ -1029,7 +1100,9 @@ export default function App() {
                 style={{
                   display: "flex",
                   flexDirection: "column",
-                  gap: "clamp(20px, 2.5vw, 28px)",
+                  gap: isMobile
+                    ? "clamp(12px, 3vw, 16px)"
+                    : "clamp(20px, 2.5vw, 28px)",
                 }}
               >
                 {/* The bar */}
@@ -1037,7 +1110,11 @@ export default function App() {
                   className="chart-container"
                   style={{
                     position: "relative",
-                    height: "clamp(100px, 12vh, 160px)",
+                    height: isMobile
+                      ? "clamp(70px, 10vh, 90px)"
+                      : isTablet
+                      ? "clamp(85px, 11vh, 120px)"
+                      : "clamp(100px, 12vh, 160px)",
                     width: "100%",
                     maxWidth: "100%",
                     borderRadius: 999,
@@ -1149,8 +1226,14 @@ export default function App() {
                   className="age-scale"
                   style={{
                     position: "relative",
-                    height: "clamp(48px, 6vh, 64px)",
-                    marginTop: "clamp(8px, 1vw, 12px)",
+                    height: isMobile
+                      ? "clamp(36px, 5vh, 44px)"
+                      : isTablet
+                      ? "clamp(42px, 5.5vh, 52px)"
+                      : "clamp(48px, 6vh, 64px)",
+                    marginTop: isMobile
+                      ? "clamp(6px, 1.5vw, 8px)"
+                      : "clamp(8px, 1vw, 12px)",
                     marginBottom: 0,
                   }}
                 >
@@ -1183,7 +1266,11 @@ export default function App() {
                         />
                         <div
                           style={{
-                            fontSize: "clamp(20px, 2.5vw, 28px)",
+                            fontSize: isMobile
+                              ? "clamp(16px, 4vw, 20px)"
+                              : isTablet
+                              ? "clamp(18px, 2.2vw, 24px)"
+                              : "clamp(20px, 2.5vw, 28px)",
                             fontWeight: 900,
                             color: theme === "dark" ? "#ffffff" : "#1A1A1A",
                             whiteSpace: "nowrap",
@@ -1206,9 +1293,17 @@ export default function App() {
                   className="phase-labels"
                   style={{
                     position: "relative",
-                    height: "clamp(80px, 9vh, 110px)",
-                    marginTop: "clamp(8px, 1vw, 12px)",
-                    marginBottom: "clamp(12px, 1.5vw, 18px)",
+                    height: isMobile
+                      ? "clamp(60px, 8vh, 75px)"
+                      : isTablet
+                      ? "clamp(70px, 8.5vh, 90px)"
+                      : "clamp(80px, 9vh, 110px)",
+                    marginTop: isMobile
+                      ? "clamp(6px, 1.5vw, 8px)"
+                      : "clamp(8px, 1vw, 12px)",
+                    marginBottom: isMobile
+                      ? "clamp(8px, 2vw, 12px)"
+                      : "clamp(12px, 1.5vw, 18px)",
                   }}
                 >
                   {/* Childhood phase */}
@@ -1223,12 +1318,16 @@ export default function App() {
                   >
                     <div
                       style={{
-                        fontSize: "clamp(24px, 3vw, 32px)",
+                        fontSize: isMobile
+                          ? "clamp(18px, 4.5vw, 22px)"
+                          : "clamp(24px, 3vw, 32px)",
                         fontWeight: 900,
                         color: theme === "dark" ? "#9ca3af" : "#2B2B2B",
                         textTransform: "uppercase",
                         letterSpacing: 2,
-                        marginBottom: "clamp(8px, 1vw, 12px)",
+                        marginBottom: isMobile
+                          ? "clamp(6px, 1.5vw, 8px)"
+                          : "clamp(8px, 1vw, 12px)",
                         lineHeight: 1.2,
                       }}
                     >
@@ -1236,7 +1335,9 @@ export default function App() {
                     </div>
                     <div
                       style={{
-                        fontSize: "clamp(18px, 2.3vw, 22px)",
+                        fontSize: isMobile
+                          ? "clamp(14px, 3.5vw, 16px)"
+                          : "clamp(18px, 2.3vw, 22px)",
                         color: theme === "dark" ? "#6b7280" : "#1A1A1A",
                         fontWeight: 700,
                         lineHeight: 1.4,
@@ -1258,7 +1359,9 @@ export default function App() {
                   >
                     <div
                       style={{
-                        fontSize: "clamp(24px, 3vw, 32px)",
+                        fontSize: isMobile
+                          ? "clamp(18px, 4.5vw, 22px)"
+                          : "clamp(24px, 3vw, 32px)",
                         fontWeight: 900,
                         background: "linear-gradient(135deg, #3818A8, #6C34F8)",
                         WebkitBackgroundClip: "text",
@@ -1266,7 +1369,9 @@ export default function App() {
                         backgroundClip: "text",
                         textTransform: "uppercase",
                         letterSpacing: 2,
-                        marginBottom: "clamp(8px, 1vw, 12px)",
+                        marginBottom: window.innerWidth <= 768
+                          ? "clamp(6px, 1.5vw, 8px)"
+                          : "clamp(8px, 1vw, 12px)",
                         lineHeight: 1.2,
                       }}
                     >
@@ -1274,7 +1379,9 @@ export default function App() {
                     </div>
                     <div
                       style={{
-                        fontSize: "clamp(18px, 2.3vw, 22px)",
+                        fontSize: isMobile
+                          ? "clamp(14px, 3.5vw, 16px)"
+                          : "clamp(18px, 2.3vw, 22px)",
                         color: theme === "dark" ? "#6b7280" : "#1A1A1A",
                         fontWeight: 700,
                         lineHeight: 1.4,
@@ -1296,7 +1403,9 @@ export default function App() {
                   >
                     <div
                       style={{
-                        fontSize: "clamp(24px, 3vw, 32px)",
+                        fontSize: isMobile
+                          ? "clamp(18px, 4.5vw, 22px)"
+                          : "clamp(24px, 3vw, 32px)",
                         fontWeight: 900,
                         background: "linear-gradient(135deg, #FAD961, #F76B1C)",
                         WebkitBackgroundClip: "text",
@@ -1304,7 +1413,9 @@ export default function App() {
                         backgroundClip: "text",
                         textTransform: "uppercase",
                         letterSpacing: 2,
-                        marginBottom: "clamp(8px, 1vw, 12px)",
+                        marginBottom: window.innerWidth <= 768
+                          ? "clamp(6px, 1.5vw, 8px)"
+                          : "clamp(8px, 1vw, 12px)",
                         lineHeight: 1.2,
                       }}
                     >
@@ -1312,7 +1423,9 @@ export default function App() {
                     </div>
                     <div
                       style={{
-                        fontSize: "clamp(18px, 2.3vw, 22px)",
+                        fontSize: isMobile
+                          ? "clamp(14px, 3.5vw, 16px)"
+                          : "clamp(18px, 2.3vw, 22px)",
                         color: theme === "dark" ? "#6b7280" : "#1A1A1A",
                         fontWeight: 700,
                         lineHeight: 1.4,
