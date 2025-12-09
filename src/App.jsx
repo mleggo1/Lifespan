@@ -900,6 +900,49 @@ export default function App() {
       >
         📄 Export PDF
       </button>
+      <a
+        href="https://wealthblueprinteducation.vercel.app/contact"
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{
+          textDecoration: "none",
+          display: "inline-block",
+        }}
+      >
+        <button
+          style={{
+            padding: isMobile ? "clamp(8px, 2vw, 10px) clamp(12px, 3vw, 16px)" : "clamp(8px, 1vw, 10px) clamp(14px, 1.8vw, 18px)",
+            borderRadius: "clamp(6px, 0.8vw, 8px)",
+            border: "none",
+            background: "linear-gradient(135deg, #3818A8, #6C34F8, #8B5CF6)",
+            color: "#ffffff",
+            fontSize: isMobile ? "clamp(11px, 2.8vw, 12px)" : "clamp(12px, 1.4vw, 13px)",
+            fontWeight: 700,
+            cursor: "pointer",
+            display: "flex",
+            alignItems: "center",
+            gap: isMobile ? "clamp(4px, 1vw, 5px)" : "clamp(5px, 0.7vw, 6px)",
+            transition: "all 0.3s ease",
+            boxShadow: theme === "dark"
+              ? "0 4px 16px rgba(108, 52, 248, 0.4), 0 0 30px rgba(108, 52, 248, 0.2)"
+              : "0 2px 8px rgba(108, 52, 248, 0.3)",
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.transform = "scale(1.05)";
+            e.currentTarget.style.boxShadow = theme === "dark"
+              ? "0 6px 24px rgba(108, 52, 248, 0.6), 0 0 40px rgba(108, 52, 248, 0.3)"
+              : "0 4px 12px rgba(108, 52, 248, 0.4)";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform = "scale(1)";
+            e.currentTarget.style.boxShadow = theme === "dark"
+              ? "0 4px 16px rgba(108, 52, 248, 0.4), 0 0 30px rgba(108, 52, 248, 0.2)"
+              : "0 2px 8px rgba(108, 52, 248, 0.3)";
+          }}
+        >
+          📞 Book a Call
+        </button>
+      </a>
       <button
         onClick={handleReset}
         style={{
