@@ -20,6 +20,26 @@ if (!document.getElementById('lifespan-styles')) {
       0%, 100% { box-shadow: 0 0 10px rgba(255, 255, 255, 0.3), 0 0 20px rgba(96, 165, 250, 0.4); }
       50% { box-shadow: 0 0 15px rgba(255, 255, 255, 0.5), 0 0 30px rgba(96, 165, 250, 0.6); }
     }
+    @keyframes pulseAttention {
+      0%, 100% { 
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(108, 52, 248, 0.7);
+      }
+      50% { 
+        transform: scale(1.01);
+        box-shadow: 0 0 0 8px rgba(108, 52, 248, 0);
+      }
+    }
+    @keyframes pulseGlow {
+      0%, 100% { 
+        border-color: rgba(108, 52, 248, 0.6);
+        box-shadow: 0 0 20px rgba(108, 52, 248, 0.3), inset 0 1px 2px rgba(255,255,255,0.1);
+      }
+      50% { 
+        border-color: rgba(108, 52, 248, 1);
+        box-shadow: 0 0 40px rgba(108, 52, 248, 0.6), 0 0 60px rgba(108, 52, 248, 0.4), inset 0 1px 2px rgba(255,255,255,0.2);
+      }
+    }
     @keyframes lifeForcePurple {
       0%, 100% { 
         box-shadow: 
@@ -74,6 +94,12 @@ if (!document.getElementById('lifespan-styles')) {
     }
   .glow {
     animation: glow 2s ease-in-out infinite;
+  }
+  .pulse-attention {
+    animation: pulseAttention 2s ease-in-out infinite;
+  }
+  .pulse-glow {
+    animation: pulseGlow 2s ease-in-out infinite;
   }
   html, body {
     margin: 0 !important;
@@ -364,18 +390,27 @@ function WelcomeModal({ currentAge, setCurrentAge, retirementAge, setRetirementA
         
         <form onSubmit={handleSubmit}>
           <div style={{ display: "flex", flexDirection: "column", gap: "clamp(20px, 2.5vw, 28px)" }}>
-            {/* Current Age */}
-            <div>
+            {/* Current Age - with pulsing animation to draw attention */}
+            <div className="pulse-attention" style={{ 
+              padding: "clamp(12px, 1.5vw, 16px)",
+              borderRadius: "clamp(12px, 1.5vw, 16px)",
+              background: theme === "dark"
+                ? "linear-gradient(135deg, rgba(56, 24, 168, 0.15), rgba(108, 52, 248, 0.1))"
+                : "linear-gradient(135deg, rgba(108, 52, 248, 0.08), rgba(139, 92, 246, 0.05))",
+              border: `2px solid ${theme === "dark" ? "rgba(108, 52, 248, 0.4)" : "rgba(108, 52, 248, 0.3)"}`,
+              transition: "all 0.3s ease",
+            }}>
               <label
                 style={{
                   display: "block",
                   fontSize: "clamp(16px, 2vw, 18px)",
                   fontWeight: 700,
-                  color: colors.text,
+                  color: theme === "dark" ? "#a78bfa" : "#6C34F8",
                   marginBottom: "clamp(8px, 1vw, 12px)",
+                  textShadow: theme === "dark" ? "0 0 10px rgba(167, 139, 250, 0.5)" : "none",
                 }}
               >
-                Current age
+                Current age ✨
               </label>
               <WelcomeSliderRow
                 value={localCurrentAge}
@@ -385,6 +420,8 @@ function WelcomeModal({ currentAge, setCurrentAge, retirementAge, setRetirementA
                 theme={theme}
                 colors={colors}
                 MAX_AGE={MAX_AGE}
+                clamp={clamp}
+                isPulsing={true}
               />
             </div>
             
@@ -502,19 +539,20 @@ function WelcomeModal({ currentAge, setCurrentAge, retirementAge, setRetirementA
 }
 
 /** Welcome Modal Slider Row */
-function WelcomeSliderRow({ value, setValue, min, max, theme, colors, MAX_AGE, isHighlighted = false }) {
+function WelcomeSliderRow({ value, setValue, min, max, theme, colors, MAX_AGE, clamp, isHighlighted = false, isPulsing = false }) {
   const numValue = Number(value) || min;
   const clampedValue = clamp(numValue, min, max);
   
   return (
     <div
+      className={isPulsing ? "pulse-glow" : ""}
       style={{
         padding: "clamp(12px, 1.5vw, 16px)",
         borderRadius: "clamp(12px, 1.5vw, 16px)",
         background: theme === "dark"
           ? "rgba(15,23,42,0.6)"
           : "rgba(248,250,252,0.5)",
-        border: `1px solid ${isHighlighted ? (theme === "dark" ? "rgba(108, 52, 248, 0.6)" : "rgba(108, 52, 248, 0.5)") : colors.border}`,
+        border: `1px solid ${isPulsing || isHighlighted ? (theme === "dark" ? "rgba(108, 52, 248, 0.6)" : "rgba(108, 52, 248, 0.5)") : colors.border}`,
       }}
     >
       <div
@@ -591,11 +629,8 @@ export default function App() {
   const isMobile = windowWidth <= 768;
   const isTablet = windowWidth > 768 && windowWidth <= 1024;
   
-  // Check if user has completed the welcome modal
-  const [hasCompletedWelcome, setHasCompletedWelcome] = useState(() => {
-    const saved = localStorage.getItem('lifespan-welcome-completed');
-    return saved === 'true';
-  });
+  // Always show welcome modal on app load - don't check localStorage
+  const [hasCompletedWelcome, setHasCompletedWelcome] = useState(false);
   
   const [currentAge, setCurrentAge] = useState(() => {
     const saved = localStorage.getItem('lifespan-current-age');
@@ -614,17 +649,11 @@ export default function App() {
   const [bigGoal, setBigGoal] = useState("Freedom to live life on your terms — every day, not someday.");
   const [theme, setTheme] = useState("dark"); // 'dark' or 'light'
   
-  // Welcome modal state - use defaults if not completed before
-  const [showWelcome, setShowWelcome] = useState(!hasCompletedWelcome);
-  const [welcomeCurrentAge, setWelcomeCurrentAge] = useState(() => {
-    return hasCompletedWelcome ? currentAge : 42;
-  });
-  const [welcomeRetirement, setWelcomeRetirement] = useState(() => {
-    return hasCompletedWelcome ? freedomAge : 65;
-  });
-  const [welcomeLifeExpectancy, setWelcomeLifeExpectancy] = useState(() => {
-    return hasCompletedWelcome ? lifeExpectancy : 81;
-  });
+  // Welcome modal state - always show on load with defaults
+  const [showWelcome, setShowWelcome] = useState(true);
+  const [welcomeCurrentAge, setWelcomeCurrentAge] = useState(42);
+  const [welcomeRetirement, setWelcomeRetirement] = useState(65);
+  const [welcomeLifeExpectancy, setWelcomeLifeExpectancy] = useState(81);
 
   const data = useMemo(() => {
     const cur = clamp(currentAge, 0, MAX_AGE);
@@ -721,21 +750,20 @@ export default function App() {
     setFreedomAge(retAge);
     setLifeExpectancy(lifeExp);
     
-    // Save to localStorage
+    // Save to localStorage (but don't save welcome-completed - always show modal on reload)
     localStorage.setItem('lifespan-current-age', String(curAge));
     localStorage.setItem('lifespan-freedom-age', String(retAge));
     localStorage.setItem('lifespan-life-expectancy', String(lifeExp));
-    localStorage.setItem('lifespan-welcome-completed', 'true');
+    // Note: We intentionally DON'T save 'lifespan-welcome-completed' so modal always shows on reload
     
-    // Close modal
+    // Close modal for this session
     setHasCompletedWelcome(true);
     setShowWelcome(false);
   };
   
-  // Reset button handler - clears localStorage and shows welcome modal again
+  // Reset button handler - resets values and shows welcome modal again
   const handleReset = () => {
     // Clear localStorage
-    localStorage.removeItem('lifespan-welcome-completed');
     localStorage.removeItem('lifespan-current-age');
     localStorage.removeItem('lifespan-freedom-age');
     localStorage.removeItem('lifespan-life-expectancy');
