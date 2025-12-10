@@ -264,7 +264,7 @@ function percent(n) {
 }
 
 /** Welcome Modal Component */
-function WelcomeModal({ currentAge, setCurrentAge, retirementAge, setRetirementAge, lifeExpectancy, setLifeExpectancy, onSubmit, theme, MAX_AGE, clamp, isMobile }) {
+function WelcomeModal({ currentAge, setCurrentAge, retirementAge, setRetirementAge, lifeExpectancy, setLifeExpectancy, onSubmit, theme, MAX_AGE, clamp, isMobile = false }) {
   const [localCurrentAge, setLocalCurrentAge] = useState(String(currentAge));
   const [localRetirement, setLocalRetirement] = useState(String(retirementAge));
   const [localLifeExpectancy, setLocalLifeExpectancy] = useState(String(lifeExpectancy));
@@ -405,9 +405,9 @@ function WelcomeModal({ currentAge, setCurrentAge, retirementAge, setRetirementA
                   display: "block",
                   fontSize: "clamp(16px, 2vw, 18px)",
                   fontWeight: 700,
-                  color: theme === "dark" ? "#a78bfa" : "#6C34F8",
+                  color: "#ffffff",
                   marginBottom: "clamp(8px, 1vw, 12px)",
-                  textShadow: theme === "dark" ? "0 0 10px rgba(167, 139, 250, 0.5)" : "none",
+                  textShadow: theme === "dark" ? "0 0 10px rgba(255, 255, 255, 0.3)" : "0 1px 2px rgba(0, 0, 0, 0.1)",
                 }}
               >
                 Current age ✨
@@ -446,6 +446,7 @@ function WelcomeModal({ currentAge, setCurrentAge, retirementAge, setRetirementA
                 theme={theme}
                 colors={colors}
                 MAX_AGE={MAX_AGE}
+                clamp={clamp}
                 isHighlighted={true}
               />
             </div>
@@ -471,6 +472,7 @@ function WelcomeModal({ currentAge, setCurrentAge, retirementAge, setRetirementA
                 theme={theme}
                 colors={colors}
                 MAX_AGE={MAX_AGE}
+                clamp={clamp}
               />
             </div>
           </div>
@@ -649,8 +651,13 @@ export default function App() {
   const [bigGoal, setBigGoal] = useState("Freedom to live life on your terms — every day, not someday.");
   const [theme, setTheme] = useState("dark"); // 'dark' or 'light'
   
-  // Welcome modal state - always show on load with defaults
+  // Welcome modal state - ALWAYS show on load (never check localStorage)
   const [showWelcome, setShowWelcome] = useState(true);
+  
+  // Force show welcome modal on every page load
+  useEffect(() => {
+    setShowWelcome(true);
+  }, []);
   const [welcomeCurrentAge, setWelcomeCurrentAge] = useState(42);
   const [welcomeRetirement, setWelcomeRetirement] = useState(65);
   const [welcomeLifeExpectancy, setWelcomeLifeExpectancy] = useState(81);
@@ -806,6 +813,7 @@ export default function App() {
         theme={theme}
         MAX_AGE={MAX_AGE}
         clamp={clamp}
+        isMobile={isMobile}
       />
     );
   }
