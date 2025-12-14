@@ -1740,6 +1740,155 @@ export default function App() {
               </div>
             </section>
 
+            {/* True Wealth Philosophy - Emotional Impact Section */}
+            <section
+              style={{
+                padding: "clamp(20px, 2.5vw, 28px)",
+                borderRadius: "clamp(14px, 1.8vw, 18px)",
+                border: `2px solid ${theme === "dark" ? "rgba(108, 52, 248, 0.4)" : "rgba(108, 52, 248, 0.3)"}`,
+                background: theme === "dark"
+                  ? "linear-gradient(135deg, rgba(56, 24, 168, 0.2), rgba(108, 52, 248, 0.15), rgba(15,23,42,0.95))"
+                  : "linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(108, 52, 248, 0.08), rgba(255,255,255,0.98))",
+                fontSize: "clamp(15px, 1.9vw, 17px)",
+                width: "100%",
+                maxWidth: "100%",
+                boxSizing: "border-box",
+                boxShadow: theme === "dark"
+                  ? "0 8px 32px rgba(108, 52, 248, 0.2), inset 0 1px 0 rgba(255,255,255,0.05)"
+                  : "0 4px 16px rgba(108, 52, 248, 0.15), inset 0 1px 0 rgba(255,255,255,0.9)",
+              }}
+            >
+              <div style={{
+                textAlign: "center",
+                marginBottom: "clamp(16px, 2vw, 20px)",
+              }}>
+                <div style={{
+                  fontSize: "clamp(12px, 1.5vw, 14px)",
+                  textTransform: "uppercase",
+                  letterSpacing: 3,
+                  color: theme === "dark" ? "#a78bfa" : "#6C34F8",
+                  fontWeight: 700,
+                  marginBottom: "clamp(8px, 1vw, 12px)",
+                }}>
+                  The Real Blueprint
+                </div>
+                <h2
+                  style={{
+                    margin: "0 0 clamp(16px, 2vw, 20px)",
+                    fontSize: "clamp(24px, 3.5vw, 32px)",
+                    fontWeight: 900,
+                    background: "linear-gradient(135deg, #FBBF24, #F76B1C, #EA580C)",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                    backgroundClip: "text",
+                    letterSpacing: "-0.02em",
+                    lineHeight: 1.2,
+                  }}
+                >
+                  True Wealth
+                </h2>
+              </div>
+              
+              <div style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "clamp(20px, 2.5vw, 28px)",
+              }}>
+                <div style={{
+                  padding: "clamp(16px, 2vw, 20px)",
+                  borderRadius: "clamp(12px, 1.5vw, 16px)",
+                  background: theme === "dark" 
+                    ? "rgba(15,23,42,0.6)"
+                    : "rgba(248,250,252,0.8)",
+                  border: `1px solid ${theme === "dark" ? "rgba(108, 52, 248, 0.3)" : "rgba(108, 52, 248, 0.2)"}`,
+                }}>
+                  <p style={{
+                    margin: 0,
+                    fontSize: "clamp(18px, 2.5vw, 24px)",
+                    fontWeight: 700,
+                    color: colors.text,
+                    lineHeight: 1.6,
+                    textAlign: "center",
+                  }}>
+                    True wealth = <span style={{
+                      color: theme === "dark" ? "#a78bfa" : "#6C34F8",
+                      fontWeight: 900,
+                    }}>years</span> you can still do what you love +<br/>
+                    the <span style={{
+                      color: theme === "dark" ? "#06b6d4" : "#0891b2",
+                      fontWeight: 900,
+                    }}>health</span> to enjoy it +<br/>
+                    the <span style={{
+                      color: theme === "dark" ? "#fbbf24" : "#f59e0b",
+                      fontWeight: 900,
+                    }}>money</span> to afford it.
+                  </p>
+                </div>
+
+                <div style={{
+                  padding: "clamp(16px, 2vw, 20px)",
+                  borderRadius: "clamp(12px, 1.5vw, 16px)",
+                  background: theme === "dark" 
+                    ? "rgba(15,23,42,0.6)"
+                    : "rgba(248,250,252,0.8)",
+                  border: `1px solid ${theme === "dark" ? "rgba(108, 52, 248, 0.3)" : "rgba(108, 52, 248, 0.2)"}`,
+                }}>
+                  <p style={{
+                    margin: 0,
+                    fontSize: "clamp(16px, 2.2vw, 20px)",
+                    fontWeight: 600,
+                    color: colors.textSecondary,
+                    lineHeight: 1.8,
+                    textAlign: "center",
+                  }}>
+                    Your <strong style={{
+                      color: theme === "dark" ? "#a78bfa" : "#6C34F8",
+                      fontWeight: 800,
+                    }}>financial plan</strong> buys freedom.<br/>
+                    Your <strong style={{
+                      color: theme === "dark" ? "#06b6d4" : "#0891b2",
+                      fontWeight: 800,
+                    }}>physical plan</strong> protects your ability to experience it.
+                  </p>
+                </div>
+
+                <div style={{
+                  padding: "clamp(20px, 2.5vw, 28px)",
+                  borderRadius: "clamp(12px, 1.5vw, 16px)",
+                  background: theme === "dark"
+                    ? "linear-gradient(135deg, rgba(251, 191, 36, 0.15), rgba(247, 107, 28, 0.1))"
+                    : "linear-gradient(135deg, rgba(251, 191, 36, 0.1), rgba(247, 107, 28, 0.08))",
+                  border: `2px solid ${theme === "dark" ? "rgba(251, 191, 36, 0.4)" : "rgba(247, 107, 28, 0.3)"}`,
+                  textAlign: "center",
+                }}>
+                  <p style={{
+                    margin: 0,
+                    fontSize: "clamp(20px, 3vw, 28px)",
+                    fontWeight: 900,
+                    background: "linear-gradient(135deg, #FBBF24, #F76B1C)",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                    backgroundClip: "text",
+                    lineHeight: 1.4,
+                    fontStyle: "italic",
+                  }}>
+                    "In the end, the question isn't<br/>
+                    <span style={{ fontSize: "clamp(24px, 3.5vw, 32px)" }}>'How long will I live?'</span><br/>
+                    It's <span style={{ fontSize: "clamp(24px, 3.5vw, 32px)", fontWeight: 900 }}>'How long will I live well?'</span>"
+                  </p>
+                  <div style={{
+                    marginTop: "clamp(16px, 2vw, 20px)",
+                    fontSize: "clamp(16px, 2.2vw, 20px)",
+                    fontWeight: 700,
+                    color: colors.text,
+                    letterSpacing: "0.05em",
+                  }}>
+                    That's the real blueprint.
+                  </div>
+                </div>
+              </div>
+            </section>
+
             {/* Coaching / prompts */}
             <section
               style={{
