@@ -865,10 +865,11 @@ export default function App() {
         {/* Header with controls */}
         <header
           style={{
-            marginBottom: "clamp(8px, 1vw, 14px)",
+            marginBottom: "clamp(24px, 3vw, 40px)",
             position: "relative",
             background: "transparent",
             zIndex: 1,
+            paddingTop: "clamp(8px, 1vw, 12px)",
           }}
         >
           {/* Theme toggle and PDF export buttons */}
@@ -1028,7 +1029,7 @@ export default function App() {
             </div>
             <h1
               style={{
-                margin: "clamp(8px, 1.2vw, 14px) 0 clamp(10px, 1.5vw, 18px) 0",
+                margin: "clamp(32px, 4vw, 48px) 0 clamp(10px, 1.5vw, 18px) 0",
                 fontSize: "clamp(28px, 6vw, 56px)",
                 fontWeight: 900,
                 lineHeight: 1.1,
@@ -1102,11 +1103,12 @@ export default function App() {
           className="lifespan-grid"
           style={{
             display: "grid",
-            gridTemplateColumns: "1fr",
+            gridTemplateColumns: isMobile || isTablet ? "1fr" : "minmax(0, 1.6fr) minmax(0, 1.1fr)",
             gap: "clamp(16px, 2vw, 20px)",
             width: "100%",
             maxWidth: "100%",
             boxSizing: "border-box",
+            alignItems: "start",
           }}
         >
           {/* Left: Timeline + sliders */}
@@ -1121,7 +1123,7 @@ export default function App() {
             {/* Main bar */}
             <section
               style={{
-                padding: "clamp(12px, 1.5vw, 16px)",
+                padding: "clamp(20px, 2.5vw, 28px)",
                 borderRadius: "clamp(14px, 1.8vw, 18px)",
                 border: theme === "dark" 
                   ? "1px solid rgba(148,163,184,0.45)"
@@ -1135,7 +1137,7 @@ export default function App() {
                 width: "100%",
                 maxWidth: "100%",
                 boxSizing: "border-box",
-                overflow: "hidden",
+                overflow: "visible",
               }}
             >
               <div
@@ -1197,7 +1199,7 @@ export default function App() {
                     width: "100%",
                     maxWidth: "100%",
                     borderRadius: 999,
-                    overflow: "hidden",
+                    overflow: "visible",
                     background: theme === "dark"
                       ? "rgba(15,23,42,0.95)"
                       : "rgba(255,255,255,1)",
@@ -1674,6 +1676,7 @@ export default function App() {
             width: "100%",
             maxWidth: "100%",
             boxSizing: "border-box",
+            height: isMobile || isTablet ? "auto" : "100%",
           }}>
             {/* Snapshot cards */}
             <section
@@ -1687,6 +1690,7 @@ export default function App() {
                 width: "100%",
                 maxWidth: "100%",
                 boxSizing: "border-box",
+                flexShrink: 0,
               }}
             >
               <h2
@@ -1743,39 +1747,39 @@ export default function App() {
             {/* True Wealth Philosophy - Emotional Impact Section */}
             <section
               style={{
-                padding: "clamp(20px, 2.5vw, 28px)",
+                padding: "clamp(14px, 1.8vw, 20px)",
                 borderRadius: "clamp(14px, 1.8vw, 18px)",
-                border: `2px solid ${theme === "dark" ? "rgba(108, 52, 248, 0.4)" : "rgba(108, 52, 248, 0.3)"}`,
+                border: `1px solid ${colors.border}`,
                 background: theme === "dark"
-                  ? "linear-gradient(135deg, rgba(56, 24, 168, 0.2), rgba(108, 52, 248, 0.15), rgba(15,23,42,0.95))"
-                  : "linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(108, 52, 248, 0.08), rgba(255,255,255,0.98))",
+                  ? "linear-gradient(135deg, rgba(56, 24, 168, 0.15), rgba(108, 52, 248, 0.1), rgba(15,23,42,0.98))"
+                  : "linear-gradient(135deg, rgba(139, 92, 246, 0.08), rgba(108, 52, 248, 0.05), rgba(255,255,255,0.98))",
                 fontSize: "clamp(15px, 1.9vw, 17px)",
                 width: "100%",
                 maxWidth: "100%",
                 boxSizing: "border-box",
-                boxShadow: theme === "dark"
-                  ? "0 8px 32px rgba(108, 52, 248, 0.2), inset 0 1px 0 rgba(255,255,255,0.05)"
-                  : "0 4px 16px rgba(108, 52, 248, 0.15), inset 0 1px 0 rgba(255,255,255,0.9)",
+                flex: isMobile || isTablet ? "0 1 auto" : "1 1 auto",
+                display: "flex",
+                flexDirection: "column",
               }}
             >
               <div style={{
                 textAlign: "center",
-                marginBottom: "clamp(16px, 2vw, 20px)",
+                marginBottom: "clamp(12px, 1.5vw, 16px)",
               }}>
                 <div style={{
-                  fontSize: "clamp(12px, 1.5vw, 14px)",
+                  fontSize: "clamp(11px, 1.3vw, 13px)",
                   textTransform: "uppercase",
                   letterSpacing: 3,
                   color: theme === "dark" ? "#a78bfa" : "#6C34F8",
                   fontWeight: 700,
-                  marginBottom: "clamp(8px, 1vw, 12px)",
+                  marginBottom: "clamp(6px, 0.8vw, 8px)",
                 }}>
                   The Real Blueprint
                 </div>
                 <h2
                   style={{
-                    margin: "0 0 clamp(16px, 2vw, 20px)",
-                    fontSize: "clamp(24px, 3.5vw, 32px)",
+                    margin: "0 0 clamp(12px, 1.5vw, 16px)",
+                    fontSize: "clamp(20px, 2.5vw, 24px)",
                     fontWeight: 900,
                     background: "linear-gradient(135deg, #FBBF24, #F76B1C, #EA580C)",
                     WebkitBackgroundClip: "text",
@@ -1792,11 +1796,11 @@ export default function App() {
               <div style={{
                 display: "flex",
                 flexDirection: "column",
-                gap: "clamp(20px, 2.5vw, 28px)",
+                gap: "clamp(12px, 1.5vw, 16px)",
               }}>
                 <div style={{
-                  padding: "clamp(16px, 2vw, 20px)",
-                  borderRadius: "clamp(12px, 1.5vw, 16px)",
+                  padding: "clamp(14px, 1.8vw, 18px)",
+                  borderRadius: "clamp(10px, 1.2vw, 12px)",
                   background: theme === "dark" 
                     ? "rgba(15,23,42,0.6)"
                     : "rgba(248,250,252,0.8)",
@@ -1804,10 +1808,10 @@ export default function App() {
                 }}>
                   <p style={{
                     margin: 0,
-                    fontSize: "clamp(18px, 2.5vw, 24px)",
+                    fontSize: "clamp(16px, 2.2vw, 20px)",
                     fontWeight: 700,
                     color: colors.text,
-                    lineHeight: 1.6,
+                    lineHeight: 1.5,
                     textAlign: "center",
                   }}>
                     True wealth = <span style={{
@@ -1826,8 +1830,8 @@ export default function App() {
                 </div>
 
                 <div style={{
-                  padding: "clamp(16px, 2vw, 20px)",
-                  borderRadius: "clamp(12px, 1.5vw, 16px)",
+                  padding: "clamp(14px, 1.8vw, 18px)",
+                  borderRadius: "clamp(10px, 1.2vw, 12px)",
                   background: theme === "dark" 
                     ? "rgba(15,23,42,0.6)"
                     : "rgba(248,250,252,0.8)",
@@ -1835,10 +1839,10 @@ export default function App() {
                 }}>
                   <p style={{
                     margin: 0,
-                    fontSize: "clamp(16px, 2.2vw, 20px)",
+                    fontSize: "clamp(15px, 2vw, 18px)",
                     fontWeight: 600,
                     color: colors.textSecondary,
-                    lineHeight: 1.8,
+                    lineHeight: 1.7,
                     textAlign: "center",
                   }}>
                     Your <strong style={{
@@ -1853,17 +1857,17 @@ export default function App() {
                 </div>
 
                 <div style={{
-                  padding: "clamp(20px, 2.5vw, 28px)",
-                  borderRadius: "clamp(12px, 1.5vw, 16px)",
+                  padding: "clamp(16px, 2vw, 20px)",
+                  borderRadius: "clamp(10px, 1.2vw, 12px)",
                   background: theme === "dark"
-                    ? "linear-gradient(135deg, rgba(251, 191, 36, 0.15), rgba(247, 107, 28, 0.1))"
-                    : "linear-gradient(135deg, rgba(251, 191, 36, 0.1), rgba(247, 107, 28, 0.08))",
-                  border: `2px solid ${theme === "dark" ? "rgba(251, 191, 36, 0.4)" : "rgba(247, 107, 28, 0.3)"}`,
+                    ? "linear-gradient(135deg, rgba(251, 191, 36, 0.12), rgba(247, 107, 28, 0.08))"
+                    : "linear-gradient(135deg, rgba(251, 191, 36, 0.08), rgba(247, 107, 28, 0.06))",
+                  border: `1px solid ${theme === "dark" ? "rgba(251, 191, 36, 0.3)" : "rgba(247, 107, 28, 0.25)"}`,
                   textAlign: "center",
                 }}>
                   <p style={{
                     margin: 0,
-                    fontSize: "clamp(20px, 3vw, 28px)",
+                    fontSize: "clamp(18px, 2.5vw, 24px)",
                     fontWeight: 900,
                     background: "linear-gradient(135deg, #FBBF24, #F76B1C)",
                     WebkitBackgroundClip: "text",
@@ -1873,12 +1877,12 @@ export default function App() {
                     fontStyle: "italic",
                   }}>
                     "In the end, the question isn't<br/>
-                    <span style={{ fontSize: "clamp(24px, 3.5vw, 32px)" }}>'How long will I live?'</span><br/>
-                    It's <span style={{ fontSize: "clamp(24px, 3.5vw, 32px)", fontWeight: 900 }}>'How long will I live well?'</span>"
+                    <span style={{ fontSize: "clamp(20px, 2.8vw, 26px)" }}>'How long will I live?'</span><br/>
+                    It's <span style={{ fontSize: "clamp(20px, 2.8vw, 26px)", fontWeight: 900 }}>'How long will I live well?'</span>"
                   </p>
                   <div style={{
-                    marginTop: "clamp(16px, 2vw, 20px)",
-                    fontSize: "clamp(16px, 2.2vw, 20px)",
+                    marginTop: "clamp(12px, 1.5vw, 16px)",
+                    fontSize: "clamp(15px, 2vw, 18px)",
                     fontWeight: 700,
                     color: colors.text,
                     letterSpacing: "0.05em",
@@ -1888,22 +1892,25 @@ export default function App() {
                 </div>
               </div>
             </section>
+          </div>
+        </div>
 
-            {/* Coaching / prompts */}
-            <section
-              style={{
-                padding: "clamp(14px, 1.8vw, 20px)",
-                borderRadius: "clamp(14px, 1.8vw, 18px)",
-                border: `1px solid ${colors.border}`,
-                background: theme === "dark"
-                  ? "linear-gradient(135deg, rgba(15,23,42,0.98), rgba(30,58,138,0.3))"
-                  : "linear-gradient(135deg, rgba(255,255,255,0.98), rgba(241,245,249,0.5))",
-                fontSize: "clamp(15px, 1.9vw, 17px)",
-                width: "100%",
-                maxWidth: "100%",
-                boxSizing: "border-box",
-              }}
-            >
+        {/* Questions to Consider - Full Width at Bottom */}
+        <section
+          style={{
+            padding: "clamp(14px, 1.8vw, 20px)",
+            borderRadius: "clamp(14px, 1.8vw, 18px)",
+            border: `1px solid ${colors.border}`,
+            background: theme === "dark"
+              ? "linear-gradient(135deg, rgba(15,23,42,0.98), rgba(30,58,138,0.3))"
+              : "linear-gradient(135deg, rgba(255,255,255,0.98), rgba(241,245,249,0.5))",
+            fontSize: "clamp(15px, 1.9vw, 17px)",
+            width: "100%",
+            maxWidth: "100%",
+            boxSizing: "border-box",
+            marginTop: "clamp(16px, 2vw, 20px)",
+          }}
+        >
               <h2
                 style={{
                   margin: "0 0 clamp(10px, 1.2vw, 14px)",
@@ -2032,9 +2039,7 @@ export default function App() {
                 </div>
               </div>
             </section>
-          </div>
         </div>
-      </div>
       </div>
     </div>
   );
@@ -2159,36 +2164,55 @@ function CurrentAgeMarker({ positionPct, age, theme = "dark" }) {
       style={{
         position: "absolute",
         left: `${left}%`,
-        top: 0,
+        top: "-12px",
         bottom: 0,
         pointerEvents: "none",
         transform: "translateX(-50%)",
+        zIndex: 100,
       }}
     >
+      {/* Downward pointing arrow on top - larger and more visible */}
       <div
         style={{
           position: "absolute",
-          top: 0,
-          bottom: 0,
+          top: "0px",
           left: "50%",
-          width: 5,
-          borderRadius: 999,
-          background: theme === "dark"
-            ? "linear-gradient(180deg, rgba(255,255,255,0.95), rgba(96,165,250,0.9))"
-            : "linear-gradient(180deg, rgba(56,24,168,0.95), rgba(108,52,248,0.9))",
-          boxShadow: theme === "dark"
-            ? `
-              0 0 16px rgba(255, 255, 255, 0.8),
-              0 0 32px rgba(96, 165, 250, 0.6),
-              0 0 48px rgba(96, 165, 250, 0.4)
-            `
-            : `
-              0 0 16px rgba(56, 24, 168, 0.5),
-              0 0 32px rgba(108, 52, 248, 0.4),
-              0 0 48px rgba(108, 52, 248, 0.3)
-            `,
+          transform: "translateX(-50%)",
+          width: 0,
+          height: 0,
+          borderLeft: "8px solid transparent",
+          borderRight: "8px solid transparent",
+          borderTop: "12px solid #ffffff",
+          filter: "drop-shadow(0 2px 6px rgba(0, 0, 0, 0.5))",
+          zIndex: 101,
         }}
       />
+      
+      {/* Clear white vertical line - thicker and more prominent */}
+      <div
+        style={{
+          position: "absolute",
+          top: "12px",
+          bottom: 0,
+          left: "50%",
+          width: 4,
+          transform: "translateX(-50%)",
+          background: "#ffffff",
+          boxShadow: theme === "dark"
+            ? `
+              0 0 10px rgba(255, 255, 255, 1),
+              0 0 20px rgba(255, 255, 255, 0.8),
+              0 0 30px rgba(255, 255, 255, 0.6)
+            `
+            : `
+              0 0 6px rgba(255, 255, 255, 1),
+              0 0 12px rgba(0, 0, 0, 0.3),
+              0 2px 4px rgba(0, 0, 0, 0.2)
+            `,
+          zIndex: 100,
+        }}
+      />
+      
       <div
         style={{
           position: "absolute",
@@ -2211,6 +2235,7 @@ function CurrentAgeMarker({ positionPct, age, theme = "dark" }) {
             ? "0 0 8px rgba(255, 255, 255, 0.5)"
             : "0 2px 4px rgba(0, 0, 0, 0.2)",
           filter: theme === "dark" ? "brightness(1.1)" : "none",
+          zIndex: 102,
         }}
       >
         {age}
