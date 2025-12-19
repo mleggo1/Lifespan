@@ -1890,6 +1890,57 @@ export default function App() {
                     That's the real blueprint.
                   </div>
                 </div>
+                
+                {/* Goals Blueprint Call-to-Action */}
+                <div style={{
+                  marginTop: "clamp(16px, 2vw, 20px)",
+                  textAlign: "center",
+                }}>
+                  <a
+                    href="https://goalsblueprint.vercel.app/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      textDecoration: "none",
+                      display: "inline-block",
+                    }}
+                  >
+                    <button
+                      style={{
+                        padding: isMobile ? "clamp(12px, 3vw, 14px) clamp(20px, 5vw, 24px)" : "clamp(14px, 1.8vw, 16px) clamp(24px, 3vw, 32px)",
+                        borderRadius: "clamp(10px, 1.2vw, 12px)",
+                        border: "none",
+                        background: "linear-gradient(135deg, #FBBF24, #F76B1C, #EA580C)",
+                        color: "#ffffff",
+                        fontSize: isMobile ? "clamp(14px, 3.5vw, 16px)" : "clamp(16px, 2vw, 18px)",
+                        fontWeight: 800,
+                        cursor: "pointer",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: isMobile ? "clamp(6px, 1.5vw, 8px)" : "clamp(8px, 1vw, 10px)",
+                        transition: "all 0.3s ease",
+                        boxShadow: theme === "dark"
+                          ? "0 4px 16px rgba(251, 191, 36, 0.4), 0 0 30px rgba(247, 107, 28, 0.3)"
+                          : "0 2px 8px rgba(247, 107, 28, 0.3)",
+                        margin: "0 auto",
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.transform = "scale(1.05)";
+                        e.currentTarget.style.boxShadow = theme === "dark"
+                          ? "0 6px 24px rgba(251, 191, 36, 0.6), 0 0 40px rgba(247, 107, 28, 0.5)"
+                          : "0 4px 12px rgba(247, 107, 28, 0.4)";
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.transform = "scale(1)";
+                        e.currentTarget.style.boxShadow = theme === "dark"
+                          ? "0 4px 16px rgba(251, 191, 36, 0.4), 0 0 30px rgba(247, 107, 28, 0.3)"
+                          : "0 2px 8px rgba(247, 107, 28, 0.3)";
+                      }}
+                    >
+                      🎯 Set Some Goals → Go to Goals Blueprint
+                    </button>
+                  </a>
+                </div>
               </div>
             </section>
           </div>
@@ -2036,6 +2087,59 @@ export default function App() {
                         : "0 2px 8px rgba(251, 191, 36, 0.4)",
                     }}>{yearsAfterFreedom}</strong> precious years left. How will you use them?
                   </p>
+                </div>
+                
+                {/* Goals Blueprint Link */}
+                <div style={{
+                  marginTop: "clamp(20px, 2.5vw, 28px)",
+                  textAlign: "center",
+                  paddingTop: "clamp(16px, 2vw, 20px)",
+                  borderTop: `1px solid ${colors.border}`,
+                }}>
+                  <a
+                    href="https://goalsblueprint.vercel.app/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      textDecoration: "none",
+                      display: "inline-block",
+                    }}
+                  >
+                    <button
+                      style={{
+                        padding: isMobile ? "clamp(12px, 3vw, 14px) clamp(20px, 5vw, 24px)" : "clamp(14px, 1.8vw, 16px) clamp(24px, 3vw, 32px)",
+                        borderRadius: "clamp(10px, 1.2vw, 12px)",
+                        border: "none",
+                        background: "linear-gradient(135deg, #FBBF24, #F76B1C, #EA580C)",
+                        color: "#ffffff",
+                        fontSize: isMobile ? "clamp(14px, 3.5vw, 16px)" : "clamp(16px, 2vw, 18px)",
+                        fontWeight: 800,
+                        cursor: "pointer",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: isMobile ? "clamp(6px, 1.5vw, 8px)" : "clamp(8px, 1vw, 10px)",
+                        transition: "all 0.3s ease",
+                        boxShadow: theme === "dark"
+                          ? "0 4px 16px rgba(251, 191, 36, 0.4), 0 0 30px rgba(247, 107, 28, 0.3)"
+                          : "0 2px 8px rgba(247, 107, 28, 0.3)",
+                        margin: "0 auto",
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.transform = "scale(1.05)";
+                        e.currentTarget.style.boxShadow = theme === "dark"
+                          ? "0 6px 24px rgba(251, 191, 36, 0.6), 0 0 40px rgba(247, 107, 28, 0.5)"
+                          : "0 4px 12px rgba(247, 107, 28, 0.4)";
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.transform = "scale(1)";
+                        e.currentTarget.style.boxShadow = theme === "dark"
+                          ? "0 4px 16px rgba(251, 191, 36, 0.4), 0 0 30px rgba(247, 107, 28, 0.3)"
+                          : "0 2px 8px rgba(247, 107, 28, 0.3)";
+                      }}
+                    >
+                      🎯 Set Some Goals → Go to Goals Blueprint
+                    </button>
+                  </a>
                 </div>
               </div>
             </section>
