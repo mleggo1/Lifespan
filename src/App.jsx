@@ -323,12 +323,15 @@ function WelcomeModal({ currentAge, setCurrentAge, retirementAge, setRetirementA
         bottom: 0,
         background: colors.bg,
         display: "flex",
-        alignItems: "center",
+        alignItems: isMobile ? "flex-start" : "center",
         justifyContent: "center",
-        padding: isMobile ? "clamp(12px, 3vw, 16px)" : "clamp(16px, 4vw, 32px)",
+        padding: isMobile ? "clamp(16px, 4vw, 20px) clamp(12px, 3vw, 16px)" : "clamp(16px, 4vw, 32px)",
+        paddingTop: isMobile ? "clamp(20px, 5vw, 28px)" : "clamp(16px, 4vw, 32px)",
+        paddingBottom: isMobile ? "clamp(20px, 5vw, 28px)" : "clamp(16px, 4vw, 32px)",
         zIndex: 10000,
         overflowY: "auto",
         fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif",
+        WebkitOverflowScrolling: "touch",
       }}
     >
       <div
@@ -341,19 +344,20 @@ function WelcomeModal({ currentAge, setCurrentAge, retirementAge, setRetirementA
           boxShadow: theme === "dark"
             ? "0 40px 100px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.05)"
             : "0 20px 60px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.9)",
-          padding: isMobile ? "clamp(20px, 5vw, 24px)" : "clamp(24px, 4vw, 40px)",
+          padding: isMobile ? "clamp(24px, 6vw, 28px) clamp(16px, 4vw, 20px)" : "clamp(24px, 4vw, 40px)",
           color: colors.text,
           animation: "fadeIn 0.6s ease-out",
+          margin: isMobile ? "auto" : "0",
         }}
       >
-        <div style={{ textAlign: "center", marginBottom: "clamp(24px, 3vw, 32px)" }}>
+        <div style={{ textAlign: "center", marginBottom: isMobile ? "clamp(20px, 5vw, 24px)" : "clamp(24px, 3vw, 32px)" }}>
           <div
             style={{
-              fontSize: "clamp(11px, 1.2vw, 13px)",
+              fontSize: isMobile ? "clamp(9px, 2.2vw, 11px)" : "clamp(11px, 1.2vw, 13px)",
               textTransform: "uppercase",
-              letterSpacing: 6,
+              letterSpacing: isMobile ? 4 : 6,
               color: colors.textMuted,
-              marginBottom: "clamp(8px, 1vw, 12px)",
+              marginBottom: isMobile ? "clamp(10px, 2.5vw, 14px)" : "clamp(8px, 1vw, 12px)",
               fontWeight: 600,
             }}
           >
@@ -362,15 +366,18 @@ function WelcomeModal({ currentAge, setCurrentAge, retirementAge, setRetirementA
           <h1
             style={{
               margin: 0,
-              fontSize: "clamp(28px, 5vw, 42px)",
+              fontSize: isMobile ? "clamp(22px, 5.5vw, 28px)" : "clamp(28px, 5vw, 42px)",
               fontWeight: 900,
-              lineHeight: 1.1,
-              letterSpacing: "-0.03em",
+              lineHeight: isMobile ? 1.2 : 1.1,
+              letterSpacing: isMobile ? "-0.02em" : "-0.03em",
               background: "linear-gradient(120deg, #e5e7eb, #f97316, #facc15)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               backgroundClip: "text",
-              marginBottom: "clamp(12px, 1.5vw, 16px)",
+              marginBottom: isMobile ? "clamp(14px, 3.5vw, 18px)" : "clamp(12px, 1.5vw, 16px)",
+              padding: isMobile ? "0 clamp(4px, 1vw, 8px)" : "0",
+              wordWrap: "break-word",
+              overflowWrap: "break-word",
             }}
           >
             Welcome to Your Life Timeline
@@ -378,10 +385,11 @@ function WelcomeModal({ currentAge, setCurrentAge, retirementAge, setRetirementA
           <p
             style={{
               margin: 0,
-              fontSize: "clamp(16px, 2vw, 18px)",
+              fontSize: isMobile ? "clamp(14px, 3.5vw, 16px)" : "clamp(16px, 2vw, 18px)",
               color: colors.textSecondary,
-              lineHeight: 1.6,
+              lineHeight: isMobile ? 1.5 : 1.6,
               fontWeight: 500,
+              padding: isMobile ? "0 clamp(4px, 1vw, 8px)" : "0",
             }}
           >
             Let's personalize your timeline to see how your choices shape your future.
@@ -389,11 +397,11 @@ function WelcomeModal({ currentAge, setCurrentAge, retirementAge, setRetirementA
         </div>
         
         <form onSubmit={handleSubmit}>
-          <div style={{ display: "flex", flexDirection: "column", gap: "clamp(20px, 2.5vw, 28px)" }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: isMobile ? "clamp(16px, 4vw, 20px)" : "clamp(20px, 2.5vw, 28px)" }}>
             {/* Current Age - with pulsing animation to draw attention */}
             <div className="pulse-attention" style={{ 
-              padding: "clamp(12px, 1.5vw, 16px)",
-              borderRadius: "clamp(12px, 1.5vw, 16px)",
+              padding: isMobile ? "clamp(14px, 3.5vw, 16px)" : "clamp(12px, 1.5vw, 16px)",
+              borderRadius: isMobile ? "clamp(10px, 2.5vw, 12px)" : "clamp(12px, 1.5vw, 16px)",
               background: theme === "dark"
                 ? "linear-gradient(135deg, rgba(56, 24, 168, 0.15), rgba(108, 52, 248, 0.1))"
                 : "linear-gradient(135deg, rgba(108, 52, 248, 0.08), rgba(139, 92, 246, 0.05))",
@@ -403,10 +411,10 @@ function WelcomeModal({ currentAge, setCurrentAge, retirementAge, setRetirementA
               <label
                 style={{
                   display: "block",
-                  fontSize: "clamp(16px, 2vw, 18px)",
+                  fontSize: isMobile ? "clamp(14px, 3.5vw, 16px)" : "clamp(16px, 2vw, 18px)",
                   fontWeight: 700,
                   color: "#ffffff",
-                  marginBottom: "clamp(8px, 1vw, 12px)",
+                  marginBottom: isMobile ? "clamp(10px, 2.5vw, 12px)" : "clamp(8px, 1vw, 12px)",
                   textShadow: theme === "dark" ? "0 0 10px rgba(255, 255, 255, 0.3)" : "0 1px 2px rgba(0, 0, 0, 0.1)",
                 }}
               >
@@ -422,6 +430,7 @@ function WelcomeModal({ currentAge, setCurrentAge, retirementAge, setRetirementA
                 MAX_AGE={MAX_AGE}
                 clamp={clamp}
                 isPulsing={true}
+                isMobile={isMobile}
               />
             </div>
             
@@ -430,10 +439,10 @@ function WelcomeModal({ currentAge, setCurrentAge, retirementAge, setRetirementA
               <label
                 style={{
                   display: "block",
-                  fontSize: "clamp(16px, 2vw, 18px)",
+                  fontSize: isMobile ? "clamp(14px, 3.5vw, 16px)" : "clamp(16px, 2vw, 18px)",
                   fontWeight: 700,
                   color: colors.text,
-                  marginBottom: "clamp(8px, 1vw, 12px)",
+                  marginBottom: isMobile ? "clamp(10px, 2.5vw, 12px)" : "clamp(8px, 1vw, 12px)",
                 }}
               >
                 Target retirement
@@ -448,6 +457,7 @@ function WelcomeModal({ currentAge, setCurrentAge, retirementAge, setRetirementA
                 MAX_AGE={MAX_AGE}
                 clamp={clamp}
                 isHighlighted={true}
+                isMobile={isMobile}
               />
             </div>
             
@@ -456,10 +466,10 @@ function WelcomeModal({ currentAge, setCurrentAge, retirementAge, setRetirementA
               <label
                 style={{
                   display: "block",
-                  fontSize: "clamp(16px, 2vw, 18px)",
+                  fontSize: isMobile ? "clamp(14px, 3.5vw, 16px)" : "clamp(16px, 2vw, 18px)",
                   fontWeight: 700,
                   color: colors.text,
-                  marginBottom: "clamp(8px, 1vw, 12px)",
+                  marginBottom: isMobile ? "clamp(10px, 2.5vw, 12px)" : "clamp(8px, 1vw, 12px)",
                 }}
               >
                 Life expectancy
@@ -473,19 +483,20 @@ function WelcomeModal({ currentAge, setCurrentAge, retirementAge, setRetirementA
                 colors={colors}
                 MAX_AGE={MAX_AGE}
                 clamp={clamp}
+                isMobile={isMobile}
               />
             </div>
           </div>
           
-          <div style={{ marginTop: "clamp(32px, 4vw, 40px)", display: "flex", justifyContent: "center" }}>
+          <div style={{ marginTop: isMobile ? "clamp(24px, 6vw, 32px)" : "clamp(32px, 4vw, 40px)", display: "flex", justifyContent: "center" }}>
             <button
               type="submit"
               disabled={!isValid}
               style={{
-                padding: "clamp(14px, 1.8vw, 18px) clamp(32px, 4vw, 48px)",
-                fontSize: "clamp(16px, 2vw, 18px)",
+                padding: isMobile ? "clamp(12px, 3vw, 14px) clamp(24px, 6vw, 32px)" : "clamp(14px, 1.8vw, 18px) clamp(32px, 4vw, 48px)",
+                fontSize: isMobile ? "clamp(14px, 3.5vw, 16px)" : "clamp(16px, 2vw, 18px)",
                 fontWeight: 700,
-                borderRadius: "clamp(12px, 1.5vw, 16px)",
+                borderRadius: isMobile ? "clamp(10px, 2.5vw, 12px)" : "clamp(12px, 1.5vw, 16px)",
                 border: "none",
                 background: isValid
                   ? "linear-gradient(135deg, #3818A8, #6C34F8, #8B5CF6)"
@@ -499,6 +510,8 @@ function WelcomeModal({ currentAge, setCurrentAge, retirementAge, setRetirementA
                   : "none",
                 transition: "all 0.3s ease",
                 opacity: isValid ? 1 : 0.6,
+                width: isMobile ? "100%" : "auto",
+                maxWidth: isMobile ? "100%" : "none",
               }}
               onMouseEnter={(e) => {
                 if (isValid) {
@@ -526,11 +539,12 @@ function WelcomeModal({ currentAge, setCurrentAge, retirementAge, setRetirementA
         
         <p
           style={{
-            marginTop: "clamp(16px, 2vw, 20px)",
-            fontSize: "clamp(12px, 1.4vw, 13px)",
+            marginTop: isMobile ? "clamp(16px, 4vw, 20px)" : "clamp(16px, 2vw, 20px)",
+            fontSize: isMobile ? "clamp(11px, 2.8vw, 12px)" : "clamp(12px, 1.4vw, 13px)",
             color: colors.textMuted,
             textAlign: "center",
             lineHeight: 1.5,
+            padding: isMobile ? "0 clamp(4px, 1vw, 8px)" : "0",
           }}
         >
           You can adjust these values later in your timeline.
@@ -541,7 +555,7 @@ function WelcomeModal({ currentAge, setCurrentAge, retirementAge, setRetirementA
 }
 
 /** Welcome Modal Slider Row */
-function WelcomeSliderRow({ value, setValue, min, max, theme, colors, MAX_AGE, clamp, isHighlighted = false, isPulsing = false }) {
+function WelcomeSliderRow({ value, setValue, min, max, theme, colors, MAX_AGE, clamp, isHighlighted = false, isPulsing = false, isMobile = false }) {
   const numValue = Number(value) || min;
   const clampedValue = clamp(numValue, min, max);
   
@@ -549,8 +563,8 @@ function WelcomeSliderRow({ value, setValue, min, max, theme, colors, MAX_AGE, c
     <div
       className={isPulsing ? "pulse-glow" : ""}
       style={{
-        padding: "clamp(12px, 1.5vw, 16px)",
-        borderRadius: "clamp(12px, 1.5vw, 16px)",
+        padding: isMobile ? "clamp(10px, 2.5vw, 12px)" : "clamp(12px, 1.5vw, 16px)",
+        borderRadius: isMobile ? "clamp(10px, 2.5vw, 12px)" : "clamp(12px, 1.5vw, 16px)",
         background: theme === "dark"
           ? "rgba(15,23,42,0.6)"
           : "rgba(248,250,252,0.5)",
@@ -561,7 +575,7 @@ function WelcomeSliderRow({ value, setValue, min, max, theme, colors, MAX_AGE, c
         style={{
           display: "grid",
           gridTemplateColumns: "minmax(0, 1fr) auto",
-          gap: "clamp(12px, 1.5vw, 16px)",
+          gap: isMobile ? "clamp(10px, 2.5vw, 12px)" : "clamp(12px, 1.5vw, 16px)",
           alignItems: "center",
         }}
       >
@@ -573,7 +587,7 @@ function WelcomeSliderRow({ value, setValue, min, max, theme, colors, MAX_AGE, c
           onChange={(e) => setValue(e.target.value)}
           style={{
             width: "100%",
-            height: "clamp(10px, 1.2vw, 12px)",
+            height: isMobile ? "clamp(8px, 2vw, 10px)" : "clamp(10px, 1.2vw, 12px)",
             cursor: "pointer",
             accentColor: theme === "dark" ? "#6C34F8" : "#6C34F8",
           }}
@@ -593,13 +607,13 @@ function WelcomeSliderRow({ value, setValue, min, max, theme, colors, MAX_AGE, c
             }
           }}
           style={{
-            width: "clamp(80px, 10vw, 90px)",
-            padding: "clamp(10px, 1.2vw, 12px) clamp(14px, 1.8vw, 16px)",
-            borderRadius: "clamp(8px, 1vw, 10px)",
+            width: isMobile ? "clamp(70px, 18vw, 80px)" : "clamp(80px, 10vw, 90px)",
+            padding: isMobile ? "clamp(8px, 2vw, 10px) clamp(12px, 3vw, 14px)" : "clamp(10px, 1.2vw, 12px) clamp(14px, 1.8vw, 16px)",
+            borderRadius: isMobile ? "clamp(6px, 1.5vw, 8px)" : "clamp(8px, 1vw, 10px)",
             border: `2px solid ${isHighlighted ? (theme === "dark" ? "rgba(108, 52, 248, 0.6)" : "rgba(108, 52, 248, 0.5)") : colors.border}`,
             background: colors.inputBg,
             color: colors.text,
-            fontSize: "clamp(18px, 2.2vw, 20px)",
+            fontSize: isMobile ? "clamp(16px, 4vw, 18px)" : "clamp(18px, 2.2vw, 20px)",
             fontWeight: isHighlighted ? 900 : 700,
             textAlign: "center",
             outline: "none",
