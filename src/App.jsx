@@ -298,7 +298,7 @@ function WelcomeModal({ currentAge, setCurrentAge, retirementAge, setRetirementA
     e.preventDefault();
     const curAge = Math.max(0, Math.min(MAX_AGE - 2, Number(localCurrentAge) || 42));
     const retAge = Math.max(curAge + 1, Math.min(MAX_AGE - 1, Number(localRetirement) || 65));
-    const lifeExp = Math.max(retAge + 1, Math.min(MAX_AGE, Number(localLifeExpectancy) || 81));
+    const lifeExp = Math.max(retAge + 1, Math.min(MAX_AGE, Number(localLifeExpectancy) || 80));
     
     // Pass values directly to onSubmit handler
     onSubmit(curAge, retAge, lifeExp);
@@ -306,7 +306,7 @@ function WelcomeModal({ currentAge, setCurrentAge, retirementAge, setRetirementA
   
   const currentAgeNum = Number(localCurrentAge) || 42;
   const retirementNum = Number(localRetirement) || 65;
-  const lifeExpNum = Number(localLifeExpectancy) || 81;
+  const lifeExpNum = Number(localLifeExpectancy) || 80;
   
   // Validation helpers
   const isValid = currentAgeNum >= 0 && currentAgeNum < MAX_AGE - 2 &&
@@ -658,7 +658,7 @@ export default function App() {
   });
   const [lifeExpectancy, setLifeExpectancy] = useState(() => {
     const saved = localStorage.getItem('lifespan-life-expectancy');
-    return saved ? Number(saved) : 81;
+    return saved ? Number(saved) : 80;
   });
 
   const [labelName, setLabelName] = useState("Michael");
@@ -674,7 +674,7 @@ export default function App() {
   }, []);
   const [welcomeCurrentAge, setWelcomeCurrentAge] = useState(42);
   const [welcomeRetirement, setWelcomeRetirement] = useState(65);
-  const [welcomeLifeExpectancy, setWelcomeLifeExpectancy] = useState(81);
+  const [welcomeLifeExpectancy, setWelcomeLifeExpectancy] = useState(80);
 
   const data = useMemo(() => {
     const cur = clamp(currentAge, 0, MAX_AGE);
@@ -792,10 +792,10 @@ export default function App() {
     // Reset to defaults
     setCurrentAge(42);
     setFreedomAge(65);
-    setLifeExpectancy(81);
+    setLifeExpectancy(80);
     setWelcomeCurrentAge(42);
     setWelcomeRetirement(65);
-    setWelcomeLifeExpectancy(81);
+    setWelcomeLifeExpectancy(80);
     
     // Show welcome modal again
     setHasCompletedWelcome(false);
