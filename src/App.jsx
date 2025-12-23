@@ -461,7 +461,7 @@ function WelcomeModal({ currentAge, setCurrentAge, retirementAge, setRetirementA
               />
             </div>
             
-            {/* Life Expectancy */}
+            {/* Quality Life Expectancy */}
             <div>
               <label
                 style={{
@@ -472,7 +472,7 @@ function WelcomeModal({ currentAge, setCurrentAge, retirementAge, setRetirementA
                   marginBottom: isMobile ? "clamp(10px, 2.5vw, 12px)" : "clamp(8px, 1vw, 12px)",
                 }}
               >
-                Life expectancy
+                Quality life expectancy
               </label>
               <WelcomeSliderRow
                 value={localLifeExpectancy}
@@ -1662,7 +1662,7 @@ export default function App() {
                 maxConstraint={life - 1}
               />
               <SliderRow
-                label="Life expectancy"
+                label="Quality life expectancy"
                 value={life}
                 min={freedom + 1}
                 max={MAX_AGE}
