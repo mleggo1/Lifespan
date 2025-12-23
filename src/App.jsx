@@ -879,11 +879,11 @@ export default function App() {
         {/* Header with controls */}
         <header
           style={{
-            marginBottom: "clamp(24px, 3vw, 40px)",
+            marginBottom: isMobile ? "clamp(20px, 5vw, 28px)" : "clamp(24px, 3vw, 40px)",
             position: "relative",
             background: "transparent",
             zIndex: 1,
-            paddingTop: "clamp(8px, 1vw, 12px)",
+            paddingTop: isMobile ? "clamp(12px, 3vw, 16px)" : "clamp(8px, 1vw, 12px)",
           }}
         >
           {/* Theme toggle and PDF export buttons */}
@@ -1043,7 +1043,7 @@ export default function App() {
             </div>
             <h1
               style={{
-                margin: "clamp(32px, 4vw, 48px) 0 clamp(10px, 1.5vw, 18px) 0",
+                margin: isMobile ? "clamp(48px, 12vw, 60px) 0 clamp(10px, 1.5vw, 18px) 0" : "clamp(32px, 4vw, 48px) 0 clamp(10px, 1.5vw, 18px) 0",
                 fontSize: "clamp(28px, 6vw, 56px)",
                 fontWeight: 900,
                 lineHeight: 1.1,
@@ -1426,7 +1426,7 @@ export default function App() {
                         lineHeight: 1.2,
                       }}
                     >
-                      Childhood
+                      {isMobile ? "CHILD" : "Childhood"}
                     </div>
                     <div
                       style={{
@@ -1470,7 +1470,7 @@ export default function App() {
                         lineHeight: 1.2,
                       }}
                     >
-                      Work
+                      WORK
                     </div>
                     <div
                       style={{
@@ -1514,7 +1514,7 @@ export default function App() {
                         lineHeight: 1.2,
                       }}
                     >
-                      Golden Years
+                      {isMobile ? "RETIREMENT" : "Golden Years"}
                     </div>
                     <div
                       style={{
