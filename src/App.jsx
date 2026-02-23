@@ -1242,6 +1242,9 @@ export default function App() {
                     style={{
                       width: `${livedPct}%`,
                       height: "100%",
+                      minHeight: 0,
+                      borderTopLeftRadius: 9999,
+                      borderBottomLeftRadius: 9999,
                       background: theme === "dark"
                         ? "linear-gradient(90deg, rgba(30,41,59,0.8), rgba(51,65,85,0.7), rgba(71,85,105,0.6))"
                         : "linear-gradient(90deg, #64748b, #475569, #334155)",
@@ -1258,6 +1261,9 @@ export default function App() {
                         width: `${toFreedomPct}%`,
                         top: 0,
                         bottom: 0,
+                        minHeight: 0,
+                        borderTopRightRadius: afterFreedomPct > 0 ? 0 : 9999,
+                        borderBottomRightRadius: afterFreedomPct > 0 ? 0 : 9999,
                         background:
                           "linear-gradient(90deg, #3818A8, #4B1DB0, #6C34F8, #8B5CF6)",
                         boxShadow: `
@@ -1280,6 +1286,9 @@ export default function App() {
                         width: `${afterFreedomPct}%`,
                         top: 0,
                         bottom: 0,
+                        minHeight: 0,
+                        borderTopRightRadius: 9999,
+                        borderBottomRightRadius: 9999,
                         background:
                           "linear-gradient(90deg, #FAD961, #F9B84A, #F76B1C, #EA580C)",
                         boxShadow: `
@@ -1304,15 +1313,6 @@ export default function App() {
                     color="#6C34F8"
                     theme={theme}
                     isHighlighted={true}
-                  />
-
-                  {/* Life expectancy marker */}
-                  <Marker
-                    positionPct={100}
-                    label={`Life (${life})`}
-                    color={theme === "dark" ? "#e5e7eb" : "#1A1A1A"}
-                    align="right"
-                    theme={theme}
                   />
                 </div>
 
