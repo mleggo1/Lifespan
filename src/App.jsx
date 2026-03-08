@@ -1905,11 +1905,63 @@ export default function App() {
                   </div>
                 </div>
                 
-                {/* Goals Blueprint Call-to-Action - Subtle */}
+                {/* Call-to-Action buttons */}
                 <div style={{
                   marginTop: "clamp(16px, 2vw, 20px)",
                   textAlign: "center",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  gap: "clamp(12px, 1.5vw, 16px)",
                 }}>
+                  {/* Primary CTA: Wealth-Education Blueprint */}
+                  <a
+                    href="https://wealthblueprinteducation.vercel.app/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      textDecoration: "none",
+                      display: "inline-block",
+                    }}
+                  >
+                    <button
+                      style={{
+                        padding: isMobile ? "clamp(10px, 2.5vw, 14px) clamp(20px, 5vw, 28px)" : "clamp(12px, 1.5vw, 14px) clamp(24px, 3vw, 32px)",
+                        borderRadius: "clamp(10px, 1.2vw, 12px)",
+                        border: "none",
+                        background: theme === "dark"
+                          ? "linear-gradient(135deg, #4B1DB0, #6C34F8, #8B5CF6)"
+                          : "linear-gradient(135deg, #5B21B6, #7C3AED, #A78BFA)",
+                        color: "#ffffff",
+                        fontSize: isMobile ? "clamp(14px, 3.5vw, 17px)" : "clamp(15px, 1.8vw, 17px)",
+                        fontWeight: 700,
+                        cursor: "pointer",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: isMobile ? "clamp(6px, 1.5vw, 8px)" : "clamp(8px, 1vw, 10px)",
+                        transition: "all 0.25s ease",
+                        boxShadow: theme === "dark"
+                          ? "0 4px 20px rgba(108, 52, 248, 0.4), 0 2px 8px rgba(0,0,0,0.3)"
+                          : "0 4px 16px rgba(124, 58, 237, 0.35), 0 2px 6px rgba(0,0,0,0.1)",
+                        margin: 0,
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.transform = "translateY(-2px)";
+                        e.currentTarget.style.boxShadow = theme === "dark"
+                          ? "0 8px 28px rgba(108, 52, 248, 0.5), 0 4px 12px rgba(0,0,0,0.35)"
+                          : "0 8px 24px rgba(124, 58, 237, 0.45), 0 4px 10px rgba(0,0,0,0.12)";
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.transform = "translateY(0)";
+                        e.currentTarget.style.boxShadow = theme === "dark"
+                          ? "0 4px 20px rgba(108, 52, 248, 0.4), 0 2px 8px rgba(0,0,0,0.3)"
+                          : "0 4px 16px rgba(124, 58, 237, 0.35), 0 2px 6px rgba(0,0,0,0.1)";
+                      }}
+                    >
+                      ✨ Start Your Wealth-Education Blueprint →
+                    </button>
+                  </a>
+                  {/* Secondary: Goals Blueprint */}
                   <a
                     href="https://goalsblueprint.vercel.app/"
                     target="_blank"
@@ -1936,7 +1988,7 @@ export default function App() {
                         gap: isMobile ? "clamp(4px, 1vw, 6px)" : "clamp(6px, 0.8vw, 8px)",
                         transition: "all 0.3s ease",
                         boxShadow: "none",
-                        margin: "0 auto",
+                        margin: 0,
                       }}
                       onMouseEnter={(e) => {
                         e.currentTarget.style.background = theme === "dark"
