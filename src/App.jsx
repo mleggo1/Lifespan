@@ -2523,15 +2523,13 @@ function FiveRegretsReflection({ theme, isMobile, colors }) {
             fontWeight: 900,
             lineHeight: 1.35,
             letterSpacing: "-0.02em",
-            background: isDark
-              ? "linear-gradient(135deg, #fda4af, #fbbf24, #a78bfa)"
-              : "linear-gradient(135deg, #be123c, #c026d3, #d97706)",
-            WebkitBackgroundClip: "text",
-            WebkitTextFillColor: "transparent",
-            backgroundClip: "text",
             maxWidth: "38ch",
             marginLeft: "auto",
             marginRight: "auto",
+            color: isDark ? "#fef3c7" : "#831843",
+            textShadow: isDark
+              ? "0 0 24px rgba(251, 191, 36, 0.55), 0 0 48px rgba(167, 139, 250, 0.35), 0 2px 6px rgba(0,0,0,0.85)"
+              : "0 1px 0 rgba(255,255,255,0.95), 0 2px 8px rgba(131, 24, 67, 0.2)",
           }}
         >
           What would I regret not doing while I still can?
