@@ -1569,7 +1569,9 @@ export default function App() {
             {/* Controls */}
             <section
               style={{
-                padding: "clamp(12px, 1.5vw, 16px)",
+                padding: isMobile
+                  ? "clamp(8px, 2vw, 12px) clamp(10px, 2.5vw, 14px)"
+                  : "clamp(12px, 1.5vw, 16px)",
                 borderRadius: "clamp(16px, 2vw, 20px)",
                 border: `2px solid ${colors.border}`,
                 background: theme === "dark"
@@ -1585,7 +1587,9 @@ export default function App() {
             >
               <h2
                 style={{
-                  margin: "0 0 clamp(8px, 1vw, 10px)",
+                  margin: isMobile
+                    ? "0 0 clamp(4px, 1.2vw, 6px)"
+                    : "0 0 clamp(8px, 1vw, 10px)",
                   fontSize: "clamp(18px, 2.2vw, 22px)",
                   fontWeight: 800,
                   color: colors.text,
@@ -1595,15 +1599,24 @@ export default function App() {
                 Your Timeline
               </h2>
               <p style={{ 
-                margin: "0 0 clamp(8px, 1vw, 10px)", 
+                margin: isMobile
+                  ? "0 0 clamp(4px, 1.2vw, 6px)"
+                  : "0 0 clamp(8px, 1vw, 10px)", 
                 fontSize: "clamp(13px, 1.6vw, 15px)", 
                 color: colors.textMuted, 
-                lineHeight: 1.5, 
-                fontWeight: 500 
+                lineHeight: isMobile ? 1.4 : 1.5, 
+                fontWeight: 500,
               }}>
                 Adjust these numbers to see how your choices change the rest of your life.
               </p>
 
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: isMobile ? "clamp(4px, 1.5vw, 8px)" : 0,
+                }}
+              >
               <SliderRow
                 label="Current age"
                 value={cur}
@@ -1635,6 +1648,7 @@ export default function App() {
                 allowAnyNumber={true}
                 minConstraint={0}
                 maxConstraint={freedom - 1}
+                isMobile={isMobile}
               />
               <SliderRow
                 label="Target retirement"
@@ -1660,6 +1674,7 @@ export default function App() {
                 allowAnyNumber={true}
                 minConstraint={cur + 1}
                 maxConstraint={life - 1}
+                isMobile={isMobile}
               />
               <SliderRow
                 label="Quality life expectancy"
@@ -1678,7 +1693,9 @@ export default function App() {
                 allowAnyNumber={true}
                 minConstraint={freedom + 1}
                 maxConstraint={MAX_AGE}
+                isMobile={isMobile}
               />
+              </div>
             </section>
           </div>
 
@@ -2836,7 +2853,7 @@ function LegendPill({ color, children, theme = "dark" }) {
 }
 
 /** Slider + number input row */
-function SliderRow({ label, value, min, max, onChange, theme = "dark", isHighlighted = false, allowAnyNumber = false, minConstraint, maxConstraint }) {
+function SliderRow({ label, value, min, max, onChange, theme = "dark", isHighlighted = false, allowAnyNumber = false, minConstraint, maxConstraint, isMobile = false }) {
   const [localValue, setLocalValue] = useState(String(value));
   
   // Sync local value when prop value changes (from slider or external updates)
@@ -2862,8 +2879,8 @@ function SliderRow({ label, value, min, max, onChange, theme = "dark", isHighlig
   
   return (
     <div style={{ 
-      marginBottom: "clamp(8px, 1vw, 12px)",
-      padding: "clamp(6px, 0.8vw, 10px)",
+      marginBottom: isMobile ? 0 : "clamp(8px, 1vw, 12px)",
+      padding: isMobile ? "clamp(4px, 1.2vw, 8px)" : "clamp(6px, 0.8vw, 10px)",
       borderRadius: "clamp(12px, 1.5vw, 16px)",
       background: theme === "dark"
         ? "rgba(15,23,42,0.6)"
@@ -2876,7 +2893,7 @@ function SliderRow({ label, value, min, max, onChange, theme = "dark", isHighlig
         justifyContent: "flex-start",
         alignItems: "center",
         fontSize: "clamp(18px, 2.2vw, 22px)",
-        marginBottom: "clamp(6px, 0.8vw, 8px)",
+        marginBottom: isMobile ? "clamp(3px, 0.8vw, 5px)" : "clamp(6px, 0.8vw, 8px)",
         color: colors.text,
         fontWeight: isHighlighted ? 900 : 700,
         }}
@@ -2887,7 +2904,7 @@ function SliderRow({ label, value, min, max, onChange, theme = "dark", isHighlig
         style={{
           display: "grid",
           gridTemplateColumns: "minmax(0, 1fr) auto",
-          gap: "clamp(10px, 1.2vw, 14px)",
+          gap: isMobile ? "clamp(6px, 1.5vw, 10px)" : "clamp(10px, 1.2vw, 14px)",
           alignItems: "center",
         }}
       >
@@ -2899,7 +2916,7 @@ function SliderRow({ label, value, min, max, onChange, theme = "dark", isHighlig
           onChange={(e) => onChange(Number(e.target.value))}
           style={{ 
             width: "100%",
-            height: "clamp(12px, 1.5vw, 14px)",
+            height: isMobile ? "clamp(10px, 2.5vw, 12px)" : "clamp(12px, 1.5vw, 14px)",
             cursor: "pointer",
           }}
         />
