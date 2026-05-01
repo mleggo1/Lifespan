@@ -2160,9 +2160,383 @@ export default function App() {
                 </div>
               </div>
             </section>
+
+        <FiveRegretsReflection theme={theme} isMobile={isMobile} colors={colors} />
         </div>
       </div>
     </div>
+  );
+}
+
+const FIVE_REGRETS = [
+  {
+    regret:
+      "I wish I had the courage to live a life true to myself, not the life others expected of me.",
+    reflection: "Where in your life are you still performing, pleasing, or pretending?",
+    action:
+      "What is one decision you already know is true for you, but you keep delaying because of fear, guilt, or other people’s opinions?",
+  },
+  {
+    regret: "I wish I had not worked so hard.",
+    reflection:
+      "What are you currently trading your health, peace, family, friendships, or freedom for?",
+    action: "If you kept living at your current pace for the next 10 years, what would it cost you?",
+  },
+  {
+    regret: "I wish I had the courage to express my feelings.",
+    reflection: "What truth have you been carrying but not saying?",
+    action:
+      "Who needs to hear something from you while there is still time — love, thanks, apology, forgiveness, or honesty?",
+  },
+  {
+    regret: "I wish I had stayed in touch with my friends.",
+    reflection: "Who mattered to you once, but slowly disappeared from your life?",
+    action:
+      "Who could you message today with no agenda, just because life is short and connection matters?",
+  },
+  {
+    regret: "I wish I had let myself be happier.",
+    reflection:
+      "Where are you postponing joy until some future version of life finally arrives?",
+    action:
+      "What simple thing could you allow yourself to enjoy now — not after the mortgage is paid, not after the body is perfect, not after everything is sorted?",
+  },
+];
+
+function FiveRegretsReflection({ theme, isMobile, colors }) {
+  const isDark = theme === "dark";
+  return (
+    <section
+      className="fade-in"
+      style={{
+        marginTop: "clamp(24px, 3vw, 36px)",
+        padding: isMobile
+          ? "clamp(20px, 5vw, 28px) clamp(16px, 4vw, 22px)"
+          : "clamp(28px, 3.5vw, 40px) clamp(28px, 3.5vw, 44px)",
+        borderRadius: "clamp(16px, 2vw, 22px)",
+        width: "100%",
+        maxWidth: "100%",
+        boxSizing: "border-box",
+        border: isDark
+          ? "2px solid rgba(251, 113, 133, 0.35)"
+          : "2px solid rgba(190, 18, 60, 0.2)",
+        background: isDark
+          ? `
+            radial-gradient(ellipse 120% 80% at 50% 0%, rgba(251, 113, 133, 0.12), transparent 55%),
+            radial-gradient(ellipse 90% 60% at 100% 100%, rgba(167, 139, 250, 0.08), transparent 50%),
+            linear-gradient(165deg, rgba(15, 23, 42, 0.98) 0%, rgba(30, 27, 75, 0.55) 100%)
+          `
+          : `
+            radial-gradient(ellipse 120% 80% at 50% 0%, rgba(251, 113, 133, 0.14), transparent 55%),
+            linear-gradient(165deg, rgba(255, 255, 255, 0.98) 0%, rgba(254, 242, 242, 0.85) 100%)
+          `,
+        boxShadow: isDark
+          ? "0 0 0 1px rgba(255,255,255,0.06) inset, 0 24px 64px rgba(0,0,0,0.45), 0 0 80px rgba(251, 113, 133, 0.08)"
+          : "0 4px 24px rgba(190, 18, 60, 0.08), 0 1px 3px rgba(0,0,0,0.06)",
+      }}
+    >
+      <div
+        style={{
+          textAlign: "center",
+          marginBottom: isMobile ? "clamp(18px, 4vw, 24px)" : "clamp(22px, 2.5vw, 28px)",
+        }}
+      >
+        <div
+          style={{
+            fontSize: isMobile ? "clamp(10px, 2.5vw, 11px)" : "clamp(11px, 1.2vw, 12px)",
+            letterSpacing: "0.2em",
+            textTransform: "uppercase",
+            fontWeight: 700,
+            color: isDark ? "rgba(251, 191, 197, 0.9)" : "#9f1239",
+            marginBottom: "clamp(8px, 1vw, 10px)",
+          }}
+        >
+          Pause & reflect
+        </div>
+        <h2
+          style={{
+            margin: "0 0 clamp(12px, 1.5vw, 16px)",
+            fontSize: isMobile ? "clamp(22px, 5.5vw, 28px)" : "clamp(28px, 3.2vw, 36px)",
+            fontWeight: 900,
+            letterSpacing: "-0.03em",
+            lineHeight: 1.15,
+            color: colors.text,
+          }}
+        >
+          The Five Regrets Reflection
+        </h2>
+        <p
+          style={{
+            margin: "0 auto",
+            maxWidth: "52ch",
+            fontSize: isMobile ? "clamp(14px, 3.5vw, 16px)" : "clamp(15px, 1.7vw, 17px)",
+            lineHeight: 1.65,
+            color: colors.textSecondary,
+            fontWeight: 500,
+          }}
+        >
+          Inspired by the work of Australian author and former palliative carer{" "}
+          <strong style={{ color: isDark ? "#fda4af" : "#be123c", fontWeight: 800 }}>
+            Bronnie Ware
+          </strong>
+          , who captured the most common regrets she heard from people nearing the end of life.
+        </p>
+      </div>
+
+      <div
+        style={{
+          margin: isMobile ? "clamp(16px, 4vw, 22px) 0" : "clamp(20px, 2.5vw, 28px) 0",
+          padding: isMobile ? "clamp(14px, 3.5vw, 18px)" : "clamp(18px, 2.2vw, 24px)",
+          borderRadius: "clamp(12px, 1.5vw, 16px)",
+          textAlign: "center",
+          border: isDark ? "1px solid rgba(251, 113, 133, 0.25)" : "1px solid rgba(190, 18, 60, 0.15)",
+          background: isDark ? "rgba(0,0,0,0.25)" : "rgba(255,255,255,0.65)",
+        }}
+      >
+        <p
+          style={{
+            margin: "0 0 clamp(8px, 1vw, 10px)",
+            fontSize: isMobile ? "clamp(14px, 3.2vw, 15px)" : "clamp(15px, 1.6vw, 16px)",
+            color: colors.textSecondary,
+            fontWeight: 600,
+          }}
+        >
+          This reflection asks one simple question:
+        </p>
+        <p
+          style={{
+            margin: 0,
+            fontSize: isMobile ? "clamp(16px, 4vw, 19px)" : "clamp(18px, 2vw, 21px)",
+            fontWeight: 800,
+            lineHeight: 1.45,
+            color: colors.text,
+          }}
+        >
+          What can you do <em style={{ fontStyle: "italic", color: isDark ? "#f9a8d4" : "#be123c" }}>now</em> so these do not become your regrets?
+        </p>
+      </div>
+
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: isMobile ? "clamp(14px, 3.5vw, 18px)" : "clamp(18px, 2vw, 22px)",
+          marginTop: isMobile ? "clamp(18px, 4vw, 24px)" : "clamp(24px, 2.5vw, 32px)",
+        }}
+      >
+        {FIVE_REGRETS.map((item, i) => (
+          <article
+            key={i}
+            style={{
+              position: "relative",
+              padding: isMobile ? "clamp(16px, 4vw, 20px)" : "clamp(20px, 2.2vw, 26px)",
+              paddingLeft: isMobile ? "clamp(14px, 3.5vw, 18px)" : "clamp(22px, 2.5vw, 28px)",
+              borderRadius: "clamp(12px, 1.4vw, 16px)",
+              border: isDark ? "1px solid rgba(148, 163, 184, 0.2)" : "1px solid rgba(71, 85, 105, 0.12)",
+              background: isDark ? "rgba(15, 23, 42, 0.65)" : "rgba(248, 250, 252, 0.92)",
+              boxShadow: isDark
+                ? "inset 0 1px 0 rgba(255,255,255,0.04)"
+                : "inset 0 1px 0 rgba(255,255,255,0.9)",
+            }}
+          >
+            <div
+              style={{
+                position: "absolute",
+                left: 0,
+                top: "clamp(12px, 1.5vw, 16px)",
+                bottom: "clamp(12px, 1.5vw, 16px)",
+                width: 4,
+                borderRadius: 999,
+                background: isDark
+                  ? "linear-gradient(180deg, #fb7185, #a78bfa, #38bdf8)"
+                  : "linear-gradient(180deg, #e11d48, #7c3aed, #0284c7)",
+              }}
+            />
+            <div
+              style={{
+                fontSize: isMobile ? "clamp(11px, 2.8vw, 12px)" : "12px",
+                fontWeight: 800,
+                letterSpacing: "0.12em",
+                textTransform: "uppercase",
+                color: isDark ? "#94a3b8" : "#64748b",
+                marginBottom: "clamp(8px, 1vw, 10px)",
+              }}
+            >
+              Regret {i + 1}
+            </div>
+            <p
+              style={{
+                margin: "0 0 clamp(14px, 1.8vw, 18px)",
+                fontSize: isMobile ? "clamp(15px, 3.8vw, 17px)" : "clamp(16px, 1.8vw, 18px)",
+                fontWeight: 700,
+                fontStyle: "italic",
+                lineHeight: 1.55,
+                color: isDark ? "#f1f5f9" : "#0f172a",
+              }}
+            >
+              {item.regret}
+            </p>
+            <div style={{ marginBottom: "clamp(12px, 1.5vw, 14px)" }}>
+              <div
+                style={{
+                  fontSize: isMobile ? "clamp(10px, 2.5vw, 11px)" : "11px",
+                  fontWeight: 800,
+                  letterSpacing: "0.14em",
+                  textTransform: "uppercase",
+                  color: isDark ? "#67e8f9" : "#0891b2",
+                  marginBottom: "clamp(6px, 0.8vw, 8px)",
+                }}
+              >
+                Reflection
+              </div>
+              <p
+                style={{
+                  margin: 0,
+                  fontSize: isMobile ? "clamp(14px, 3.5vw, 16px)" : "clamp(15px, 1.7vw, 16px)",
+                  lineHeight: 1.65,
+                  color: colors.textSecondary,
+                  fontWeight: 500,
+                }}
+              >
+                {item.reflection}
+              </p>
+            </div>
+            <div
+              style={{
+                padding: isMobile ? "clamp(12px, 3vw, 14px)" : "clamp(14px, 1.6vw, 16px)",
+                borderRadius: "clamp(10px, 1.2vw, 12px)",
+                background: isDark ? "rgba(108, 52, 248, 0.12)" : "rgba(124, 58, 237, 0.08)",
+                border: isDark ? "1px solid rgba(167, 139, 250, 0.25)" : "1px solid rgba(124, 58, 237, 0.2)",
+              }}
+            >
+              <div
+                style={{
+                  fontSize: isMobile ? "clamp(10px, 2.5vw, 11px)" : "11px",
+                  fontWeight: 800,
+                  letterSpacing: "0.14em",
+                  textTransform: "uppercase",
+                  color: isDark ? "#c4b5fd" : "#6d28d9",
+                  marginBottom: "clamp(6px, 0.8vw, 8px)",
+                }}
+              >
+                Action
+              </div>
+              <p
+                style={{
+                  margin: 0,
+                  fontSize: isMobile ? "clamp(14px, 3.5vw, 16px)" : "clamp(15px, 1.7vw, 16px)",
+                  lineHeight: 1.65,
+                  color: colors.text,
+                  fontWeight: 600,
+                }}
+              >
+                {item.action}
+              </p>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <div
+        style={{
+          marginTop: isMobile ? "clamp(22px, 5vw, 28px)" : "clamp(28px, 3vw, 36px)",
+          padding: isMobile ? "clamp(18px, 4.5vw, 24px)" : "clamp(24px, 3vw, 32px)",
+          borderRadius: "clamp(14px, 1.8vw, 18px)",
+          textAlign: "center",
+          border: isDark ? "1px solid rgba(251, 191, 36, 0.25)" : "1px solid rgba(245, 158, 11, 0.3)",
+          background: isDark
+            ? "linear-gradient(135deg, rgba(30, 27, 75, 0.5), rgba(15, 23, 42, 0.9))"
+            : "linear-gradient(135deg, rgba(255, 251, 235, 0.95), rgba(254, 243, 199, 0.5))",
+        }}
+      >
+        <div
+          style={{
+            fontSize: isMobile ? "clamp(11px, 2.8vw, 12px)" : "12px",
+            fontWeight: 800,
+            letterSpacing: "0.18em",
+            textTransform: "uppercase",
+            color: isDark ? "#fcd34d" : "#b45309",
+            marginBottom: "clamp(12px, 1.5vw, 14px)",
+          }}
+        >
+          Closing reflection
+        </div>
+        <p
+          style={{
+            margin: "0 auto clamp(16px, 2vw, 20px)",
+            maxWidth: "56ch",
+            fontSize: isMobile ? "clamp(15px, 3.8vw, 17px)" : "clamp(16px, 1.85vw, 18px)",
+            lineHeight: 1.7,
+            color: colors.text,
+            fontWeight: 600,
+          }}
+        >
+          Your lifespan is not just a number.
+        </p>
+        <p
+          style={{
+            margin: "0 auto clamp(18px, 2.2vw, 24px)",
+            maxWidth: "56ch",
+            fontSize: isMobile ? "clamp(14px, 3.5vw, 16px)" : "clamp(15px, 1.7vw, 17px)",
+            lineHeight: 1.75,
+            color: colors.textSecondary,
+            fontWeight: 500,
+          }}
+        >
+          It is a limited window of choices, conversations, risks, adventures, love, work, health, and courage.
+        </p>
+        <p
+          style={{
+            margin: "0 auto clamp(8px, 1vw, 10px)",
+            fontSize: isMobile ? "clamp(13px, 3.2vw, 15px)" : "clamp(14px, 1.6vw, 15px)",
+            color: colors.textSecondary,
+            fontWeight: 500,
+          }}
+        >
+          The question is not only:
+        </p>
+        <p
+          style={{
+            margin: "0 auto clamp(14px, 1.8vw, 18px)",
+            fontSize: isMobile ? "clamp(16px, 4vw, 18px)" : "clamp(17px, 2vw, 19px)",
+            fontWeight: 800,
+            color: colors.text,
+          }}
+        >
+          How long might I live?
+        </p>
+        <p
+          style={{
+            margin: "0 auto clamp(8px, 1vw, 10px)",
+            fontSize: isMobile ? "clamp(13px, 3.2vw, 15px)" : "clamp(14px, 1.6vw, 15px)",
+            color: isDark ? "#f9a8d4" : "#be123c",
+            fontWeight: 700,
+          }}
+        >
+          The better question is:
+        </p>
+        <p
+          style={{
+            margin: 0,
+            fontSize: isMobile ? "clamp(17px, 4.2vw, 21px)" : "clamp(20px, 2.3vw, 24px)",
+            fontWeight: 900,
+            lineHeight: 1.35,
+            letterSpacing: "-0.02em",
+            background: isDark
+              ? "linear-gradient(135deg, #fda4af, #fbbf24, #a78bfa)"
+              : "linear-gradient(135deg, #be123c, #c026d3, #d97706)",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+            backgroundClip: "text",
+            maxWidth: "38ch",
+            marginLeft: "auto",
+            marginRight: "auto",
+          }}
+        >
+          What would I regret not doing while I still can?
+        </p>
+      </div>
+    </section>
   );
 }
 
