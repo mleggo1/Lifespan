@@ -2233,6 +2233,7 @@ function FiveRegretsReflection({ theme, isMobile, colors }) {
         boxShadow: isDark
           ? "0 0 0 1px rgba(255,255,255,0.06) inset, 0 24px 64px rgba(0,0,0,0.45), 0 0 80px rgba(251, 113, 133, 0.08)"
           : "0 4px 24px rgba(190, 18, 60, 0.08), 0 1px 3px rgba(0,0,0,0.06)",
+        fontSize: "clamp(15px, 1.9vw, 17px)",
       }}
     >
       <div
@@ -2243,7 +2244,7 @@ function FiveRegretsReflection({ theme, isMobile, colors }) {
       >
         <div
           style={{
-            fontSize: isMobile ? "clamp(10px, 2.5vw, 11px)" : "clamp(11px, 1.2vw, 12px)",
+            fontSize: "clamp(14px, 1.7vw, 16px)",
             letterSpacing: "0.2em",
             textTransform: "uppercase",
             fontWeight: 700,
@@ -2256,7 +2257,7 @@ function FiveRegretsReflection({ theme, isMobile, colors }) {
         <h2
           style={{
             margin: "0 0 clamp(12px, 1.5vw, 16px)",
-            fontSize: isMobile ? "clamp(22px, 5.5vw, 28px)" : "clamp(28px, 3.2vw, 36px)",
+            fontSize: "clamp(20px, 2.5vw, 24px)",
             fontWeight: 900,
             letterSpacing: "-0.03em",
             lineHeight: 1.15,
@@ -2269,8 +2270,8 @@ function FiveRegretsReflection({ theme, isMobile, colors }) {
           style={{
             margin: "0 auto",
             maxWidth: "52ch",
-            fontSize: isMobile ? "clamp(14px, 3.5vw, 16px)" : "clamp(15px, 1.7vw, 17px)",
-            lineHeight: 1.65,
+            fontSize: "clamp(18px, 2.3vw, 22px)",
+            lineHeight: 1.8,
             color: colors.textSecondary,
             fontWeight: 500,
           }}
@@ -2296,7 +2297,7 @@ function FiveRegretsReflection({ theme, isMobile, colors }) {
         <p
           style={{
             margin: "0 0 clamp(8px, 1vw, 10px)",
-            fontSize: isMobile ? "clamp(14px, 3.2vw, 15px)" : "clamp(15px, 1.6vw, 16px)",
+            fontSize: "clamp(18px, 2.3vw, 22px)",
             color: colors.textSecondary,
             fontWeight: 600,
           }}
@@ -2306,7 +2307,7 @@ function FiveRegretsReflection({ theme, isMobile, colors }) {
         <p
           style={{
             margin: 0,
-            fontSize: isMobile ? "clamp(16px, 4vw, 19px)" : "clamp(18px, 2vw, 21px)",
+            fontSize: "clamp(18px, 2.3vw, 22px)",
             fontWeight: 800,
             lineHeight: 1.45,
             color: colors.text,
@@ -2354,7 +2355,7 @@ function FiveRegretsReflection({ theme, isMobile, colors }) {
             />
             <div
               style={{
-                fontSize: isMobile ? "clamp(11px, 2.8vw, 12px)" : "12px",
+                fontSize: "clamp(18px, 2.4vw, 24px)",
                 fontWeight: 800,
                 letterSpacing: "0.12em",
                 textTransform: "uppercase",
@@ -2367,7 +2368,7 @@ function FiveRegretsReflection({ theme, isMobile, colors }) {
             <p
               style={{
                 margin: "0 0 clamp(14px, 1.8vw, 18px)",
-                fontSize: isMobile ? "clamp(15px, 3.8vw, 17px)" : "clamp(16px, 1.8vw, 18px)",
+                fontSize: "clamp(18px, 2.3vw, 22px)",
                 fontWeight: 700,
                 fontStyle: "italic",
                 lineHeight: 1.55,
@@ -2379,7 +2380,7 @@ function FiveRegretsReflection({ theme, isMobile, colors }) {
             <div style={{ marginBottom: "clamp(12px, 1.5vw, 14px)" }}>
               <div
                 style={{
-                  fontSize: isMobile ? "clamp(10px, 2.5vw, 11px)" : "11px",
+                  fontSize: "clamp(16px, 1.9vw, 18px)",
                   fontWeight: 800,
                   letterSpacing: "0.14em",
                   textTransform: "uppercase",
@@ -2392,8 +2393,8 @@ function FiveRegretsReflection({ theme, isMobile, colors }) {
               <p
                 style={{
                   margin: 0,
-                  fontSize: isMobile ? "clamp(14px, 3.5vw, 16px)" : "clamp(15px, 1.7vw, 16px)",
-                  lineHeight: 1.65,
+                  fontSize: "clamp(18px, 2.3vw, 22px)",
+                  lineHeight: 1.8,
                   color: colors.textSecondary,
                   fontWeight: 500,
                 }}
@@ -2411,7 +2412,7 @@ function FiveRegretsReflection({ theme, isMobile, colors }) {
             >
               <div
                 style={{
-                  fontSize: isMobile ? "clamp(10px, 2.5vw, 11px)" : "11px",
+                  fontSize: "clamp(16px, 1.9vw, 18px)",
                   fontWeight: 800,
                   letterSpacing: "0.14em",
                   textTransform: "uppercase",
@@ -2424,8 +2425,8 @@ function FiveRegretsReflection({ theme, isMobile, colors }) {
               <p
                 style={{
                   margin: 0,
-                  fontSize: isMobile ? "clamp(14px, 3.5vw, 16px)" : "clamp(15px, 1.7vw, 16px)",
-                  lineHeight: 1.65,
+                  fontSize: "clamp(18px, 2.3vw, 22px)",
+                  lineHeight: 1.8,
                   color: colors.text,
                   fontWeight: 600,
                 }}
@@ -2451,7 +2452,7 @@ function FiveRegretsReflection({ theme, isMobile, colors }) {
       >
         <div
           style={{
-            fontSize: isMobile ? "clamp(11px, 2.8vw, 12px)" : "12px",
+            fontSize: "clamp(16px, 1.9vw, 18px)",
             fontWeight: 800,
             letterSpacing: "0.18em",
             textTransform: "uppercase",
@@ -2465,8 +2466,8 @@ function FiveRegretsReflection({ theme, isMobile, colors }) {
           style={{
             margin: "0 auto clamp(16px, 2vw, 20px)",
             maxWidth: "56ch",
-            fontSize: isMobile ? "clamp(15px, 3.8vw, 17px)" : "clamp(16px, 1.85vw, 18px)",
-            lineHeight: 1.7,
+            fontSize: "clamp(18px, 2.3vw, 22px)",
+            lineHeight: 1.8,
             color: colors.text,
             fontWeight: 600,
           }}
@@ -2477,8 +2478,8 @@ function FiveRegretsReflection({ theme, isMobile, colors }) {
           style={{
             margin: "0 auto clamp(18px, 2.2vw, 24px)",
             maxWidth: "56ch",
-            fontSize: isMobile ? "clamp(14px, 3.5vw, 16px)" : "clamp(15px, 1.7vw, 17px)",
-            lineHeight: 1.75,
+            fontSize: "clamp(18px, 2.3vw, 22px)",
+            lineHeight: 1.8,
             color: colors.textSecondary,
             fontWeight: 500,
           }}
@@ -2488,7 +2489,7 @@ function FiveRegretsReflection({ theme, isMobile, colors }) {
         <p
           style={{
             margin: "0 auto clamp(8px, 1vw, 10px)",
-            fontSize: isMobile ? "clamp(13px, 3.2vw, 15px)" : "clamp(14px, 1.6vw, 15px)",
+            fontSize: "clamp(18px, 2.3vw, 22px)",
             color: colors.textSecondary,
             fontWeight: 500,
           }}
@@ -2498,7 +2499,7 @@ function FiveRegretsReflection({ theme, isMobile, colors }) {
         <p
           style={{
             margin: "0 auto clamp(14px, 1.8vw, 18px)",
-            fontSize: isMobile ? "clamp(16px, 4vw, 18px)" : "clamp(17px, 2vw, 19px)",
+            fontSize: "clamp(20px, 2.4vw, 24px)",
             fontWeight: 800,
             color: colors.text,
           }}
@@ -2508,7 +2509,7 @@ function FiveRegretsReflection({ theme, isMobile, colors }) {
         <p
           style={{
             margin: "0 auto clamp(8px, 1vw, 10px)",
-            fontSize: isMobile ? "clamp(13px, 3.2vw, 15px)" : "clamp(14px, 1.6vw, 15px)",
+            fontSize: "clamp(18px, 2.3vw, 22px)",
             color: isDark ? "#f9a8d4" : "#be123c",
             fontWeight: 700,
           }}
@@ -2518,7 +2519,7 @@ function FiveRegretsReflection({ theme, isMobile, colors }) {
         <p
           style={{
             margin: 0,
-            fontSize: isMobile ? "clamp(17px, 4.2vw, 21px)" : "clamp(20px, 2.3vw, 24px)",
+            fontSize: "clamp(22px, 2.8vw, 28px)",
             fontWeight: 900,
             lineHeight: 1.35,
             letterSpacing: "-0.02em",
