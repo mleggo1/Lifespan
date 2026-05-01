@@ -2228,8 +2228,8 @@ function FiveRegretsReflection({ theme, isMobile, colors }) {
       style={{
         marginTop: "clamp(24px, 3vw, 36px)",
         padding: isMobile
-          ? "clamp(20px, 5vw, 28px) clamp(16px, 4vw, 22px)"
-          : "clamp(28px, 3.5vw, 40px) clamp(28px, 3.5vw, 44px)",
+          ? "clamp(18px, 4.5vw, 24px) clamp(14px, 3.5vw, 20px)"
+          : "clamp(28px, 3.5vw, 40px) clamp(24px, 3vw, 40px)",
         borderRadius: "clamp(16px, 2vw, 22px)",
         width: "100%",
         maxWidth: "100%",
@@ -2347,29 +2347,15 @@ function FiveRegretsReflection({ theme, isMobile, colors }) {
             key={i}
             style={{
               position: "relative",
-              padding: isMobile ? "clamp(16px, 4vw, 20px)" : "clamp(20px, 2.2vw, 26px)",
-              paddingLeft: isMobile ? "clamp(14px, 3.5vw, 18px)" : "clamp(22px, 2.5vw, 28px)",
+              padding: isMobile ? "clamp(12px, 3.5vw, 16px)" : "clamp(16px, 2vw, 22px)",
               borderRadius: "clamp(12px, 1.4vw, 16px)",
               border: isDark ? "1px solid rgba(148, 163, 184, 0.2)" : "1px solid rgba(71, 85, 105, 0.12)",
               background: isDark ? "rgba(15, 23, 42, 0.65)" : "rgba(248, 250, 252, 0.92)",
               boxShadow: isDark
-                ? "inset 0 1px 0 rgba(255,255,255,0.04)"
-                : "inset 0 1px 0 rgba(255,255,255,0.9)",
+                ? "inset 2px 0 0 0 rgba(244, 114, 182, 0.65), inset 0 1px 0 rgba(255,255,255,0.04)"
+                : "inset 2px 0 0 0 rgba(225, 29, 72, 0.5), inset 0 1px 0 rgba(255,255,255,0.9)",
             }}
           >
-            <div
-              style={{
-                position: "absolute",
-                left: 0,
-                top: "clamp(12px, 1.5vw, 16px)",
-                bottom: "clamp(12px, 1.5vw, 16px)",
-                width: 4,
-                borderRadius: 999,
-                background: isDark
-                  ? "linear-gradient(180deg, #fb7185, #a78bfa, #38bdf8)"
-                  : "linear-gradient(180deg, #e11d48, #7c3aed, #0284c7)",
-              }}
-            />
             <div
               style={{
                 fontSize: "clamp(18px, 2.4vw, 24px)",
