@@ -2257,28 +2257,46 @@ function FiveRegretsReflection({ theme, isMobile, colors }) {
         style={{
           textAlign: "center",
           marginBottom: isMobile ? "clamp(18px, 4vw, 24px)" : "clamp(22px, 2.5vw, 28px)",
+          padding: isMobile
+            ? "clamp(20px, 4.5vw, 26px) clamp(14px, 3.5vw, 20px)"
+            : "clamp(24px, 3vw, 32px) clamp(22px, 2.5vw, 32px)",
+          borderRadius: "clamp(14px, 1.8vw, 18px)",
+          border: isDark
+            ? "1px solid rgba(139, 92, 246, 0.45)"
+            : "1px solid rgba(108, 52, 248, 0.22)",
+          background: isDark
+            ? "linear-gradient(145deg, rgba(56, 24, 168, 0.35), rgba(15, 23, 42, 0.95), rgba(30, 58, 138, 0.25))"
+            : "linear-gradient(145deg, rgba(139, 92, 246, 0.12), rgba(255, 255, 255, 0.98), rgba(241, 245, 249, 0.9))",
+          boxShadow: isDark
+            ? "0 0 40px rgba(108, 52, 248, 0.15), inset 0 1px 0 rgba(255,255,255,0.06)"
+            : "0 4px 20px rgba(108, 52, 248, 0.08), inset 0 1px 0 rgba(255,255,255,1)",
         }}
       >
         <div
           style={{
-            fontSize: "clamp(14px, 1.7vw, 16px)",
-            letterSpacing: "0.2em",
+            fontSize: "clamp(13px, 1.5vw, 15px)",
+            letterSpacing: 3,
             textTransform: "uppercase",
-            fontWeight: 700,
-            color: isDark ? "rgba(251, 191, 197, 0.9)" : "#9f1239",
-            marginBottom: "clamp(8px, 1vw, 10px)",
+            fontWeight: 800,
+            color: isDark ? "#c4b5fd" : "#5b21b6",
+            marginBottom: "clamp(10px, 1.2vw, 14px)",
+            textShadow: isDark ? "0 0 20px rgba(167, 139, 250, 0.5)" : "none",
           }}
         >
           Pause & reflect
         </div>
         <h2
           style={{
-            margin: "0 0 clamp(12px, 1.5vw, 16px)",
-            fontSize: "clamp(20px, 2.5vw, 24px)",
+            margin: "0 0 clamp(14px, 1.8vw, 18px)",
+            fontSize: "clamp(26px, 5.5vw, 38px)",
             fontWeight: 900,
             letterSpacing: "-0.03em",
-            lineHeight: 1.15,
-            color: colors.text,
+            lineHeight: 1.1,
+            background: "linear-gradient(135deg, #FBBF24, #F76B1C, #EA580C)",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+            backgroundClip: "text",
+            filter: isDark ? "drop-shadow(0 2px 14px rgba(247, 107, 28, 0.4))" : "drop-shadow(0 1px 2px rgba(234, 88, 12, 0.2))",
           }}
         >
           The Five Regrets Reflection
@@ -2286,15 +2304,23 @@ function FiveRegretsReflection({ theme, isMobile, colors }) {
         <p
           style={{
             margin: "0 auto",
-            maxWidth: "52ch",
-            fontSize: "clamp(18px, 2.3vw, 22px)",
-            lineHeight: 1.8,
-            color: colors.textSecondary,
-            fontWeight: 500,
+            maxWidth: "54ch",
+            fontSize: "clamp(18px, 2.4vw, 23px)",
+            lineHeight: 1.75,
+            color: isDark ? "#e2e8f0" : "#334155",
+            fontWeight: 600,
           }}
         >
           Inspired by the work of Australian author and former palliative carer{" "}
-          <strong style={{ color: isDark ? "#fda4af" : "#be123c", fontWeight: 800 }}>
+          <strong
+            style={{
+              color: isDark ? "#22d3ee" : "#0891b2",
+              fontWeight: 900,
+              textShadow: isDark
+                ? "0 0 18px rgba(34, 211, 238, 0.45), 0 0 32px rgba(6, 182, 212, 0.25)"
+                : "0 1px 0 rgba(255,255,255,0.8)",
+            }}
+          >
             Bronnie Ware
           </strong>
           , who captured the most common regrets she heard from people nearing the end of life.
