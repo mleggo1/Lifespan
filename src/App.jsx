@@ -2481,12 +2481,17 @@ function FiveRegretsReflection({ theme, isMobile, colors }) {
       >
         <div
           style={{
-            fontSize: "clamp(16px, 1.9vw, 18px)",
-            fontWeight: 800,
-            letterSpacing: "0.18em",
+            fontSize: "clamp(26px, 5.5vw, 38px)",
+            fontWeight: 900,
+            letterSpacing: "0.08em",
             textTransform: "uppercase",
-            color: isDark ? "#fcd34d" : "#b45309",
-            marginBottom: "clamp(12px, 1.5vw, 14px)",
+            lineHeight: 1.1,
+            marginBottom: "clamp(14px, 1.8vw, 18px)",
+            background: "linear-gradient(135deg, #FBBF24, #F76B1C, #EA580C)",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+            backgroundClip: "text",
+            filter: isDark ? "drop-shadow(0 2px 14px rgba(247, 107, 28, 0.45))" : "drop-shadow(0 1px 2px rgba(234, 88, 12, 0.25))",
           }}
         >
           Closing reflection
