@@ -2501,7 +2501,7 @@ function FiveRegretsReflection({ theme, isMobile, colors }) {
             fontWeight: 600,
           }}
         >
-          Your lifespan is not just a number.
+          That figure on your timeline is not who you are — it is only the time you may still have.
         </p>
         <p
           style={{
@@ -2513,7 +2513,7 @@ function FiveRegretsReflection({ theme, isMobile, colors }) {
             fontWeight: 500,
           }}
         >
-          It is a limited window of choices, conversations, risks, adventures, love, work, health, and courage.
+          It is a narrowing window for truth you have not spoken, love you have not shown, risks you keep postponing, repairs you keep avoiding, and joy you keep trading for “someday.”
         </p>
         <p
           style={{
@@ -2552,7 +2552,7 @@ function FiveRegretsReflection({ theme, isMobile, colors }) {
             fontWeight: 900,
             lineHeight: 1.35,
             letterSpacing: "-0.02em",
-            maxWidth: "38ch",
+            maxWidth: "42ch",
             marginLeft: "auto",
             marginRight: "auto",
             color: isDark ? "#fef3c7" : "#831843",
@@ -2561,7 +2561,7 @@ function FiveRegretsReflection({ theme, isMobile, colors }) {
               : "0 1px 0 rgba(255,255,255,0.95), 0 2px 8px rgba(131, 24, 67, 0.2)",
           }}
         >
-          What would I regret not doing while I still can?
+          What would I regret not living, not saying, or not trying while I still can?
         </p>
       </div>
     </section>
