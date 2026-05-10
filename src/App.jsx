@@ -2269,7 +2269,8 @@ function FiveRegretsReflection({ theme, colors }) {
       <p
         style={{
           margin: "0 0 clamp(14px, 1.8vw, 18px)",
-          maxWidth: "62ch",
+          width: "100%",
+          maxWidth: "100%",
           fontSize: "clamp(18px, 2.3vw, 22px)",
           lineHeight: 1.8,
           color: colors.textSecondary,
@@ -2423,7 +2424,8 @@ function FiveRegretsReflection({ theme, colors }) {
         <p
           style={{
             margin: "0 0 clamp(14px, 1.8vw, 18px)",
-            maxWidth: "62ch",
+            width: "100%",
+            maxWidth: "100%",
             fontSize: "clamp(18px, 2.3vw, 22px)",
             lineHeight: 1.8,
             color: colors.text,
@@ -2435,7 +2437,8 @@ function FiveRegretsReflection({ theme, colors }) {
         <p
           style={{
             margin: "0 0 clamp(14px, 1.8vw, 18px)",
-            maxWidth: "62ch",
+            width: "100%",
+            maxWidth: "100%",
             fontSize: "clamp(18px, 2.3vw, 22px)",
             lineHeight: 1.8,
             color: colors.textSecondary,
@@ -2477,7 +2480,8 @@ function FiveRegretsReflection({ theme, colors }) {
         <p
           style={{
             margin: 0,
-            maxWidth: "62ch",
+            width: "100%",
+            maxWidth: "100%",
             fontSize: "clamp(18px, 2.3vw, 22px)",
             fontWeight: 700,
             lineHeight: 1.55,
