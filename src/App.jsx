@@ -2178,7 +2178,7 @@ export default function App() {
               </div>
             </section>
 
-        <FiveRegretsReflection theme={theme} isMobile={isMobile} colors={colors} />
+        <FiveRegretsReflection theme={theme} colors={colors} />
         </div>
       </div>
     </div>
@@ -2220,176 +2220,132 @@ const FIVE_REGRETS = [
   },
 ];
 
-function FiveRegretsReflection({ theme, isMobile, colors }) {
+function FiveRegretsReflection({ theme, colors }) {
   const isDark = theme === "dark";
+  const blockGap = "clamp(12px, 1.5vw, 16px)";
+  const regretDivider = isDark ? "1px solid rgba(148, 163, 184, 0.2)" : "1px solid rgba(71, 85, 105, 0.12)";
+
   return (
     <section
       className="fade-in"
       style={{
-        marginTop: "clamp(24px, 3vw, 36px)",
-        padding: isMobile
-          ? "clamp(18px, 4.5vw, 24px) clamp(14px, 3.5vw, 20px)"
-          : "clamp(28px, 3.5vw, 40px) clamp(24px, 3vw, 40px)",
-        borderRadius: "clamp(16px, 2vw, 22px)",
+        marginTop: "clamp(16px, 2vw, 20px)",
+        padding: "clamp(14px, 1.8vw, 20px)",
+        borderRadius: "clamp(14px, 1.8vw, 18px)",
         width: "100%",
         maxWidth: "100%",
         boxSizing: "border-box",
-        border: isDark
-          ? "2px solid rgba(251, 113, 133, 0.35)"
-          : "2px solid rgba(190, 18, 60, 0.2)",
+        border: `1px solid ${colors.border}`,
         background: isDark
-          ? `
-            radial-gradient(ellipse 120% 80% at 50% 0%, rgba(251, 113, 133, 0.12), transparent 55%),
-            radial-gradient(ellipse 90% 60% at 100% 100%, rgba(167, 139, 250, 0.08), transparent 50%),
-            linear-gradient(165deg, rgba(15, 23, 42, 0.98) 0%, rgba(30, 27, 75, 0.55) 100%)
-          `
-          : `
-            radial-gradient(ellipse 120% 80% at 50% 0%, rgba(251, 113, 133, 0.14), transparent 55%),
-            linear-gradient(165deg, rgba(255, 255, 255, 0.98) 0%, rgba(254, 242, 242, 0.85) 100%)
-          `,
-        boxShadow: isDark
-          ? "0 0 0 1px rgba(255,255,255,0.06) inset, 0 24px 64px rgba(0,0,0,0.45), 0 0 80px rgba(251, 113, 133, 0.08)"
-          : "0 4px 24px rgba(190, 18, 60, 0.08), 0 1px 3px rgba(0,0,0,0.06)",
+          ? "linear-gradient(135deg, rgba(15,23,42,0.98), rgba(30,58,138,0.3))"
+          : "linear-gradient(135deg, rgba(255,255,255,0.98), rgba(241,245,249,0.5))",
         fontSize: "clamp(15px, 1.9vw, 17px)",
       }}
     >
       <div
         style={{
-          textAlign: "center",
-          marginBottom: isMobile ? "clamp(18px, 4vw, 24px)" : "clamp(22px, 2.5vw, 28px)",
-          padding: isMobile
-            ? "clamp(20px, 4.5vw, 26px) clamp(14px, 3.5vw, 20px)"
-            : "clamp(24px, 3vw, 32px) clamp(22px, 2.5vw, 32px)",
-          borderRadius: "clamp(14px, 1.8vw, 18px)",
-          border: isDark
-            ? "1px solid rgba(139, 92, 246, 0.45)"
-            : "1px solid rgba(108, 52, 248, 0.22)",
-          background: isDark
-            ? "linear-gradient(145deg, rgba(56, 24, 168, 0.35), rgba(15, 23, 42, 0.95), rgba(30, 58, 138, 0.25))"
-            : "linear-gradient(145deg, rgba(139, 92, 246, 0.12), rgba(255, 255, 255, 0.98), rgba(241, 245, 249, 0.9))",
-          boxShadow: isDark
-            ? "0 0 40px rgba(108, 52, 248, 0.15), inset 0 1px 0 rgba(255,255,255,0.06)"
-            : "0 4px 20px rgba(108, 52, 248, 0.08), inset 0 1px 0 rgba(255,255,255,1)",
+          fontSize: "clamp(18px, 2.4vw, 24px)",
+          textTransform: "uppercase",
+          letterSpacing: 1.5,
+          background: "linear-gradient(135deg, #6C34F8, #8B5CF6, #A78BFA)",
+          WebkitBackgroundClip: "text",
+          WebkitTextFillColor: "transparent",
+          backgroundClip: "text",
+          fontWeight: 800,
+          marginBottom: "clamp(10px, 1.2vw, 12px)",
+          filter: isDark ? "drop-shadow(0 0 8px rgba(108, 52, 248, 0.5))" : "none",
         }}
       >
-        <div
-          style={{
-            fontSize: "clamp(13px, 1.5vw, 15px)",
-            letterSpacing: 3,
-            textTransform: "uppercase",
-            fontWeight: 800,
-            color: isDark ? "#c4b5fd" : "#5b21b6",
-            marginBottom: "clamp(10px, 1.2vw, 14px)",
-            textShadow: isDark ? "0 0 20px rgba(167, 139, 250, 0.5)" : "none",
-          }}
-        >
-          Pause & reflect
-        </div>
-        <h2
-          style={{
-            margin: "0 0 clamp(14px, 1.8vw, 18px)",
-            fontSize: "clamp(26px, 5.5vw, 38px)",
-            fontWeight: 900,
-            letterSpacing: "-0.03em",
-            lineHeight: 1.1,
-            background: "linear-gradient(135deg, #FBBF24, #F76B1C, #EA580C)",
-            WebkitBackgroundClip: "text",
-            WebkitTextFillColor: "transparent",
-            backgroundClip: "text",
-            filter: isDark ? "drop-shadow(0 2px 14px rgba(247, 107, 28, 0.4))" : "drop-shadow(0 1px 2px rgba(234, 88, 12, 0.2))",
-          }}
-        >
-          The Five Regrets Reflection
-        </h2>
-        <p
-          style={{
-            margin: "0 auto",
-            maxWidth: "54ch",
-            fontSize: "clamp(18px, 2.4vw, 23px)",
-            lineHeight: 1.75,
-            color: isDark ? "#e2e8f0" : "#334155",
-            fontWeight: 600,
-          }}
-        >
-          Inspired by the work of Australian author and former palliative carer{" "}
-          <strong
-            style={{
-              color: isDark ? "#22d3ee" : "#0891b2",
-              fontWeight: 900,
-              textShadow: isDark
-                ? "0 0 18px rgba(34, 211, 238, 0.45), 0 0 32px rgba(6, 182, 212, 0.25)"
-                : "0 1px 0 rgba(255,255,255,0.8)",
-            }}
-          >
-            Bronnie Ware
-          </strong>
-          , who captured the most common regrets she heard from people nearing the end of life.
-        </p>
+        Pause & reflect
       </div>
-
-      <div
+      <h2
         style={{
-          margin: isMobile ? "clamp(16px, 4vw, 22px) 0" : "clamp(20px, 2.5vw, 28px) 0",
-          padding: isMobile ? "clamp(14px, 3.5vw, 18px)" : "clamp(18px, 2.2vw, 24px)",
-          borderRadius: "clamp(12px, 1.5vw, 16px)",
-          textAlign: "center",
-          border: isDark ? "1px solid rgba(251, 113, 133, 0.25)" : "1px solid rgba(190, 18, 60, 0.15)",
-          background: isDark ? "rgba(0,0,0,0.25)" : "rgba(255,255,255,0.65)",
+          margin: "0 0 clamp(10px, 1.2vw, 14px)",
+          fontSize: "clamp(20px, 2.5vw, 24px)",
+          fontWeight: 900,
+          color: colors.text,
+          letterSpacing: "-0.02em",
         }}
       >
-        <p
+        The Five Regrets Reflection
+      </h2>
+      <p
+        style={{
+          margin: "0 0 clamp(14px, 1.8vw, 18px)",
+          maxWidth: "62ch",
+          fontSize: "clamp(18px, 2.3vw, 22px)",
+          lineHeight: 1.8,
+          color: colors.textSecondary,
+          fontWeight: 500,
+        }}
+      >
+        Inspired by the work of Australian author and former palliative carer{" "}
+        <strong
           style={{
-            margin: "0 0 clamp(8px, 1vw, 10px)",
-            fontSize: "clamp(18px, 2.3vw, 22px)",
-            color: colors.textSecondary,
-            fontWeight: 600,
+            color: isDark ? "#22d3ee" : "#0891b2",
+            fontWeight: 900,
+            textShadow: isDark
+              ? "0 0 18px rgba(34, 211, 238, 0.45), 0 0 32px rgba(6, 182, 212, 0.25)"
+              : "0 1px 0 rgba(255,255,255,0.8)",
           }}
         >
-          This reflection asks one simple question:
-        </p>
-        <p
-          style={{
-            margin: 0,
-            fontSize: "clamp(18px, 2.3vw, 22px)",
-            fontWeight: 800,
-            lineHeight: 1.45,
-            color: colors.text,
-          }}
-        >
-          What can you do <em style={{ fontStyle: "italic", color: isDark ? "#f9a8d4" : "#be123c" }}>now</em> so these do not become your regrets?
-        </p>
-      </div>
+          Bronnie Ware
+        </strong>
+        , who captured the most common regrets she heard from people nearing the end of life.
+      </p>
+
+      <p
+        style={{
+          margin: "0 0 clamp(6px, 0.8vw, 8px)",
+          fontSize: "clamp(18px, 2.3vw, 22px)",
+          color: colors.textSecondary,
+          fontWeight: 500,
+        }}
+      >
+        This reflection asks one simple question:
+      </p>
+      <p
+        style={{
+          margin: "0 0 clamp(18px, 2.2vw, 24px)",
+          fontSize: "clamp(18px, 2.3vw, 22px)",
+          fontWeight: 700,
+          lineHeight: 1.55,
+          color: colors.text,
+        }}
+      >
+        What can you do <em style={{ fontStyle: "italic", color: isDark ? "#f9a8d4" : "#be123c" }}>now</em>{" "}
+        so these do not become your regrets?
+      </p>
 
       <div
         style={{
           display: "flex",
           flexDirection: "column",
-          gap: isMobile ? "clamp(14px, 3.5vw, 18px)" : "clamp(18px, 2vw, 22px)",
-          marginTop: isMobile ? "clamp(18px, 4vw, 24px)" : "clamp(24px, 2.5vw, 32px)",
+          gap: 0,
+          marginTop: "clamp(4px, 0.6vw, 8px)",
         }}
       >
         {FIVE_REGRETS.map((item, i) => (
           <article
             key={i}
             style={{
-              position: "relative",
-              padding: isMobile ? "clamp(12px, 3.5vw, 16px)" : "clamp(16px, 2vw, 22px)",
-              borderRadius: "clamp(12px, 1.4vw, 16px)",
-              border: isDark ? "1px solid rgba(148, 163, 184, 0.2)" : "1px solid rgba(71, 85, 105, 0.12)",
-              background: isDark ? "rgba(15, 23, 42, 0.65)" : "rgba(248, 250, 252, 0.92)",
-              boxShadow: isDark
-                ? "inset 2px 0 0 0 rgba(244, 114, 182, 0.65), inset 0 1px 0 rgba(255,255,255,0.04)"
-                : "inset 2px 0 0 0 rgba(225, 29, 72, 0.5), inset 0 1px 0 rgba(255,255,255,0.9)",
+              paddingTop: i === 0 ? 0 : "clamp(16px, 2vw, 22px)",
+              marginTop: i === 0 ? 0 : "clamp(16px, 2vw, 22px)",
+              borderTop: i === 0 ? "none" : regretDivider,
             }}
           >
             <div
               style={{
                 fontSize: "clamp(18px, 2.4vw, 24px)",
-                fontWeight: 800,
-                letterSpacing: "0.12em",
                 textTransform: "uppercase",
-                color: isDark ? "#94a3b8" : "#64748b",
-                marginBottom: "clamp(8px, 1vw, 10px)",
+                letterSpacing: 1.5,
+                background: "linear-gradient(135deg, #f472b6, #e11d48, #be123c)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+                fontWeight: 800,
+                marginBottom: "clamp(10px, 1.2vw, 12px)",
+                filter: isDark ? "drop-shadow(0 0 8px rgba(244, 114, 182, 0.35))" : "none",
               }}
             >
               Regret {i + 1}
@@ -2398,23 +2354,26 @@ function FiveRegretsReflection({ theme, isMobile, colors }) {
               style={{
                 margin: "0 0 clamp(14px, 1.8vw, 18px)",
                 fontSize: "clamp(18px, 2.3vw, 22px)",
-                fontWeight: 700,
+                fontWeight: 600,
                 fontStyle: "italic",
-                lineHeight: 1.55,
-                color: isDark ? "#f1f5f9" : "#0f172a",
+                lineHeight: 1.65,
+                color: colors.text,
               }}
             >
               {item.regret}
             </p>
-            <div style={{ marginBottom: "clamp(12px, 1.5vw, 14px)" }}>
+            <div style={{ marginBottom: blockGap }}>
               <div
                 style={{
-                  fontSize: "clamp(16px, 1.9vw, 18px)",
-                  fontWeight: 800,
-                  letterSpacing: "0.14em",
+                  fontSize: "clamp(18px, 2.4vw, 24px)",
                   textTransform: "uppercase",
-                  color: isDark ? "#67e8f9" : "#0891b2",
-                  marginBottom: "clamp(6px, 0.8vw, 8px)",
+                  letterSpacing: 1.5,
+                  background: "linear-gradient(135deg, #06b6d4, #3b82f6, #2563eb)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  backgroundClip: "text",
+                  fontWeight: 800,
+                  marginBottom: "clamp(10px, 1.2vw, 12px)",
                 }}
               >
                 Reflection
@@ -2431,22 +2390,19 @@ function FiveRegretsReflection({ theme, isMobile, colors }) {
                 {item.reflection}
               </p>
             </div>
-            <div
-              style={{
-                padding: isMobile ? "clamp(12px, 3vw, 14px)" : "clamp(14px, 1.6vw, 16px)",
-                borderRadius: "clamp(10px, 1.2vw, 12px)",
-                background: isDark ? "rgba(108, 52, 248, 0.12)" : "rgba(124, 58, 237, 0.08)",
-                border: isDark ? "1px solid rgba(167, 139, 250, 0.25)" : "1px solid rgba(124, 58, 237, 0.2)",
-              }}
-            >
+            <div>
               <div
                 style={{
-                  fontSize: "clamp(16px, 1.9vw, 18px)",
-                  fontWeight: 800,
-                  letterSpacing: "0.14em",
+                  fontSize: "clamp(18px, 2.4vw, 24px)",
                   textTransform: "uppercase",
-                  color: isDark ? "#c4b5fd" : "#6d28d9",
-                  marginBottom: "clamp(6px, 0.8vw, 8px)",
+                  letterSpacing: 1.5,
+                  background: "linear-gradient(135deg, #6C34F8, #8B5CF6, #A78BFA)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  backgroundClip: "text",
+                  fontWeight: 800,
+                  marginBottom: "clamp(10px, 1.2vw, 12px)",
+                  filter: isDark ? "drop-shadow(0 0 8px rgba(108, 52, 248, 0.5))" : "none",
                 }}
               >
                 Action
@@ -2457,7 +2413,7 @@ function FiveRegretsReflection({ theme, isMobile, colors }) {
                   fontSize: "clamp(18px, 2.3vw, 22px)",
                   lineHeight: 1.8,
                   color: colors.text,
-                  fontWeight: 600,
+                  fontWeight: 500,
                 }}
               >
                 {item.action}
@@ -2469,37 +2425,31 @@ function FiveRegretsReflection({ theme, isMobile, colors }) {
 
       <div
         style={{
-          marginTop: isMobile ? "clamp(22px, 5vw, 28px)" : "clamp(28px, 3vw, 36px)",
-          padding: isMobile ? "clamp(18px, 4.5vw, 24px)" : "clamp(24px, 3vw, 32px)",
-          borderRadius: "clamp(14px, 1.8vw, 18px)",
-          textAlign: "center",
-          border: isDark ? "1px solid rgba(251, 191, 36, 0.25)" : "1px solid rgba(245, 158, 11, 0.3)",
-          background: isDark
-            ? "linear-gradient(135deg, rgba(30, 27, 75, 0.5), rgba(15, 23, 42, 0.9))"
-            : "linear-gradient(135deg, rgba(255, 251, 235, 0.95), rgba(254, 243, 199, 0.5))",
+          marginTop: "clamp(20px, 2.5vw, 28px)",
+          paddingTop: "clamp(18px, 2.2vw, 24px)",
+          borderTop: regretDivider,
         }}
       >
         <div
           style={{
-            fontSize: "clamp(26px, 5.5vw, 38px)",
-            fontWeight: 900,
-            letterSpacing: "0.08em",
+            fontSize: "clamp(18px, 2.4vw, 24px)",
             textTransform: "uppercase",
-            lineHeight: 1.1,
-            marginBottom: "clamp(14px, 1.8vw, 18px)",
+            letterSpacing: 1.5,
             background: "linear-gradient(135deg, #FBBF24, #F76B1C, #EA580C)",
             WebkitBackgroundClip: "text",
             WebkitTextFillColor: "transparent",
             backgroundClip: "text",
-            filter: isDark ? "drop-shadow(0 2px 14px rgba(247, 107, 28, 0.45))" : "drop-shadow(0 1px 2px rgba(234, 88, 12, 0.25))",
+            fontWeight: 800,
+            marginBottom: "clamp(10px, 1.2vw, 12px)",
+            filter: isDark ? "drop-shadow(0 0 8px rgba(251, 191, 36, 0.5))" : "none",
           }}
         >
           Closing reflection
         </div>
         <p
           style={{
-            margin: "0 auto clamp(16px, 2vw, 20px)",
-            maxWidth: "56ch",
+            margin: "0 0 clamp(14px, 1.8vw, 18px)",
+            maxWidth: "62ch",
             fontSize: "clamp(18px, 2.3vw, 22px)",
             lineHeight: 1.8,
             color: colors.text,
@@ -2510,8 +2460,8 @@ function FiveRegretsReflection({ theme, isMobile, colors }) {
         </p>
         <p
           style={{
-            margin: "0 auto clamp(18px, 2.2vw, 24px)",
-            maxWidth: "56ch",
+            margin: "0 0 clamp(14px, 1.8vw, 18px)",
+            maxWidth: "62ch",
             fontSize: "clamp(18px, 2.3vw, 22px)",
             lineHeight: 1.8,
             color: colors.textSecondary,
@@ -2522,7 +2472,7 @@ function FiveRegretsReflection({ theme, isMobile, colors }) {
         </p>
         <p
           style={{
-            margin: "0 auto clamp(8px, 1vw, 10px)",
+            margin: "0 0 clamp(6px, 0.8vw, 8px)",
             fontSize: "clamp(18px, 2.3vw, 22px)",
             color: colors.textSecondary,
             fontWeight: 500,
@@ -2532,8 +2482,8 @@ function FiveRegretsReflection({ theme, isMobile, colors }) {
         </p>
         <p
           style={{
-            margin: "0 auto clamp(14px, 1.8vw, 18px)",
-            fontSize: "clamp(20px, 2.4vw, 24px)",
+            margin: "0 0 clamp(12px, 1.5vw, 16px)",
+            fontSize: "clamp(18px, 2.3vw, 22px)",
             fontWeight: 800,
             color: colors.text,
           }}
@@ -2542,7 +2492,7 @@ function FiveRegretsReflection({ theme, isMobile, colors }) {
         </p>
         <p
           style={{
-            margin: "0 auto clamp(8px, 1vw, 10px)",
+            margin: "0 0 clamp(6px, 0.8vw, 8px)",
             fontSize: "clamp(18px, 2.3vw, 22px)",
             color: isDark ? "#f9a8d4" : "#be123c",
             fontWeight: 700,
@@ -2553,17 +2503,12 @@ function FiveRegretsReflection({ theme, isMobile, colors }) {
         <p
           style={{
             margin: 0,
-            fontSize: "clamp(22px, 2.8vw, 28px)",
-            fontWeight: 900,
-            lineHeight: 1.35,
+            maxWidth: "62ch",
+            fontSize: "clamp(18px, 2.3vw, 22px)",
+            fontWeight: 700,
+            lineHeight: 1.55,
             letterSpacing: "-0.02em",
-            maxWidth: "42ch",
-            marginLeft: "auto",
-            marginRight: "auto",
-            color: isDark ? "#fef3c7" : "#831843",
-            textShadow: isDark
-              ? "0 0 24px rgba(251, 191, 36, 0.55), 0 0 48px rgba(167, 139, 250, 0.35), 0 2px 6px rgba(0,0,0,0.85)"
-              : "0 1px 0 rgba(255,255,255,0.95), 0 2px 8px rgba(131, 24, 67, 0.2)",
+            color: colors.text,
           }}
         >
           What would I regret not living, not saying, or not trying while I still can?
