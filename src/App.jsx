@@ -1514,7 +1514,7 @@ export default function App() {
                         lineHeight: 1.2,
                       }}
                     >
-                      {isMobile ? "RETIREMENT" : "Golden Years"}
+                      {isMobile ? "RETIREMENT" : "Golden Years?"}
                     </div>
                     <div
                       style={{
@@ -1561,7 +1561,7 @@ export default function App() {
                   color="linear-gradient(90deg, #FAD961, #F9B84A, #F76B1C)"
                   theme={theme}
                 >
-                  Golden Years: {formatYears(yearsAfterFreedom)}
+                  Golden Years?: {formatYears(yearsAfterFreedom)}
                 </LegendPill>
               </div>
             </section>
@@ -1767,7 +1767,7 @@ export default function App() {
                   isHighlighted={true}
                 />
                 <InfoCard
-                  label="Golden Years"
+                  label="Golden Years?"
                   main={formatYears(yearsAfterFreedom)}
                   sub={`${percent(afterFreedomPct)} of your life`}
                   theme={theme}
@@ -2142,7 +2142,7 @@ export default function App() {
                     marginBottom: "clamp(10px, 1.2vw, 12px)",
                     filter: theme === "dark" ? "drop-shadow(0 0 8px rgba(251, 191, 36, 0.5))" : "none",
                   }}>
-                    Your Golden Years
+                    Your Golden Years?
                   </div>
                   <p style={{ 
                     margin: 0, 
