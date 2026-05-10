@@ -2244,16 +2244,13 @@ function FiveRegretsReflection({ theme, colors }) {
     >
       <div
         style={{
-          fontSize: "clamp(18px, 2.4vw, 24px)",
+          fontSize: "clamp(12px, 3.1vw, 16px)",
           textTransform: "uppercase",
-          letterSpacing: 1.5,
-          background: "linear-gradient(135deg, #6C34F8, #8B5CF6, #A78BFA)",
-          WebkitBackgroundClip: "text",
-          WebkitTextFillColor: "transparent",
-          backgroundClip: "text",
+          letterSpacing: "0.14em",
           fontWeight: 800,
+          color: isDark ? "#ffffff" : colors.text,
           marginBottom: "clamp(10px, 1.2vw, 12px)",
-          filter: isDark ? "drop-shadow(0 0 8px rgba(108, 52, 248, 0.5))" : "none",
+          whiteSpace: "nowrap",
         }}
       >
         Pause & reflect
@@ -2280,15 +2277,7 @@ function FiveRegretsReflection({ theme, colors }) {
         }}
       >
         Inspired by the work of Australian author and former palliative carer{" "}
-        <strong
-          style={{
-            color: isDark ? "#22d3ee" : "#0891b2",
-            fontWeight: 900,
-            textShadow: isDark
-              ? "0 0 18px rgba(34, 211, 238, 0.45), 0 0 32px rgba(6, 182, 212, 0.25)"
-              : "0 1px 0 rgba(255,255,255,0.8)",
-          }}
-        >
+        <strong style={{ color: colors.text, fontWeight: 800 }}>
           Bronnie Ware
         </strong>
         , who captured the most common regrets she heard from people nearing the end of life.
@@ -2313,7 +2302,7 @@ function FiveRegretsReflection({ theme, colors }) {
           color: colors.text,
         }}
       >
-        What can you do <em style={{ fontStyle: "italic", color: isDark ? "#f9a8d4" : "#be123c" }}>now</em>{" "}
+        What can you do <em style={{ fontStyle: "italic", fontWeight: 800, color: colors.text }}>now</em>{" "}
         so these do not become your regrets?
       </p>
 
@@ -2336,16 +2325,12 @@ function FiveRegretsReflection({ theme, colors }) {
           >
             <div
               style={{
-                fontSize: "clamp(18px, 2.4vw, 24px)",
+                fontSize: "clamp(15px, 1.85vw, 18px)",
                 textTransform: "uppercase",
-                letterSpacing: 1.5,
-                background: "linear-gradient(135deg, #f472b6, #e11d48, #be123c)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
+                letterSpacing: "0.12em",
                 fontWeight: 800,
+                color: isDark ? "#e2e8f0" : "#475569",
                 marginBottom: "clamp(10px, 1.2vw, 12px)",
-                filter: isDark ? "drop-shadow(0 0 8px rgba(244, 114, 182, 0.35))" : "none",
               }}
             >
               Regret {i + 1}
@@ -2365,14 +2350,11 @@ function FiveRegretsReflection({ theme, colors }) {
             <div style={{ marginBottom: blockGap }}>
               <div
                 style={{
-                  fontSize: "clamp(18px, 2.4vw, 24px)",
+                  fontSize: "clamp(15px, 1.85vw, 18px)",
                   textTransform: "uppercase",
-                  letterSpacing: 1.5,
-                  background: "linear-gradient(135deg, #06b6d4, #3b82f6, #2563eb)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  backgroundClip: "text",
+                  letterSpacing: "0.12em",
                   fontWeight: 800,
+                  color: isDark ? "#7dd3fc" : "#0369a1",
                   marginBottom: "clamp(10px, 1.2vw, 12px)",
                 }}
               >
@@ -2393,16 +2375,12 @@ function FiveRegretsReflection({ theme, colors }) {
             <div>
               <div
                 style={{
-                  fontSize: "clamp(18px, 2.4vw, 24px)",
+                  fontSize: "clamp(15px, 1.85vw, 18px)",
                   textTransform: "uppercase",
-                  letterSpacing: 1.5,
-                  background: "linear-gradient(135deg, #6C34F8, #8B5CF6, #A78BFA)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  backgroundClip: "text",
+                  letterSpacing: "0.12em",
                   fontWeight: 800,
+                  color: isDark ? "#ddd6fe" : "#5b21b6",
                   marginBottom: "clamp(10px, 1.2vw, 12px)",
-                  filter: isDark ? "drop-shadow(0 0 8px rgba(108, 52, 248, 0.5))" : "none",
                 }}
               >
                 Action
@@ -2432,16 +2410,12 @@ function FiveRegretsReflection({ theme, colors }) {
       >
         <div
           style={{
-            fontSize: "clamp(18px, 2.4vw, 24px)",
+            fontSize: "clamp(15px, 1.85vw, 18px)",
             textTransform: "uppercase",
-            letterSpacing: 1.5,
-            background: "linear-gradient(135deg, #FBBF24, #F76B1C, #EA580C)",
-            WebkitBackgroundClip: "text",
-            WebkitTextFillColor: "transparent",
-            backgroundClip: "text",
+            letterSpacing: "0.12em",
             fontWeight: 800,
+            color: isDark ? "#ffffff" : colors.text,
             marginBottom: "clamp(10px, 1.2vw, 12px)",
-            filter: isDark ? "drop-shadow(0 0 8px rgba(251, 191, 36, 0.5))" : "none",
           }}
         >
           Closing reflection
@@ -2494,7 +2468,7 @@ function FiveRegretsReflection({ theme, colors }) {
           style={{
             margin: "0 0 clamp(6px, 0.8vw, 8px)",
             fontSize: "clamp(18px, 2.3vw, 22px)",
-            color: isDark ? "#f9a8d4" : "#be123c",
+            color: colors.textSecondary,
             fontWeight: 700,
           }}
         >
