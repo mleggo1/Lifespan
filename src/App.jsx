@@ -263,11 +263,79 @@ function percent(n) {
   return `${Math.round(n)}%`;
 }
 
+function AlreadyRetiredToggle({ checked, onChange, theme, colors, isMobile = false }) {
+  return (
+    <label
+      style={{
+        display: "flex",
+        alignItems: "center",
+        gap: isMobile ? "10px" : "12px",
+        cursor: "pointer",
+        padding: isMobile ? "clamp(10px, 2.5vw, 12px) clamp(12px, 3vw, 14px)" : "10px 14px",
+        borderRadius: "clamp(10px, 1.2vw, 12px)",
+        border: `1px solid ${
+          checked
+            ? theme === "dark"
+              ? "rgba(108, 52, 248, 0.45)"
+              : "rgba(108, 52, 248, 0.35)"
+            : colors.border
+        }`,
+        background: checked
+          ? theme === "dark"
+            ? "rgba(108, 52, 248, 0.12)"
+            : "rgba(108, 52, 248, 0.06)"
+          : "transparent",
+        transition: "all 0.2s ease",
+        userSelect: "none",
+        marginBottom: isMobile ? "clamp(4px, 1.2vw, 6px)" : "clamp(6px, 0.8vw, 8px)",
+      }}
+    >
+      <input
+        type="checkbox"
+        checked={checked}
+        onChange={(e) => onChange(e.target.checked)}
+        style={{
+          width: isMobile ? 18 : 16,
+          height: isMobile ? 18 : 16,
+          margin: 0,
+          accentColor: theme === "dark" ? "#8B5CF6" : "#6C34F8",
+          cursor: "pointer",
+          flexShrink: 0,
+        }}
+      />
+      <span
+        style={{
+          fontSize: isMobile ? "clamp(13px, 3.2vw, 15px)" : "clamp(14px, 1.6vw, 15px)",
+          fontWeight: 600,
+          color: colors.text,
+          lineHeight: 1.35,
+        }}
+      >
+        Already retired
+      </span>
+    </label>
+  );
+}
+
 /** Welcome Modal Component */
-function WelcomeModal({ currentAge, setCurrentAge, retirementAge, setRetirementAge, lifeExpectancy, setLifeExpectancy, onSubmit, theme, MAX_AGE, clamp, isMobile = false }) {
+function WelcomeModal({
+  currentAge,
+  setCurrentAge,
+  retirementAge,
+  setRetirementAge,
+  lifeExpectancy,
+  setLifeExpectancy,
+  alreadyRetired: initialAlreadyRetired,
+  onSubmit,
+  theme,
+  MAX_AGE,
+  clamp,
+  isMobile = false,
+}) {
   const [localCurrentAge, setLocalCurrentAge] = useState(String(currentAge));
   const [localRetirement, setLocalRetirement] = useState(String(retirementAge));
   const [localLifeExpectancy, setLocalLifeExpectancy] = useState(String(lifeExpectancy));
+  const [alreadyRetired, setAlreadyRetired] = useState(initialAlreadyRetired);
   
   const themeColors = {
     dark: {
@@ -297,21 +365,31 @@ function WelcomeModal({ currentAge, setCurrentAge, retirementAge, setRetirementA
   const handleSubmit = (e) => {
     e.preventDefault();
     const curAge = Math.max(0, Math.min(MAX_AGE - 2, Number(localCurrentAge) || 42));
-    const retAge = Math.max(curAge + 1, Math.min(MAX_AGE - 1, Number(localRetirement) || 65));
-    const lifeExp = Math.max(retAge + 1, Math.min(MAX_AGE, Number(localLifeExpectancy) || 80));
-    
-    // Pass values directly to onSubmit handler
-    onSubmit(curAge, retAge, lifeExp);
+    const retAge = alreadyRetired
+      ? curAge
+      : Math.max(curAge + 1, Math.min(MAX_AGE - 1, Number(localRetirement) || 65));
+    const lifeExp = alreadyRetired
+      ? Math.max(curAge + 1, Math.min(MAX_AGE, Number(localLifeExpectancy) || 80))
+      : Math.max(retAge + 1, Math.min(MAX_AGE, Number(localLifeExpectancy) || 80));
+
+    onSubmit(curAge, retAge, lifeExp, alreadyRetired);
   };
-  
+
   const currentAgeNum = Number(localCurrentAge) || 42;
   const retirementNum = Number(localRetirement) || 65;
   const lifeExpNum = Number(localLifeExpectancy) || 80;
-  
-  // Validation helpers
-  const isValid = currentAgeNum >= 0 && currentAgeNum < MAX_AGE - 2 &&
-                  retirementNum > currentAgeNum && retirementNum < MAX_AGE &&
-                  lifeExpNum > retirementNum && lifeExpNum <= MAX_AGE;
+
+  const isValid = alreadyRetired
+    ? currentAgeNum >= 0 &&
+      currentAgeNum < MAX_AGE - 1 &&
+      lifeExpNum > currentAgeNum &&
+      lifeExpNum <= MAX_AGE
+    : currentAgeNum >= 0 &&
+      currentAgeNum < MAX_AGE - 2 &&
+      retirementNum > currentAgeNum &&
+      retirementNum < MAX_AGE &&
+      lifeExpNum > retirementNum &&
+      lifeExpNum <= MAX_AGE;
   
   return (
     <div
@@ -424,7 +502,11 @@ function WelcomeModal({ currentAge, setCurrentAge, retirementAge, setRetirementA
                 value={localCurrentAge}
                 setValue={setLocalCurrentAge}
                 min={0}
-                max={Math.max(retirementNum - 1, 0)}
+                max={
+                  alreadyRetired
+                    ? Math.max(lifeExpNum - 1, 0)
+                    : Math.max(retirementNum - 1, 0)
+                }
                 theme={theme}
                 colors={colors}
                 MAX_AGE={MAX_AGE}
@@ -433,8 +515,16 @@ function WelcomeModal({ currentAge, setCurrentAge, retirementAge, setRetirementA
                 isMobile={isMobile}
               />
             </div>
-            
-            {/* Target Retirement */}
+
+            <AlreadyRetiredToggle
+              checked={alreadyRetired}
+              onChange={setAlreadyRetired}
+              theme={theme}
+              colors={colors}
+              isMobile={isMobile}
+            />
+
+            {!alreadyRetired && (
             <div>
               <label
                 style={{
@@ -460,6 +550,7 @@ function WelcomeModal({ currentAge, setCurrentAge, retirementAge, setRetirementA
                 isMobile={isMobile}
               />
             </div>
+            )}
             
             {/* Quality Life Expectancy */}
             <div>
@@ -477,7 +568,7 @@ function WelcomeModal({ currentAge, setCurrentAge, retirementAge, setRetirementA
               <WelcomeSliderRow
                 value={localLifeExpectancy}
                 setValue={setLocalLifeExpectancy}
-                min={retirementNum + 1}
+                min={alreadyRetired ? currentAgeNum + 1 : retirementNum + 1}
                 max={MAX_AGE}
                 theme={theme}
                 colors={colors}
@@ -660,6 +751,9 @@ export default function App() {
     const saved = localStorage.getItem('lifespan-life-expectancy');
     return saved ? Number(saved) : 80;
   });
+  const [alreadyRetired, setAlreadyRetired] = useState(() => {
+    return localStorage.getItem('lifespan-already-retired') === 'true';
+  });
 
   const [labelName, setLabelName] = useState("Michael");
   const [bigGoal, setBigGoal] = useState("Freedom to live life on your terms — every day, not someday.");
@@ -679,11 +773,11 @@ export default function App() {
   const data = useMemo(() => {
     const cur = clamp(currentAge, 0, MAX_AGE);
     const life = clamp(lifeExpectancy, cur + 1, MAX_AGE);
-    const freedom = clamp(freedomAge, cur + 1, life - 1);
+    const freedom = alreadyRetired ? cur : clamp(freedomAge, cur + 1, life - 1);
 
     const totalSpan = life;
     const yearsLived = cur;
-    const yearsToFreedom = Math.max(0, freedom - cur);
+    const yearsToFreedom = alreadyRetired ? 0 : Math.max(0, freedom - cur);
     const yearsAfterFreedom = Math.max(0, life - freedom);
 
     const livedPct = (yearsLived / totalSpan) * 100;
@@ -702,7 +796,7 @@ export default function App() {
       afterFreedomPct,
       totalSpan,
     };
-  }, [currentAge, freedomAge, lifeExpectancy]);
+  }, [currentAge, freedomAge, lifeExpectancy, alreadyRetired]);
 
   const {
     cur,
@@ -765,16 +859,16 @@ export default function App() {
   };
 
   // Handle welcome modal submission
-  const handleWelcomeSubmit = (curAge, retAge, lifeExp) => {
-    // Update state with the provided values
+  const handleWelcomeSubmit = (curAge, retAge, lifeExp, isRetired) => {
     setCurrentAge(curAge);
-    setFreedomAge(retAge);
+    setFreedomAge(isRetired ? curAge : retAge);
     setLifeExpectancy(lifeExp);
-    
-    // Save to localStorage (but don't save welcome-completed - always show modal on reload)
+    setAlreadyRetired(isRetired);
+
     localStorage.setItem('lifespan-current-age', String(curAge));
-    localStorage.setItem('lifespan-freedom-age', String(retAge));
+    localStorage.setItem('lifespan-freedom-age', String(isRetired ? curAge : retAge));
     localStorage.setItem('lifespan-life-expectancy', String(lifeExp));
+    localStorage.setItem('lifespan-already-retired', String(isRetired));
     // Note: We intentionally DON'T save 'lifespan-welcome-completed' so modal always shows on reload
     
     // Close modal for this session
@@ -788,11 +882,12 @@ export default function App() {
     localStorage.removeItem('lifespan-current-age');
     localStorage.removeItem('lifespan-freedom-age');
     localStorage.removeItem('lifespan-life-expectancy');
-    
-    // Reset to defaults
+    localStorage.removeItem('lifespan-already-retired');
+
     setCurrentAge(42);
     setFreedomAge(65);
     setLifeExpectancy(80);
+    setAlreadyRetired(false);
     setWelcomeCurrentAge(42);
     setWelcomeRetirement(65);
     setWelcomeLifeExpectancy(80);
@@ -823,6 +918,7 @@ export default function App() {
         setRetirementAge={setWelcomeRetirement}
         lifeExpectancy={welcomeLifeExpectancy}
         setLifeExpectancy={setWelcomeLifeExpectancy}
+        alreadyRetired={alreadyRetired}
         onSubmit={handleWelcomeSubmit}
         theme={theme}
         MAX_AGE={MAX_AGE}
@@ -1621,23 +1717,24 @@ export default function App() {
                 label="Current age"
                 value={cur}
                 min={0}
-                max={Math.max(freedom - 1, 0)}
+                max={alreadyRetired ? Math.max(life - 1, 0) : Math.max(freedom - 1, 0)}
                 onChange={(v) => {
                   const newAge = Math.max(0, Number(v));
                   setCurrentAge(newAge);
                   localStorage.setItem('lifespan-current-age', String(newAge));
-                  // If new age >= freedom, adjust freedom
-                  if (freedom <= newAge) {
+                  if (alreadyRetired) {
+                    setFreedomAge(newAge);
+                    localStorage.setItem('lifespan-freedom-age', String(newAge));
+                  } else if (freedom <= newAge) {
                     const newFreedom = newAge + 1;
                     setFreedomAge(newFreedom);
                     localStorage.setItem('lifespan-freedom-age', String(newFreedom));
                   }
-                  // If new age >= life, adjust life
                   if (life <= newAge) {
                     const newLife = Math.min(newAge + 2, MAX_AGE);
                     setLifeExpectancy(newLife);
                     localStorage.setItem('lifespan-life-expectancy', String(newLife));
-                    if (freedom <= newAge) {
+                    if (!alreadyRetired && freedom <= newAge) {
                       const newFreedom = newAge + 1;
                       setFreedomAge(newFreedom);
                       localStorage.setItem('lifespan-freedom-age', String(newFreedom));
@@ -1647,9 +1744,28 @@ export default function App() {
                 theme={theme}
                 allowAnyNumber={true}
                 minConstraint={0}
-                maxConstraint={freedom - 1}
+                maxConstraint={alreadyRetired ? life - 1 : freedom - 1}
                 isMobile={isMobile}
               />
+              <AlreadyRetiredToggle
+                checked={alreadyRetired}
+                onChange={(checked) => {
+                  setAlreadyRetired(checked);
+                  localStorage.setItem('lifespan-already-retired', String(checked));
+                  if (checked) {
+                    setFreedomAge(cur);
+                    localStorage.setItem('lifespan-freedom-age', String(cur));
+                  } else if (freedom <= cur) {
+                    const newFreedom = Math.min(cur + 1, life - 1);
+                    setFreedomAge(newFreedom);
+                    localStorage.setItem('lifespan-freedom-age', String(newFreedom));
+                  }
+                }}
+                theme={theme}
+                colors={colors}
+                isMobile={isMobile}
+              />
+              {!alreadyRetired && (
               <SliderRow
                 label="Target retirement"
                 value={freedom}
@@ -1657,11 +1773,9 @@ export default function App() {
                 max={Math.max(life - 1, cur + 1)}
                 onChange={(v) => {
                   const newFreedom = Number(v);
-                  // Allow any number while typing, will validate on blur
                   if (!Number.isNaN(newFreedom) && newFreedom >= 0) {
                     setFreedomAge(newFreedom);
                     localStorage.setItem('lifespan-freedom-age', String(newFreedom));
-                    // If new freedom >= life, adjust life
                     if (life <= newFreedom) {
                       const newLife = Math.min(newFreedom + 1, MAX_AGE);
                       setLifeExpectancy(newLife);
@@ -1676,22 +1790,23 @@ export default function App() {
                 maxConstraint={life - 1}
                 isMobile={isMobile}
               />
+              )}
               <SliderRow
                 label="Quality life expectancy"
                 value={life}
-                min={freedom + 1}
+                min={alreadyRetired ? cur + 1 : freedom + 1}
                 max={MAX_AGE}
                 onChange={(v) => {
                   const newLife = Number(v);
-                  // Must be greater than freedom
-                  if (newLife > freedom && newLife <= MAX_AGE) {
+                  const minLife = alreadyRetired ? cur + 1 : freedom + 1;
+                  if (newLife > minLife - 1 && newLife <= MAX_AGE) {
                     setLifeExpectancy(newLife);
                     localStorage.setItem('lifespan-life-expectancy', String(newLife));
                   }
                 }}
                 theme={theme}
                 allowAnyNumber={true}
-                minConstraint={freedom + 1}
+                minConstraint={alreadyRetired ? cur + 1 : freedom + 1}
                 maxConstraint={MAX_AGE}
                 isMobile={isMobile}
               />
@@ -2257,11 +2372,14 @@ function FiveRegretsReflection({ theme, colors }) {
       </div>
       <h2
         style={{
-          margin: "0 0 clamp(10px, 1.2vw, 14px)",
-          fontSize: "clamp(20px, 2.5vw, 24px)",
+          margin: "0 0 clamp(14px, 1.8vw, 18px)",
+          paddingBottom: "clamp(10px, 1.2vw, 12px)",
+          borderBottom: regretDivider,
+          fontSize: "clamp(22px, 3vw, 28px)",
           fontWeight: 900,
           color: colors.text,
-          letterSpacing: "-0.02em",
+          letterSpacing: "-0.025em",
+          lineHeight: 1.2,
         }}
       >
         The Five Regrets Reflection
@@ -2326,15 +2444,26 @@ function FiveRegretsReflection({ theme, colors }) {
           >
             <div
               style={{
-                fontSize: "clamp(15px, 1.85vw, 18px)",
-                textTransform: "uppercase",
-                letterSpacing: "0.12em",
-                fontWeight: 800,
-                color: isDark ? "#e2e8f0" : "#475569",
-                marginBottom: "clamp(10px, 1.2vw, 12px)",
+                display: "flex",
+                alignItems: "center",
+                gap: "clamp(10px, 1.2vw, 12px)",
+                marginBottom: "clamp(12px, 1.5vw, 14px)",
+                paddingLeft: "clamp(10px, 1.2vw, 12px)",
+                borderLeft: isDark ? "3px solid rgba(248, 250, 252, 0.85)" : "3px solid #0f172a",
               }}
             >
-              Regret {i + 1}
+              <span
+                style={{
+                  fontSize: "clamp(17px, 2.2vw, 21px)",
+                  fontWeight: 900,
+                  letterSpacing: "0.06em",
+                  textTransform: "uppercase",
+                  color: colors.text,
+                  lineHeight: 1.2,
+                }}
+              >
+                Regret {i + 1}
+              </span>
             </div>
             <p
               style={{
