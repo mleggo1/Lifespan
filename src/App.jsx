@@ -2449,7 +2449,7 @@ function FiveRegretsReflection({ theme, colors }) {
                 gap: "clamp(10px, 1.2vw, 12px)",
                 marginBottom: "clamp(12px, 1.5vw, 14px)",
                 paddingLeft: "clamp(10px, 1.2vw, 12px)",
-                borderLeft: isDark ? "3px solid rgba(248, 250, 252, 0.85)" : "3px solid #0f172a",
+                borderLeft: isDark ? "3px solid #F76B1C" : "3px solid #EA580C",
               }}
             >
               <span
@@ -2458,7 +2458,7 @@ function FiveRegretsReflection({ theme, colors }) {
                   fontWeight: 900,
                   letterSpacing: "0.06em",
                   textTransform: "uppercase",
-                  color: colors.text,
+                  color: isDark ? "#FBBF24" : "#C2410C",
                   lineHeight: 1.2,
                 }}
               >
