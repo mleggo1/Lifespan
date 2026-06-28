@@ -2339,6 +2339,8 @@ function FiveRegretsReflection({ theme, colors }) {
   const isDark = theme === "dark";
   const blockGap = "clamp(12px, 1.5vw, 16px)";
   const regretDivider = isDark ? "1px solid rgba(148, 163, 184, 0.2)" : "1px solid rgba(71, 85, 105, 0.12)";
+  const regretHeadingColor = isDark ? "#FBBF24" : "#C2410C";
+  const regretHeadingAccent = isDark ? "#F76B1C" : "#EA580C";
 
   return (
     <section
@@ -2363,7 +2365,7 @@ function FiveRegretsReflection({ theme, colors }) {
           textTransform: "uppercase",
           letterSpacing: "0.14em",
           fontWeight: 800,
-          color: isDark ? "#ffffff" : colors.text,
+          color: regretHeadingColor,
           marginBottom: "clamp(10px, 1.2vw, 12px)",
           whiteSpace: "nowrap",
         }}
@@ -2374,10 +2376,10 @@ function FiveRegretsReflection({ theme, colors }) {
         style={{
           margin: "0 0 clamp(14px, 1.8vw, 18px)",
           paddingBottom: "clamp(10px, 1.2vw, 12px)",
-          borderBottom: regretDivider,
+          borderBottom: `2px solid ${regretHeadingAccent}`,
           fontSize: "clamp(22px, 3vw, 28px)",
           fontWeight: 900,
-          color: colors.text,
+          color: regretHeadingColor,
           letterSpacing: "-0.025em",
           lineHeight: 1.2,
         }}
@@ -2449,7 +2451,7 @@ function FiveRegretsReflection({ theme, colors }) {
                 gap: "clamp(10px, 1.2vw, 12px)",
                 marginBottom: "clamp(12px, 1.5vw, 14px)",
                 paddingLeft: "clamp(10px, 1.2vw, 12px)",
-                borderLeft: isDark ? "3px solid #F76B1C" : "3px solid #EA580C",
+                borderLeft: `3px solid ${regretHeadingAccent}`,
               }}
             >
               <span
@@ -2458,7 +2460,7 @@ function FiveRegretsReflection({ theme, colors }) {
                   fontWeight: 900,
                   letterSpacing: "0.06em",
                   textTransform: "uppercase",
-                  color: isDark ? "#FBBF24" : "#C2410C",
+                  color: regretHeadingColor,
                   lineHeight: 1.2,
                 }}
               >
@@ -2544,8 +2546,10 @@ function FiveRegretsReflection({ theme, colors }) {
             textTransform: "uppercase",
             letterSpacing: "0.12em",
             fontWeight: 800,
-            color: isDark ? "#ffffff" : colors.text,
+            color: regretHeadingColor,
             marginBottom: "clamp(10px, 1.2vw, 12px)",
+            paddingLeft: "clamp(10px, 1.2vw, 12px)",
+            borderLeft: `3px solid ${regretHeadingAccent}`,
           }}
         >
           Closing reflection
