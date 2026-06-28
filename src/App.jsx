@@ -2542,14 +2542,15 @@ function FiveRegretsReflection({ theme, colors }) {
       >
         <div
           style={{
-            fontSize: "clamp(15px, 1.85vw, 18px)",
+            fontSize: "clamp(17px, 2.2vw, 21px)",
             textTransform: "uppercase",
-            letterSpacing: "0.12em",
-            fontWeight: 800,
+            letterSpacing: "0.06em",
+            fontWeight: 900,
             color: regretHeadingColor,
-            marginBottom: "clamp(10px, 1.2vw, 12px)",
+            marginBottom: "clamp(12px, 1.5vw, 14px)",
             paddingLeft: "clamp(10px, 1.2vw, 12px)",
             borderLeft: `3px solid ${regretHeadingAccent}`,
+            lineHeight: 1.2,
           }}
         >
           Closing reflection
