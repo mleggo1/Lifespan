@@ -2148,150 +2148,16 @@ export default function App() {
           </div>
         </div>
 
-        {/* Questions to Consider - Full Width at Bottom */}
-        <section
-          style={{
-            padding: "clamp(14px, 1.8vw, 20px)",
-            borderRadius: "clamp(14px, 1.8vw, 18px)",
-            border: `1px solid ${colors.border}`,
-            background: theme === "dark"
-              ? "linear-gradient(135deg, rgba(15,23,42,0.98), rgba(30,58,138,0.3))"
-              : "linear-gradient(135deg, rgba(255,255,255,0.98), rgba(241,245,249,0.5))",
-            fontSize: "clamp(15px, 1.9vw, 17px)",
-            width: "100%",
-            maxWidth: "100%",
-            boxSizing: "border-box",
-            marginTop: "clamp(16px, 2vw, 20px)",
-          }}
-        >
-              <h2
-                style={{
-                  margin: "0 0 clamp(10px, 1.2vw, 14px)",
-                  fontSize: "clamp(20px, 2.5vw, 24px)",
-                  fontWeight: 900,
-                  color: colors.text,
-                  letterSpacing: "-0.02em",
-                }}
-              >
-                Questions to Consider
-              </h2>
-              <div style={{ display: "flex", flexDirection: "column", gap: "clamp(12px, 1.5vw, 16px)" }}>
-                {/* Right Now */}
-                <div>
-                  <div style={{ 
-                    fontSize: "clamp(18px, 2.4vw, 24px)", 
-                    textTransform: "uppercase", 
-                    letterSpacing: 1.5, 
-                    background: "linear-gradient(135deg, #06b6d4, #3b82f6, #2563eb)",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                    backgroundClip: "text",
-                    fontWeight: 800,
-                    marginBottom: "clamp(10px, 1.2vw, 12px)",
-                  }}>
-                    Right Now
-                  </div>
-                  <p style={{ 
-                    margin: 0, 
-                    color: colors.textSecondary, 
-                    lineHeight: 1.8, 
-                    fontSize: "clamp(18px, 2.3vw, 22px)", 
-                    fontWeight: 500 
-                  }}>
-                    If you only had <strong style={{ 
-                      color: "#06b6d4", 
-                      fontWeight: 900, 
-                      fontSize: "clamp(22px, 2.8vw, 28px)",
-                      textShadow: theme === "dark" 
-                        ? "0 0 20px rgba(6, 182, 212, 0.8), 0 0 40px rgba(6, 182, 212, 0.4)" 
-                        : "0 2px 8px rgba(6, 182, 212, 0.3)",
-                    }}>{formatYears(yearsToFreedom)}</strong> years left to retirement and create the life you truly want… what would you begin today?
-                  </p>
-                </div>
-
-                {/* Your Path to Retirement */}
-                <div>
-                  <div style={{ 
-                    fontSize: "clamp(18px, 2.4vw, 24px)", 
-                    textTransform: "uppercase", 
-                    letterSpacing: 1.5, 
-                    background: "linear-gradient(135deg, #6C34F8, #8B5CF6, #A78BFA)",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                    backgroundClip: "text",
-                    fontWeight: 800,
-                    marginBottom: "clamp(10px, 1.2vw, 12px)",
-                    filter: theme === "dark" ? "drop-shadow(0 0 8px rgba(108, 52, 248, 0.5))" : "none",
-                  }}>
-                    Your Path to Retirement
-                  </div>
-                  <p style={{ 
-                    margin: 0, 
-                    color: colors.textSecondary, 
-                    lineHeight: 1.8, 
-                    fontSize: "clamp(18px, 2.3vw, 22px)", 
-                    fontWeight: 500 
-                  }}>
-                    Between now and age <strong style={{ 
-                      color: "#8B5CF6", 
-                      fontWeight: 900, 
-                      fontSize: "clamp(22px, 2.8vw, 28px)",
-                      textShadow: theme === "dark" 
-                        ? "0 0 20px rgba(139, 92, 246, 0.8), 0 0 40px rgba(108, 52, 248, 0.5)" 
-                        : "0 2px 8px rgba(139, 92, 246, 0.4)",
-                    }}>{freedom}</strong>, what must happen so you live life on your terms — financially free, secure, and unburdened?
-                  </p>
-                </div>
-
-                {/* Your Golden Years */}
-                <div>
-                  <div style={{ 
-                    fontSize: "clamp(18px, 2.4vw, 24px)", 
-                    textTransform: "uppercase", 
-                    letterSpacing: 1.5, 
-                    background: "linear-gradient(135deg, #FBBF24, #F76B1C, #EA580C)",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                    backgroundClip: "text",
-                    fontWeight: 800,
-                    marginBottom: "clamp(10px, 1.2vw, 12px)",
-                    filter: theme === "dark" ? "drop-shadow(0 0 8px rgba(251, 191, 36, 0.5))" : "none",
-                  }}>
-                    Your Golden Years?
-                  </div>
-                  <p style={{ 
-                    margin: 0, 
-                    color: colors.textSecondary, 
-                    lineHeight: 1.8, 
-                    fontSize: "clamp(18px, 2.3vw, 22px)", 
-                    fontWeight: 500 
-                  }}>
-                    From age <strong style={{ 
-                      color: "#F76B1C", 
-                      fontWeight: 900, 
-                      fontSize: "clamp(22px, 2.8vw, 28px)",
-                      textShadow: theme === "dark" 
-                        ? "0 0 20px rgba(247, 107, 28, 0.8), 0 0 40px rgba(247, 107, 28, 0.5)" 
-                        : "0 2px 8px rgba(247, 107, 28, 0.4)",
-                    }}>{freedom}</strong> to <strong style={{ 
-                      color: "#F76B1C", 
-                      fontWeight: 900, 
-                      fontSize: "clamp(22px, 2.8vw, 28px)",
-                      textShadow: theme === "dark" 
-                        ? "0 0 20px rgba(247, 107, 28, 0.8), 0 0 40px rgba(247, 107, 28, 0.5)" 
-                        : "0 2px 8px rgba(247, 107, 28, 0.4)",
-                    }}>{life}</strong>, you have <strong style={{ 
-                      color: "#FBBF24", 
-                      fontWeight: 900, 
-                      fontSize: "clamp(22px, 2.8vw, 28px)",
-                      textShadow: theme === "dark" 
-                        ? "0 0 20px rgba(251, 191, 36, 0.9), 0 0 40px rgba(251, 191, 36, 0.6)" 
-                        : "0 2px 8px rgba(251, 191, 36, 0.4)",
-                    }}>{yearsAfterFreedom}</strong> precious years left. How will you use them?
-                  </p>
-                </div>
-              </div>
-            </section>
+        <QuestionsToConsider
+          theme={theme}
+          colors={colors}
+          alreadyRetired={alreadyRetired}
+          cur={cur}
+          freedom={freedom}
+          life={life}
+          yearsToFreedom={yearsToFreedom}
+          yearsAfterFreedom={yearsAfterFreedom}
+        />
 
         <FiveRegretsReflection theme={theme} colors={colors} />
         <FinalActionCTA theme={theme} colors={colors} isMobile={isMobile} />
@@ -2444,6 +2310,162 @@ function FinalActionCTA({ theme, colors, isMobile }) {
       >
         © 2026 Lifespan. Created by Michael Leggo. Educational purposes only. Not financial advice.
       </p>
+    </section>
+  );
+}
+
+function QuestionsToConsider({
+  theme,
+  colors,
+  alreadyRetired,
+  cur,
+  freedom,
+  life,
+  yearsToFreedom,
+  yearsAfterFreedom,
+}) {
+  const isDark = theme === "dark";
+
+  const labelStyle = (gradient, glow = null) => ({
+    fontSize: "clamp(18px, 2.4vw, 24px)",
+    textTransform: "uppercase",
+    letterSpacing: 1.5,
+    background: gradient,
+    WebkitBackgroundClip: "text",
+    WebkitTextFillColor: "transparent",
+    backgroundClip: "text",
+    fontWeight: 800,
+    marginBottom: "clamp(10px, 1.2vw, 12px)",
+    filter:
+      glow === "gold" && isDark
+        ? "drop-shadow(0 0 8px rgba(251, 191, 36, 0.5))"
+        : glow === "purple" && isDark
+        ? "drop-shadow(0 0 8px rgba(108, 52, 248, 0.5))"
+        : "none",
+  });
+
+  const bodyStyle = {
+    margin: 0,
+    color: colors.textSecondary,
+    lineHeight: 1.8,
+    fontSize: "clamp(18px, 2.3vw, 22px)",
+    fontWeight: 500,
+  };
+
+  const highlight = (color, glowRgb) => ({
+    color,
+    fontWeight: 900,
+    fontSize: "clamp(22px, 2.8vw, 28px)",
+    textShadow: isDark
+      ? `0 0 20px rgba(${glowRgb}, 0.8), 0 0 40px rgba(${glowRgb}, 0.4)`
+      : `0 2px 8px rgba(${glowRgb}, 0.3)`,
+  });
+
+  return (
+    <section
+      style={{
+        padding: "clamp(14px, 1.8vw, 20px)",
+        borderRadius: "clamp(14px, 1.8vw, 18px)",
+        border: `1px solid ${colors.border}`,
+        background: isDark
+          ? "linear-gradient(135deg, rgba(15,23,42,0.98), rgba(30,58,138,0.3))"
+          : "linear-gradient(135deg, rgba(255,255,255,0.98), rgba(241,245,249,0.5))",
+        fontSize: "clamp(15px, 1.9vw, 17px)",
+        width: "100%",
+        maxWidth: "100%",
+        boxSizing: "border-box",
+        marginTop: "clamp(16px, 2vw, 20px)",
+      }}
+    >
+      <h2
+        style={{
+          margin: "0 0 clamp(10px, 1.2vw, 14px)",
+          fontSize: "clamp(20px, 2.5vw, 24px)",
+          fontWeight: 900,
+          color: colors.text,
+          letterSpacing: "-0.02em",
+        }}
+      >
+        Questions to Consider
+      </h2>
+      <div style={{ display: "flex", flexDirection: "column", gap: "clamp(12px, 1.5vw, 16px)" }}>
+        <div>
+          <div style={labelStyle("linear-gradient(135deg, #06b6d4, #3b82f6, #2563eb)")}>
+            Right Now
+          </div>
+          <p style={bodyStyle}>
+            {alreadyRetired ? (
+              <>
+                At age <strong style={highlight("#06b6d4", "6, 182, 212")}>{cur}</strong>, if you only had{" "}
+                <strong style={highlight("#06b6d4", "6, 182, 212")}>{formatYears(yearsAfterFreedom)}</strong> of quality
+                life ahead… what would you stop putting off and begin this week?
+              </>
+            ) : (
+              <>
+                If you only had{" "}
+                <strong style={highlight("#06b6d4", "6, 182, 212")}>{formatYears(yearsToFreedom)}</strong> years left to
+                retirement and create the life you truly want… what would you begin today?
+              </>
+            )}
+          </p>
+        </div>
+
+        <div>
+          <div
+            style={labelStyle(
+              "linear-gradient(135deg, #6C34F8, #8B5CF6, #A78BFA)",
+              "purple"
+            )}
+          >
+            {alreadyRetired ? "This Chapter of Life" : "Your Path to Retirement"}
+          </div>
+          <p style={bodyStyle}>
+            {alreadyRetired ? (
+              <>
+                You have already stepped into retirement. With up to{" "}
+                <strong style={highlight("#8B5CF6", "139, 92, 246")}>{formatYears(yearsAfterFreedom)}</strong> of quality
+                life potentially ahead, what do you want this chapter to feel like — and what are you finally ready to let
+                go of?
+              </>
+            ) : (
+              <>
+                Between now and age{" "}
+                <strong style={highlight("#8B5CF6", "139, 92, 246")}>{freedom}</strong>, what must happen so you live
+                life on your terms — financially free, secure, and unburdened?
+              </>
+            )}
+          </p>
+        </div>
+
+        <div>
+          <div
+            style={labelStyle(
+              "linear-gradient(135deg, #FBBF24, #F76B1C, #EA580C)",
+              "gold"
+            )}
+          >
+            Your Golden Years?
+          </div>
+          <p style={bodyStyle}>
+            {alreadyRetired ? (
+              <>
+                You are in them. From today at age{" "}
+                <strong style={highlight("#F76B1C", "247, 107, 28")}>{cur}</strong> through age{" "}
+                <strong style={highlight("#F76B1C", "247, 107, 28")}>{life}</strong>, you may have{" "}
+                <strong style={highlight("#FBBF24", "251, 191, 36")}>{yearsAfterFreedom}</strong> precious years still
+                yours. How do you want to live them — not eventually, but now?
+              </>
+            ) : (
+              <>
+                From age <strong style={highlight("#F76B1C", "247, 107, 28")}>{freedom}</strong> to{" "}
+                <strong style={highlight("#F76B1C", "247, 107, 28")}>{life}</strong>, you have{" "}
+                <strong style={highlight("#FBBF24", "251, 191, 36")}>{yearsAfterFreedom}</strong> precious years left.
+                How will you use them?
+              </>
+            )}
+          </p>
+        </div>
+      </div>
     </section>
   );
 }
