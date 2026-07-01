@@ -2294,9 +2294,157 @@ export default function App() {
             </section>
 
         <FiveRegretsReflection theme={theme} colors={colors} />
+        <FinalActionCTA theme={theme} colors={colors} isMobile={isMobile} />
         </div>
       </div>
     </div>
+  );
+}
+
+const WEALTH_EDUCATION_BLUEPRINT_URL = "https://wealthblueprinteducation.vercel.app/";
+const GOALS_BLUEPRINT_URL = "https://goalsblueprint.vercel.app/";
+
+function applyCtaFocusRing(e, color) {
+  e.currentTarget.style.outline = `2px solid ${color}`;
+  e.currentTarget.style.outlineOffset = "3px";
+}
+
+function clearCtaFocusRing(e) {
+  e.currentTarget.style.outline = "none";
+  e.currentTarget.style.outlineOffset = "0";
+}
+
+function FinalActionCTA({ theme, colors, isMobile }) {
+  const isDark = theme === "dark";
+
+  const primaryBaseShadow = isDark
+    ? "0 4px 24px rgba(108, 52, 248, 0.45), 0 2px 8px rgba(0,0,0,0.3)"
+    : "0 4px 16px rgba(124, 58, 237, 0.35), 0 2px 6px rgba(0,0,0,0.1)";
+  const primaryHoverShadow = isDark
+    ? "0 10px 36px rgba(108, 52, 248, 0.58), 0 4px 14px rgba(0,0,0,0.35)"
+    : "0 8px 28px rgba(124, 58, 237, 0.48), 0 4px 12px rgba(0,0,0,0.12)";
+
+  const secondaryBorder = isDark ? "rgba(251, 191, 36, 0.45)" : "rgba(234, 88, 12, 0.4)";
+  const secondaryBorderHover = isDark ? "rgba(251, 191, 36, 0.75)" : "rgba(234, 88, 12, 0.65)";
+  const secondaryText = isDark ? "#FBBF24" : "#EA580C";
+
+  const linkBase = {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    width: "100%",
+    minHeight: "48px",
+    padding: isMobile
+      ? "clamp(12px, 3vw, 14px) clamp(16px, 4vw, 20px)"
+      : "clamp(14px, 1.6vw, 16px) clamp(24px, 3vw, 32px)",
+    borderRadius: "clamp(12px, 1.5vw, 14px)",
+    fontSize: isMobile ? "clamp(14px, 3.4vw, 16px)" : "clamp(15px, 1.8vw, 17px)",
+    fontWeight: 700,
+    fontFamily: "inherit",
+    textDecoration: "none",
+    textAlign: "center",
+    lineHeight: 1.35,
+    boxSizing: "border-box",
+    transition: "transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease, background 0.22s ease",
+    cursor: "pointer",
+  };
+
+  return (
+    <section
+      aria-label="Continue your journey"
+      className="fade-in"
+      style={{
+        marginTop: "clamp(28px, 3.5vw, 40px)",
+        marginBottom: isMobile ? "clamp(24px, 6vw, 32px)" : "clamp(20px, 2.5vw, 28px)",
+        width: "100%",
+        maxWidth: "100%",
+        boxSizing: "border-box",
+      }}
+    >
+      <div
+        style={{
+          maxWidth: isMobile ? "100%" : "560px",
+          margin: "0 auto",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "stretch",
+          gap: "clamp(12px, 1.5vw, 14px)",
+        }}
+      >
+        <a
+          href={WEALTH_EDUCATION_BLUEPRINT_URL}
+          id="wealth-education-blueprint"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            ...linkBase,
+            border: "none",
+            background: isDark
+              ? "linear-gradient(135deg, #4B1DB0, #6C34F8, #8B5CF6)"
+              : "linear-gradient(135deg, #5B21B6, #7C3AED, #A78BFA)",
+            color: "#ffffff",
+            boxShadow: primaryBaseShadow,
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.transform = "translateY(-2px)";
+            e.currentTarget.style.boxShadow = primaryHoverShadow;
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform = "translateY(0)";
+            e.currentTarget.style.boxShadow = primaryBaseShadow;
+            clearCtaFocusRing(e);
+          }}
+          onFocus={(e) => applyCtaFocusRing(e, isDark ? "#C4B5FD" : "#7C3AED")}
+          onBlur={clearCtaFocusRing}
+        >
+          ✨ Start Your Wealth-Education Blueprint →
+        </a>
+
+        <a
+          href={GOALS_BLUEPRINT_URL}
+          id="goals-blueprint"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            ...linkBase,
+            border: `1px solid ${secondaryBorder}`,
+            background: isDark ? "rgba(15, 23, 42, 0.35)" : "rgba(255, 255, 255, 0.04)",
+            color: secondaryText,
+            boxShadow: "none",
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.borderColor = secondaryBorderHover;
+            e.currentTarget.style.boxShadow = isDark
+              ? "0 0 20px rgba(251, 191, 36, 0.18)"
+              : "0 0 16px rgba(234, 88, 12, 0.12)";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.borderColor = secondaryBorder;
+            e.currentTarget.style.boxShadow = "none";
+            clearCtaFocusRing(e);
+          }}
+          onFocus={(e) => applyCtaFocusRing(e, isDark ? "#FBBF24" : "#EA580C")}
+          onBlur={clearCtaFocusRing}
+        >
+          🎯 Set Some Goals → Go to Goals Blueprint
+        </a>
+      </div>
+
+      <p
+        style={{
+          margin: "clamp(20px, 2.5vw, 28px) auto 0",
+          maxWidth: isMobile ? "100%" : "560px",
+          padding: isMobile ? "0 clamp(4px, 1vw, 8px)" : 0,
+          textAlign: "center",
+          fontSize: isMobile ? "clamp(11px, 2.8vw, 12px)" : "clamp(12px, 1.4vw, 13px)",
+          lineHeight: 1.55,
+          color: colors.textMuted,
+          fontWeight: 500,
+        }}
+      >
+        © 2026 Lifespan. Created by Michael Leggo. Educational purposes only. Not financial advice.
+      </p>
+    </section>
   );
 }
 
