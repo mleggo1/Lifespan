@@ -470,7 +470,7 @@ function WelcomeModal({
               padding: isMobile ? "0 clamp(4px, 1vw, 8px)" : "0",
             }}
           >
-            Let's personalize your timeline to see how your choices shape your future.
+            Let's personalise your timeline to see how your choices shape your future.
           </p>
         </div>
         
